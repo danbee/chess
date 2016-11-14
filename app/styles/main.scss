@@ -1,0 +1,58 @@
+body {
+  background: #124031;
+}
+
+$board-square-size: 8vw;
+$base-font-size: 16px;
+
+$black-square-color: #824c34;
+$white-square-color: #d0bfa1;
+
+$square-outline-color: darken($black-square-color, 20%);
+
+.board {
+  display: inline-block;
+  font-size: 0;
+  border: 0.3vw solid black;
+}
+
+.board-square {
+  position: relative;
+  border: 0.2vw solid $square-outline-color;
+  display: inline-block;
+  font-size: $base-font-size;
+  width: $board-square-size;
+  height: $board-square-size;
+
+  img {
+    position: absolute;
+    margin: 0;
+    width: $board-square-size;
+  }
+}
+
+%black-square {
+  background: $black-square-color;  
+}
+
+%white-square {
+  background: $white-square-color;
+}
+
+.board-row:nth-child(odd) {
+  .board-square:nth-child(odd) {
+    @extend %black-square;
+  }
+  .board-square:nth-child(even) {
+    @extend %white-square;
+  }
+}
+
+.board-row:nth-child(even) {
+  .board-square:nth-child(odd) {
+    @extend %white-square;
+  }
+  .board-square:nth-child(even) {
+    @extend %black-square;
+  }
+}
