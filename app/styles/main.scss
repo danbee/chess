@@ -40,19 +40,19 @@ $square-outline-color: darken($black-square-color, 20%);
 }
 
 .board-row:nth-child(odd) {
-  .board-square:nth-child(odd) {
+  .board-square:nth-child(even) {
     @extend %black-square;
   }
-  .board-square:nth-child(even) {
+  .board-square:nth-child(odd) {
     @extend %white-square;
   }
 }
 
 .board-row:nth-child(even) {
-  .board-square:nth-child(odd) {
+  .board-square:nth-child(even) {
     @extend %white-square;
   }
-  .board-square:nth-child(even) {
+  .board-square:nth-child(odd) {
     @extend %black-square;
   }
 }
