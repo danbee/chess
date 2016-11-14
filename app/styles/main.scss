@@ -10,6 +10,9 @@ $white-square-color: #d0bfa1;
 
 $square-outline-color: darken($black-square-color, 20%);
 
+$colours: black white;
+$pieces: king queen bishop knight rook pawn;
+
 .board {
   display: inline-block;
   font-size: 0;
@@ -24,19 +27,25 @@ $square-outline-color: darken($black-square-color, 20%);
   width: $board-square-size;
   height: $board-square-size;
 
-  img {
-    position: absolute;
-    margin: 0;
-    width: $board-square-size;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @each $colour in $colours {
+    @each $piece in $pieces {
+      &.#{$colour}.#{$piece} {
+        background-image: url(/images/#{$piece}_#{$colour}.svg);
+      }
+    }
   }
 }
 
 %black-square {
-  background: $black-square-color;  
+  background-color: $black-square-color;
 }
 
 %white-square {
-  background: $white-square-color;
+  background-color: $white-square-color;
 }
 
 .board-row:nth-child(odd) {

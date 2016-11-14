@@ -1,19 +1,16 @@
 <template>
-  <div class="board-square">
-    <img v-if="piece != null" :src="pieceImage(piece)">
+  <div class="board-square" :class="classes(piece)">
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    pieceImage: (piece) => {
-      return "/images/"
-        + piece.type
-        + "_"
-        + piece.colour
-        + ".svg";
-    }
+    classes: (piece) => {
+      if (piece != null) {
+        return [piece.type, piece.colour];
+      }
+    },
   },
 
   props: ["piece"]
