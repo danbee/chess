@@ -7,9 +7,6 @@ import store from "store";
 
 class Main {
   constructor() {
-    console.log("App initialized.");
-
-    // create a root instance
     new Vue({
       el: '#app',
       store,
