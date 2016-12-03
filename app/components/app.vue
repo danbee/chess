@@ -6,8 +6,9 @@
 
 <script>
 import ChessBoard from './chess-board';
+import ChessPiece from "./chess-piece";
 
 export default {
-  components: { ChessBoard }
+  components: { ChessBoard, ChessPiece }
 };
 </script>

@@ -7,7 +7,6 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "brunch": "^2.9.1",
     "javascript-brunch": "^2.0.0",
-    "jquery": "^3.1.1",
     "sass-brunch": "^2.7.0",
     "vue": "^2.0.5",
     "vue-brunch": "^1.2.3",

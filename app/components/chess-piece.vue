@@ -1,5 +1,6 @@
 <template>
-  <div class="board-square" :class="classes(piece)">
+  <div class="board-square" :class="classes(piece)"
+    v-on:click="selectSquare">
   </div>
 </template>
 
@@ -11,6 +12,9 @@ export default {
         return [piece.type, piece.colour];
       }
     },
+    selectSquare: () => {
+      console.log("Clicked square");
+    }
   },
 
   props: ["piece"]
