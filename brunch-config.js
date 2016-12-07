@@ -12,7 +12,7 @@ module.exports = {
   },
   plugins: {
     babel: {
-      presets: ['es2015', 'es2016']
+      presets: ['es2015', 'es2016', 'react']
     }
   }
 }

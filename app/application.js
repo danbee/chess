@@ -1,18 +1,19 @@
 "use strict";
 
-import Vue from "vue";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import App from 'components/app';
-import store from "store";
+import ChessBoard from "components/chess-board";
 
-class Main {
-  constructor() {
-    new Vue({
-      el: '#app',
-      store,
-      render: h => h(App)
-    });
+class App extends React.Component {
+  render() {
+    return (
+      <ChessBoard />
+    );
   }
-};
+}
 
-export default new Main;
+ReactDOM.render(
+  <App />,
+  document.getElementById('app')
+);
