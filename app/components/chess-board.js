@@ -10,10 +10,12 @@ class ChessBoard extends React.Component {
     this.state = defaultState;
   }
 
-  chessBoardRow(row) {
+  chessBoardRow(row, i) {
     return (
-      <div className="board-row">
-        {row.map((square) => <ChessBoardSquare square={square} />)}
+      <div className="board-row" key={i}>
+        {row.map(
+          (square, j) => <ChessBoardSquare key={j} square={square} />
+        )}
       </div>
     )
   }
@@ -21,7 +23,7 @@ class ChessBoard extends React.Component {
   render() {
     return (
       <div className="board">
-        {this.state.board.map((row) => this.chessBoardRow(row))}
+        {this.state.board.map((row, i) => this.chessBoardRow(row, i))}
       </div>
     );
   }
