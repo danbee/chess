@@ -16,18 +16,13 @@ class ChessBoardSquare extends React.Component {
 
   selectSquare() {
     var { store } = this.props;
-    console.log(`Clicked: ${this.props.file}${this.props.rank}`);
 
-    if (this.props.piece != undefined) {
+    if (store.getState().selectedSquare != null) {
+      store.dispatch(movePiece(store.getState().selectedSquare, this.squareCoords()));
+    }
+    else if (this.props.piece != undefined) {
       store.dispatch(selectPiece(this.squareCoords()));
     }
-    else {
-      console.log("About to move!");
-      store.dispatch(movePiece(store.getState().selectedSquare, this.squareCoords()));
-      console.log("Moved!");
-    }
-
-    console.log(store.getState().selectedSquare);
   };
 
   isSelectedSquare() {
