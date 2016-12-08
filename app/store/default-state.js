@@ -1,5 +1,5 @@
 const defaultState = {
-  selectedSquare: { rank: "1", file: "a" },
+  selectedSquare: null,
 
   board: {
     8: {
