@@ -1,4 +1,6 @@
 const defaultState = {
+  selectedSquare: null,
+
   board: [
     [
       { type: "rook",   colour: "black" },

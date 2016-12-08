@@ -1,20 +1,24 @@
 import React from "react";
 
-import defaultState from "store/default_state";
-
 import ChessBoardSquare from "components/chess-board-square";
 
 class ChessBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = defaultState;
+  }
+
+  chessBoardRows() {
+    const { store } = this.props;
+    return store.getState().board;
   }
 
   chessBoardRow(row, i) {
     return (
-      <div className="board-row" key={i}>
+      <div className="board-rank" key={i}>
         {row.map(
-          (square, j) => <ChessBoardSquare key={j} square={square} />
+          (square, j) => (
+            <ChessBoardSquare key={j} rank={i} file={j} square={square} />
+          )
         )}
       </div>
     )
@@ -23,7 +27,7 @@ class ChessBoard extends React.Component {
   render() {
     return (
       <div className="board">
-        {this.state.board.map((row, i) => this.chessBoardRow(row, i))}
+        {this.chessBoardRows().map((row, i) => this.chessBoardRow(row, i))}
       </div>
     );
   }
