@@ -28,8 +28,13 @@ class ChessBoardSquare extends React.Component {
   isSelectedSquare() {
     var { store } = this.props;
 
-    return this.squareCoords().rank == store.getState().selectedSquare.rank
-      && this.squareCoords().file == store.getState().selectedSquare.file;
+    if (store.getState().selectedSquare == null) {
+      return false;
+    }
+    else {
+      return this.squareCoords().rank == store.getState().selectedSquare.rank
+        && this.squareCoords().file == store.getState().selectedSquare.file;
+    }
   }
 
   render() {
