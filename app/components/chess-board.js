@@ -3,33 +3,40 @@ import React from "react";
 import ChessBoardSquare from "components/chess-board-square";
 
 class ChessBoard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  chessBoardRows() {
+  getBoard() {
     const { store } = this.props;
     return store.getState().board;
   }
 
-  chessBoardRow(row, rank) {
-    return (
-      <div className="board-rank" key={rank}>
-        {Object.keys(row).map(
-          (file) => <ChessBoardSquare key={file} rank={rank} file={file} square={row[file]} />
-        )}
-      </div>
-    )
+  renderFiles(rankId) {
+    const rank = this.getBoard()[rankId];
+
+    return Object.keys(rank).map((fileId) => {
+      return (
+        <ChessBoardSquare
+          file={fileId}
+          key={fileId}
+          rank={rankId}
+          square={rank[fileId]}
+        />
+      );
+    });
+  }
+
+  renderRanks() {
+    const board = this.getBoard();
+
+    return Object.keys(board).reverse().map((rankId) => {
+      return (
+        <div className="board-rank" key={rankId}>
+          {this.renderFiles(rankId)}
+        </div>
+      );
+    });
   }
 
   render() {
-    return (
-      <div className="board">
-        {Object.keys(this.chessBoardRows()).reverse().map(
-          (rank) => this.chessBoardRow(this.chessBoardRows()[rank], rank)
-        )}
-      </div>
-    );
+    return <div className="board">{this.renderRanks()}</div>;
   }
 }
 
