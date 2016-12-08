@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-import { selectPiece } from "store/actions";
+import { movePiece, selectPiece } from "store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
@@ -20,6 +20,11 @@ class ChessBoardSquare extends React.Component {
 
     if (this.props.piece != undefined) {
       store.dispatch(selectPiece(this.squareCoords()));
+    }
+    else {
+      console.log("About to move!");
+      store.dispatch(movePiece(store.getState().selectedSquare, this.squareCoords()));
+      console.log("Moved!");
     }
 
     console.log(store.getState().selectedSquare);
