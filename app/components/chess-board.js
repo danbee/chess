@@ -10,6 +10,7 @@ class ChessBoard extends React.Component {
   }
 
   renderFiles(rankId) {
+    const { store } = this.props;
     const rank = this.getBoard()[rankId];
 
     return Object.keys(rank).map((fileId) => {
@@ -18,7 +19,8 @@ class ChessBoard extends React.Component {
           file={fileId}
           key={fileId}
           rank={rankId}
-          square={rank[fileId]}
+          piece={rank[fileId]}
+          store={store}
         />
       );
     });
