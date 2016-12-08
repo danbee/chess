@@ -8,7 +8,10 @@ $base-font-size: 16px;
 $black-square-color: #824c34;
 $white-square-color: #d0bfa1;
 
+$selected-square-color: #ff0000;
+
 $square-outline-color: darken($black-square-color, 20%);
+$selected-outline-color: red;
 
 $colours: black white;
 $pieces: king queen bishop knight rook pawn;
@@ -42,10 +45,20 @@ $pieces: king queen bishop knight rook pawn;
 
 %black-square {
   background-color: $black-square-color;
+
+  &.selected {
+    background-color: mix($black-square-color, $selected-square-color, 60%);
+    border: 0.2vw solid $selected-outline-color;
+  }
 }
 
 %white-square {
   background-color: $white-square-color;
+
+  &.selected {
+    background-color: mix($white-square-color, $selected-square-color, 60%);
+    border: 0.2vw solid $selected-outline-color;
+  }
 }
 
 .board-rank:nth-child(odd) {

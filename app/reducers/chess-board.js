@@ -15,6 +15,7 @@ const chessBoardReducer = (state = defaultState, action) => {
       });
 
     case "SELECT_PIECE":
+      console.log("Action fired");
       return Object.assign({}, state, { selectedSquare: action.coords });
 
     default:

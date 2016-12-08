@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import ChessBoardSquare from "components/chess-board-square";
 
@@ -40,4 +41,8 @@ class ChessBoard extends React.Component {
   }
 }
 
-export default ChessBoard;
+function mapStateToProps(state) {
+  return { selectedSquare: state.selectedSquare }
+}
+
+export default connect(mapStateToProps)(ChessBoard);
