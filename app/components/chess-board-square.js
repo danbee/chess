@@ -9,7 +9,7 @@ class ChessBoardSquare extends React.Component {
   }
 
   selectSquare() {
-    console.log(`Clicked: ${this.props.rank}, ${this.props.file}`);
+    console.log(`Clicked: ${this.props.file}${this.props.rank}`);
   };
 
   render() {
