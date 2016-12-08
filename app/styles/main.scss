@@ -48,7 +48,7 @@ $pieces: king queen bishop knight rook pawn;
   background-color: $white-square-color;
 }
 
-.board-row:nth-child(odd) {
+.board-rank:nth-child(odd) {
   .board-square:nth-child(even) {
     @extend %black-square;
   }
@@ -57,7 +57,7 @@ $pieces: king queen bishop knight rook pawn;
   }
 }
 
-.board-row:nth-child(even) {
+.board-rank:nth-child(even) {
   .board-square:nth-child(even) {
     @extend %white-square;
   }
