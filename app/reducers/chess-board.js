@@ -8,6 +8,12 @@ const chessBoardReducer = (state = defaultState, action) => {
       state.board[from.rank][from.file] = null;
       return state;
 
+      var newBoard = state.board.map((item, index) => {
+      });
+      return Object.assign({}, state, {
+        board: newBoard
+      });
+
     case "SELECT_PIECE":
       return Object.assign({}, state, { selectedSquare: action.coords });
 

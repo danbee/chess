@@ -12,13 +12,11 @@ class ChessBoard extends React.Component {
     return store.getState().board;
   }
 
-  chessBoardRow(row, i) {
+  chessBoardRow(row, rank) {
     return (
-      <div className="board-rank" key={i}>
-        {row.map(
-          (square, j) => (
-            <ChessBoardSquare key={j} rank={i} file={j} square={square} />
-          )
+      <div className="board-rank" key={rank}>
+        {Object.keys(row).map(
+          (file) => <ChessBoardSquare key={file} rank={rank} file={file} square={row[file]} />
         )}
       </div>
     )
@@ -27,7 +25,9 @@ class ChessBoard extends React.Component {
   render() {
     return (
       <div className="board">
-        {this.chessBoardRows().map((row, i) => this.chessBoardRow(row, i))}
+        {Object.keys(this.chessBoardRows()).reverse().map(
+          (rank) => this.chessBoardRow(this.chessBoardRows()[rank], rank)
+        )}
       </div>
     );
   }
