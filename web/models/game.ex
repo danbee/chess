@@ -23,6 +23,11 @@ defmodule Chess.Game do
     |> validate_required([:board])
   end
 
+  def ordered(query) do
+    query
+    |> order_by([game], game.id)
+  end
+
   def set_default_board(changeset) do
     changeset
     |> put_change(:board, default_board)
