@@ -13,10 +13,10 @@ defmodule Chess.GameController do
     changeset = Game.changeset(%Game{})
 
     case Repo.insert(changeset) do
-      {:ok, _game} ->
+      {:ok, game} ->
         conn
         |> put_flash(:info, "Game created successfully.")
-        |> redirect(to: game_path(conn, :index))
+        |> redirect(to: game_path(conn, :show, game))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
