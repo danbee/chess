@@ -1,2 +1,4 @@
+<p><%= link "Back to games", to: game_path(@conn, :index) %></p>
+
 <div id="app" data-game-id="<%= @game.id %>">
 </div>
