@@ -8,7 +8,7 @@ class ChessBoard extends React.Component {
   componentWillMount() {
     const { gameId } = this.props;
 
-    $.ajax({ method: "GET", url: "/games/" + gameId })
+    $.ajax({ method: "GET", url: "/api/games/" + gameId })
       .then(() => console.log("Oh, hai!"));
   }
 
