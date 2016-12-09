@@ -9,11 +9,6 @@ defmodule Chess.GameController do
     render(conn, "index.html", games: games, changeset: changeset)
   end
 
-  def new(conn, _params) do
-    changeset = Game.changeset(%Game{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
   def create(conn, _params) do
     changeset = Game.changeset(%Game{})
 
