@@ -1,5 +1,24 @@
+$background-color: #124031;
+
 body {
-  background: #124031;
+  background: $background-color;
+  color: mix($background-color, white, 20%);
+
+  font-family: "Georgia", serif;
+}
+
+a {
+  color: mix($background-color, yellow, 30%);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 300;
+  font-variant: small-caps;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
 }
 
 $board-square-size: 8vw;
@@ -20,6 +39,7 @@ $pieces: king queen bishop knight rook pawn;
   display: inline-block;
   font-size: 0;
   border: 0.3vw solid black;
+  margin: 0 auto;
 }
 
 .board-square {
@@ -77,4 +97,8 @@ $pieces: king queen bishop knight rook pawn;
   .board-square:nth-child(odd) {
     @extend %black-square;
   }
+}
+
+.form-group {
+  margin-top: 2em;
 }
