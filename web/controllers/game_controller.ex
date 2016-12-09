@@ -5,7 +5,7 @@ defmodule Chess.GameController do
 
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
-    games = Repo.all(Game)
+    games = Game |> Game.ordered |> Repo.all
     render(conn, "index.html", games: games, changeset: changeset)
   end
 
