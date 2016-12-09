@@ -2,7 +2,7 @@ import React from "react";
 import $ from "jquery";
 import classNames from "classnames";
 
-import { movePiece, selectPiece } from "../store/actions";
+import { selectPiece, setBoard } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
@@ -20,13 +20,11 @@ class ChessBoardSquare extends React.Component {
     var { gameId, selectedSquare } = store.getState();
 
     if (selectedSquare != null) {
-      store.dispatch(movePiece(selectedSquare, this.squareCoords()));
-
       $.ajax({
         method: "PATCH",
         url: "/api/games/" + gameId,
         data: { move: { from: selectedSquare, to: this.squareCoords() } }
-      });
+      }).then((data) => store.dispatch(setBoard(data)));
     }
     else if (piece != undefined) {
       store.dispatch(selectPiece(this.squareCoords()));
