@@ -10,10 +10,16 @@ defmodule Chess.Game do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
+  def changeset(struct) do
+    struct
+    |> cast(%{}, [:board])
+    |> set_default_board
+    |> validate_required([:board])
+  end
+
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:board])
-    |> set_default_board
     |> validate_required([:board])
   end
 
