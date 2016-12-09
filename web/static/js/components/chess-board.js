@@ -1,9 +1,17 @@
 import React from "react";
+import $ from "jquery";
 import { connect } from "react-redux";
 
 import ChessBoardSquare from "./chess-board-square";
 
 class ChessBoard extends React.Component {
+  componentWillMount() {
+    const { gameId } = this.props;
+
+    $.ajax({ method: "GET", url: "/games/" + gameId })
+      .then(() => console.log("Oh, hai!"));
+  }
+
   getBoard() {
     const { store } = this.props;
     return store.getState().board;
