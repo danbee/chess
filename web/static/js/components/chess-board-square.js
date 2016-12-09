@@ -1,4 +1,5 @@
 import React from "react";
+import $ from "jquery";
 import classNames from "classnames";
 
 import { movePiece, selectPiece } from "../store/actions";
@@ -19,6 +20,7 @@ class ChessBoardSquare extends React.Component {
 
     if (store.getState().selectedSquare != null) {
       store.dispatch(movePiece(store.getState().selectedSquare, this.squareCoords()));
+      $.ajax({ method: "PATCH", url: "/api/games/" + store.getState().gameId, data: { game: { board: store.getState().board } }});
     }
     else if (this.props.piece != undefined) {
       store.dispatch(selectPiece(this.squareCoords()));

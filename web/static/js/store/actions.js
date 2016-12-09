@@ -1,4 +1,5 @@
 const SET_BOARD = "SET_BOARD";
+const SET_GAME_ID = "SET_GAME_ID";
 const SELECT_PIECE = "SELECT_PIECE";
 const MOVE_PIECE = "MOVE_PIECE";
 
@@ -6,6 +7,13 @@ export const setBoard = (board) => {
   return {
     type: SET_BOARD,
     board: board
+  }
+}
+
+export const setGameId = (gameId) => {
+  return {
+    type: SET_GAME_ID,
+    gameId: gameId
   }
 }
 
