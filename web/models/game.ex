@@ -4,7 +4,7 @@ defmodule Chess.Game do
   schema "games" do
     field :board, :map
 
-    timestamps()
+    timestamps
   end
 
   @doc """
