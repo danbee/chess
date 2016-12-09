@@ -16,13 +16,19 @@ class ChessBoardSquare extends React.Component {
   }
 
   selectSquare() {
-    var { store } = this.props;
+    var { piece, store } = this.props;
+    var { gameId, selectedSquare } = store.getState();
 
-    if (store.getState().selectedSquare != null) {
-      store.dispatch(movePiece(store.getState().selectedSquare, this.squareCoords()));
-      $.ajax({ method: "PATCH", url: "/api/games/" + store.getState().gameId, data: { game: { board: store.getState().board } }});
+    if (selectedSquare != null) {
+      store.dispatch(movePiece(selectedSquare, this.squareCoords()));
+
+      $.ajax({
+        method: "PATCH",
+        url: "/api/games/" + gameId,
+        data: { move: { from: selectedSquare, to: this.squareCoords() } }
+      });
     }
-    else if (this.props.piece != undefined) {
+    else if (piece != undefined) {
       store.dispatch(selectPiece(this.squareCoords()));
     }
   };
