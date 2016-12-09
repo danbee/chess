@@ -1,15 +1,16 @@
 import React from "react";
 import $ from "jquery";
 import { connect } from "react-redux";
+import { setBoard } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
-    const { gameId } = this.props;
+    const { gameId, store } = this.props;
 
     $.ajax({ method: "GET", url: "/api/games/" + gameId })
-      .then(() => console.log("Oh, hai!"));
+      .then((data) => store.dispatch(setBoard(data)));
   }
 
   getBoard() {
@@ -52,7 +53,10 @@ class ChessBoard extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { selectedSquare: state.selectedSquare }
+  return {
+    board: state.board,
+    selectedSquare: state.selectedSquare
+  }
 }
 
 export default connect(mapStateToProps)(ChessBoard);
