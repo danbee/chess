@@ -1,0 +1,2 @@
+<div id="app" data-game-id="<%= @game.id %>">
+</div>

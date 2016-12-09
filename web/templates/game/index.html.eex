@@ -1,0 +1,29 @@
+<h2>Listing games</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for game <- @games do %>
+    <tr>
+      <td><%= game.id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= form_for @changeset, game_path(@conn, :create), fn f -> %>
+  <div class="form-group">
+    <%= submit "Create game", class: "btn btn-primary" %>
+  </div>
+<% end %>

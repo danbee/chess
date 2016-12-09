@@ -3,7 +3,8 @@ defmodule Chess.Api.GameController do
 
   alias Chess.Game
 
-  def show(conn, _params) do
-    render conn, "show.json", id: 1
+  def show(conn, %{"id" => id}) do
+    game = Repo.get!(Game, id)
+    render conn, "show.json", game: game
   end
 end
