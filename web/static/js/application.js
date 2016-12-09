@@ -13,15 +13,21 @@ import ChessBoard from "./components/chess-board";
 
 class App extends React.Component {
   render() {
-    const { store } = this.props;
+    const { store, gameId } = this.props;
 
     return (
-      <ChessBoard gameId={1} store={store} />
+      <ChessBoard gameId={gameId} store={store} />
     );
   }
 }
 
-ReactDOM.render(
-  <App store={store} />,
-  document.getElementById('app')
-);
+const container = document.getElementById("app");
+
+if (container != undefined) {
+  const gameId = container.getAttribute("data-game-id");
+
+  ReactDOM.render(
+    <App store={store} gameId={gameId} />,
+    container
+  );
+}

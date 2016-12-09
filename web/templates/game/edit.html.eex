@@ -1,0 +1,6 @@
+<h2>Edit game</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: game_path(@conn, :update, @game) %>
+
+<%= link "Back", to: game_path(@conn, :index) %>
