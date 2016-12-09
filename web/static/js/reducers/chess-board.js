@@ -4,7 +4,11 @@ import movePiece from "./move-piece";
 const chessBoardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "SET_BOARD":
-      return Object.assign({}, state, { board: action.board });
+      return Object.assign(
+        {},
+        state,
+        { board: action.board, selectedSquare: null }
+      );
 
     case "SET_GAME_ID":
       return Object.assign({}, state, { gameId: action.gameId });
