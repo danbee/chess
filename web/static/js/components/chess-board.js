@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import ChessBoardSquare from "components/chess-board-square";
+import ChessBoardSquare from "./chess-board-square";
 
 class ChessBoard extends React.Component {
   getBoard() {

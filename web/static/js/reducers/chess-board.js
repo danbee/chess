@@ -1,5 +1,5 @@
-import defaultState from "store/default-state";
-import movePiece from "reducers/move-piece";
+import defaultState from "../store/default-state";
+import movePiece from "./move-piece";
 
 const chessBoardReducer = (state = defaultState, action) => {
   switch (action.type) {

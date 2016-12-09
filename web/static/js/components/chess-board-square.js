@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-import { movePiece, selectPiece } from "store/actions";
+import { movePiece, selectPiece } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {

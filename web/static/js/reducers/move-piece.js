@@ -6,9 +6,9 @@ const movePiece = (board, from, to) => {
   const piece = board[from.rank][from.file];
 
   const boardChange = Map([
-    [to.rank, Map([[to.file, piece]])]
-  ]).mergeDeep(Map([
     [from.rank, Map([[from.file, null]])]
+  ]).mergeDeep(Map([
+    [to.rank, Map([[to.file, piece]])]
   ]));
 
   return newBoard.mergeDeep(boardChange).toJS();
