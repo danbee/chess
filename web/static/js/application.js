@@ -16,7 +16,7 @@ class App extends React.Component {
     const { store } = this.props;
 
     return (
-      <ChessBoard store={store} />
+      <ChessBoard gameId={1} store={store} />
     );
   }
 }
