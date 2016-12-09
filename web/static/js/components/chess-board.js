@@ -1,13 +1,15 @@
 import React from "react";
 import $ from "jquery";
 import { connect } from "react-redux";
-import { setBoard } from "../store/actions";
+import { setBoard, setGameId } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
     const { gameId, store } = this.props;
+
+    store.dispatch(setGameId(gameId));
 
     $.ajax({ method: "GET", url: "/api/games/" + gameId })
       .then((data) => store.dispatch(setBoard(data)));

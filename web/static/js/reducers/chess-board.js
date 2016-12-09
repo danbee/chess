@@ -6,6 +6,9 @@ const chessBoardReducer = (state = defaultState, action) => {
     case "SET_BOARD":
       return Object.assign({}, state, { board: action.board });
 
+    case "SET_GAME_ID":
+      return Object.assign({}, state, { gameId: action.gameId });
+
     case "MOVE_PIECE":
       const newState = {
         board: movePiece(state.board, action.from, action.to),
