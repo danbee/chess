@@ -2,8 +2,7 @@ defmodule Chess.GameControllerTest do
   use Chess.ConnCase
 
   alias Chess.Game
-  @valid_attrs %{board: %{}}
-  @invalid_attrs %{}
+  @valid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, game_path(conn, :index)
@@ -12,44 +11,20 @@ defmodule Chess.GameControllerTest do
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, game_path(conn, :create), game: @valid_attrs
-    assert redirected_to(conn) == game_path(conn, :index)
-    assert Repo.get_by(Game, @valid_attrs)
-  end
-
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, game_path(conn, :create), game: @invalid_attrs
-    assert html_response(conn, 200) =~ "New game"
+    game = Repo.one(Game)
+    assert redirected_to(conn) == game_path(conn, :show, game)
   end
 
   test "shows chosen resource", %{conn: conn} do
     game = Repo.insert! %Game{}
     conn = get conn, game_path(conn, :show, game)
-    assert html_response(conn, 200) =~ "Show game"
+    assert html_response(conn, 200) =~ "<div id=\"app\" data-game-id=\"#{game.id}\">"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, game_path(conn, :show, -1)
     end
-  end
-
-  test "renders form for editing chosen resource", %{conn: conn} do
-    game = Repo.insert! %Game{}
-    conn = get conn, game_path(conn, :edit, game)
-    assert html_response(conn, 200) =~ "Edit game"
-  end
-
-  test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    game = Repo.insert! %Game{}
-    conn = put conn, game_path(conn, :update, game), game: @valid_attrs
-    assert redirected_to(conn) == game_path(conn, :show, game)
-    assert Repo.get_by(Game, @valid_attrs)
-  end
-
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    game = Repo.insert! %Game{}
-    conn = put conn, game_path(conn, :update, game), game: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit game"
   end
 
   test "deletes chosen resource", %{conn: conn} do

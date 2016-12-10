@@ -15,7 +15,7 @@
   </tbody>
 </table>
 
-<%= form_for @changeset, game_path(@conn, :create), fn f -> %>
+<%= form_for @changeset, game_path(@conn, :create), fn _f -> %>
   <div class="form-group">
     <%= submit "Create game", class: "btn btn-primary" %>
   </div>

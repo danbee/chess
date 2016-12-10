@@ -16,7 +16,7 @@ defmodule Chess.Router do
   scope "/", Chess do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", GameController, :index
     resources "/games", GameController, only: [:create, :show, :delete]
   end
 
