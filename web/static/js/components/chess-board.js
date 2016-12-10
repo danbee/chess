@@ -24,7 +24,7 @@ class ChessBoard extends React.Component {
     const { store } = this.props;
     const rank = this.getBoard()[rankId];
 
-    return Object.keys(rank).map((fileId) => {
+    return Object.keys(rank).sort().map((fileId) => {
       return (
         <ChessBoardSquare
           file={fileId}
