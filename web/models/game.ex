@@ -25,7 +25,7 @@ defmodule Chess.Game do
 
   def ordered(query) do
     query
-    |> order_by([game], game.id)
+    |> order_by([game], desc: game.inserted_at)
   end
 
   def set_default_board(changeset) do
