@@ -21,7 +21,7 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 
-$board-square-size: 8vw;
+$board-square-size: 9vmin;
 $base-font-size: 16px;
 
 $black-square-color: #824c34;
@@ -38,13 +38,13 @@ $pieces: king queen bishop knight rook pawn;
 .board {
   display: inline-block;
   font-size: 0;
-  border: 0.3vw solid black;
+  border: 0.3vmin solid black;
   margin: 0 auto;
 }
 
 .board-square {
   position: relative;
-  border: 0.2vw solid $square-outline-color;
+  border: 0.2vmin solid $square-outline-color;
   display: inline-block;
   font-size: $base-font-size;
   width: $board-square-size;
@@ -68,7 +68,7 @@ $pieces: king queen bishop knight rook pawn;
 
   &.selected {
     background-color: mix($black-square-color, $selected-square-color, 60%);
-    border: 0.2vw solid $selected-outline-color;
+    border: 0.2vmin solid $selected-outline-color;
   }
 }
 
@@ -77,7 +77,7 @@ $pieces: king queen bishop knight rook pawn;
 
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
-    border: 0.2vw solid $selected-outline-color;
+    border: 0.2vmin solid $selected-outline-color;
   }
 }
 
