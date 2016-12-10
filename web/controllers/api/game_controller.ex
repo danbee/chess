@@ -14,9 +14,7 @@ defmodule Chess.Api.GameController do
 
     case Repo.update(changeset) do
       {:ok, game} ->
-        render conn, "show.json", game: game
-      {:error, changeset} ->
-        render(conn, "edit.html", game: game, changeset: changeset)
+        render(conn, "show.json", game: game)
     end
   end
 
