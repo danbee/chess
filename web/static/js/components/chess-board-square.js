@@ -43,20 +43,30 @@ class ChessBoardSquare extends React.Component {
     }
   }
 
-  render() {
+  squareId() {
+    return this.props.file + this.props.rank;
+  }
+
+  squareClass() {
     if (this.props.piece == undefined) {
-      var squareClass = "board-square";
+      return "board-square";
     }
     else {
-      var squareClass = classNames(
+      return classNames(
         "board-square",
         this.props.piece.type,
         this.props.piece.colour,
         { "selected": this.isSelectedSquare() }
       )
     }
+  }
 
-    return <div className={squareClass} onClick={this.selectSquare} />
+  render() {
+    return <div
+      id={this.squareId()}
+      className={this.squareClass()}
+      onClick={this.selectSquare}
+    />
   }
 }
 
