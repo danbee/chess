@@ -1,28 +1,32 @@
+import Immutable from "immutable";
+import { Map } from "immutable";
+
 import defaultState from "../store/default-state";
 import movePiece from "./move-piece";
 
 const chessBoardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "SET_BOARD":
-      return Object.assign(
-        {},
-        state,
-        { board: action.board, selectedSquare: null }
-      );
+      return Immutable.fromJS(state)
+        .set("board", action.board)
+        .set("selectedSquare", null)
+        .toJS();
 
     case "SET_GAME_ID":
-      return Object.assign({}, state, { gameId: action.gameId });
+      return Immutable.fromJS(state)
+        .set("gameId", action.gameId)
+        .toJS();
 
     case "MOVE_PIECE":
-      const newState = {
-        board: movePiece(state.board, action.from, action.to),
-        selectedSquare: null
-      }
-
-      return Object.assign({}, state, newState);
+      return Immutable.fromJS(state)
+        .set("board", movePiece(state.board))
+        .set("selectedSquare", null)
+        .toJS();
 
     case "SELECT_PIECE":
-      return Object.assign({}, state, { selectedSquare: action.coords });
+      return Immutable.fromJS(state)
+        .set("selectedSquare", action.coords)
+        .toJS();
 
     default:
       return state;

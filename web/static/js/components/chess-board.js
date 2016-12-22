@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import $ from "jquery";
 import { connect } from "react-redux";
 import { setBoard, setGameId } from "../store/actions";
@@ -24,7 +25,7 @@ class ChessBoard extends React.Component {
     const { store } = this.props;
     const rank = this.getBoard()[rankId];
 
-    return Object.keys(rank).sort().map((fileId) => {
+    return _.map(Object.keys(rank).sort(), (fileId) => {
       return (
         <ChessBoardSquare
           file={fileId}
@@ -40,7 +41,7 @@ class ChessBoard extends React.Component {
   renderRanks() {
     const board = this.getBoard();
 
-    return Object.keys(board).reverse().map((rankId) => {
+    return _.map(Object.keys(board).reverse(), (rankId) => {
       return (
         <div className="board-rank" key={rankId}>
           {this.renderFiles(rankId)}
