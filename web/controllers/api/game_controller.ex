@@ -1,6 +1,5 @@
 defmodule Chess.Api.GameController do
   use Chess.Web, :controller
-  require Logger
 
   alias Chess.Game
 
