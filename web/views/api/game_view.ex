@@ -1,7 +1,9 @@
 defmodule Chess.Api.GameView do
   use Chess.Web, :view
 
+  alias Chess.Board
+
   def render("show.json", %{game: game}) do
-    game.board
+    Board.output(game.board)
   end
 end

@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import $ from "jquery";
 import classNames from "classnames";
 
@@ -7,12 +8,10 @@ import { selectPiece, setBoard } from "../store/actions";
 class ChessBoardSquare extends React.Component {
   constructor(props) {
     super(props);
-
-    this.selectSquare = this.selectSquare.bind(this);
   }
 
   squareCoords() {
-    return { rank: this.props.rank, file: this.props.file };
+    return [this.props.file, this.props.rank];
   }
 
   selectSquare() {
@@ -38,13 +37,12 @@ class ChessBoardSquare extends React.Component {
       return false;
     }
     else {
-      return this.squareCoords().rank == store.getState().selectedSquare.rank
-        && this.squareCoords().file == store.getState().selectedSquare.file;
+      return _.isEqual(this.squareCoords(), store.getState().selectedSquare);
     }
   }
 
   squareId() {
-    return this.props.file + this.props.rank;
+    return `f${this.props.file}-r${this.props.rank}`;
   }
 
   squareClass() {
@@ -65,7 +63,7 @@ class ChessBoardSquare extends React.Component {
     return <div
       id={this.squareId()}
       className={this.squareClass()}
-      onClick={this.selectSquare}
+      onClick={this.selectSquare.bind(this)}
     />
   }
 }

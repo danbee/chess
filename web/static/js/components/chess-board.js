@@ -12,7 +12,7 @@ class ChessBoard extends React.Component {
 
     store.dispatch(setGameId(gameId));
 
-    $.ajax({ method: "GET", url: "/api/games/" + gameId })
+    $.ajax({ method: "GET", url: `/api/games/${gameId}` })
       .then((data) => store.dispatch(setBoard(data)));
   }
 

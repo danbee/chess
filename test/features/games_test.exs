@@ -19,15 +19,15 @@ defmodule Chess.GamesTest do
     navigate_to "/"
     create_game
 
-    click({:css, "#e2"})
+    click({:css, "#f4-r1"})
 
-    assert has_class?({:css, "#e2"}, "selected")
-    assert square_has_piece("e2", "white", "pawn")
+    assert has_class?({:css, "#f4-r1"}, "selected")
+    assert square_has_piece("f4-r1", "white", "pawn")
 
-    click({:css, "#e4"})
+    click({:css, "#f4-r3"})
 
-    assert !square_has_piece("e2", "white", "pawn")
-    assert square_has_piece("e4", "white", "pawn")
+    assert !square_has_piece("f4-r1", "white", "pawn")
+    assert square_has_piece("f4-r3", "white", "pawn")
   end
 
   defp create_game do
