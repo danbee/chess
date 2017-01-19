@@ -19,7 +19,7 @@ defmodule Chess.Moves do
     end
   end
 
-  defp rook_moves(board, square) do
+  defp rook_moves(_board, square) do
     {file, rank} = square
     moves = []
 
