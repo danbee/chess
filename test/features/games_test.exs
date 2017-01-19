@@ -5,19 +5,19 @@ defmodule Chess.GamesTest do
     navigate_to "/"
     find_element(:css, "body")
 
-    assert title_text == "Chess"
+    assert title_text() == "Chess"
   end
 
   test "can create a new game" do
     navigate_to "/"
-    create_game
+    create_game()
 
-    assert page_has_chess_board
+    assert page_has_chess_board()
   end
 
   test "can move a piece" do
     navigate_to "/"
-    create_game
+    create_game()
 
     click({:css, "#f4-r1"})
 

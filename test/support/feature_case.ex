@@ -6,7 +6,7 @@ defmodule Chess.FeatureCase do
       use Chess.ConnCase
 
       use Hound.Helpers
-      hound_session
+      hound_session()
     end
   end
 end
