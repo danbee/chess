@@ -1,3 +1,3 @@
 defmodule ChessWeb.GameView do
-  use Chess.Web, :view
+  use ChessWeb, :view
 end

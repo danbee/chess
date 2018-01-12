@@ -1,7 +1,7 @@
 defmodule ChessWeb.GameController do
-  use Chess.Web, :controller
+  use ChessWeb, :controller
 
-  alias Chess.Game
+  alias Chess.Store.Game
 
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})

@@ -1,5 +1,11 @@
-defmodule Chess.Game do
-  use Chess.Web, :model
+defmodule Chess.Store.Game do
+  use Ecto.Schema
+  use Timex.Ecto.Timestamps
+
+  import Ecto.Changeset
+  import Ecto.Query
+
+  alias Chess.Store.Game
 
   schema "games" do
     field :board, :map

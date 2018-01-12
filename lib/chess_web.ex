@@ -1,4 +1,4 @@
-defmodule Chess.Web do
+defmodule ChessWeb do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
@@ -15,18 +15,6 @@ defmodule Chess.Web do
   Do NOT define functions inside the quoted expressions
   below.
   """
-
-  def model do
-    quote do
-      use Ecto.Schema
-
-      use Timex.Ecto.Timestamps
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
-    end
-  end
 
   def controller do
     quote do

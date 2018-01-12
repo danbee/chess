@@ -1,5 +1,5 @@
 defmodule ChessWeb.ErrorView do
-  use Chess.Web, :view
+  use ChessWeb, :view
 
   def render("404.html", _assigns) do
     "Page not found"

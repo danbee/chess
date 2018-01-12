@@ -1,5 +1,5 @@
 defmodule ChessWeb.Router do
-  use Chess.Web, :router
+  use ChessWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]

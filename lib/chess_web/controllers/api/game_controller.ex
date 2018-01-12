@@ -1,7 +1,7 @@
 defmodule ChessWeb.Api.GameController do
-  use Chess.Web, :controller
+  use ChessWeb, :controller
 
-  alias Chess.Game
+  alias Chess.Store.Game
 
   def show(conn, %{"id" => id}) do
     game = Repo.get!(Game, id)
