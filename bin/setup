@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+echo "Removing previous build artifacts"
+rm -rf deps _build
+
+echo "Installing dependencies and compiling"
+mix local.hex --force
+mix deps.get
+mix deps.compile
+mix compile
+
+# Set up database
+echo "Setting up the database"
+mix ecto.create
+mix ecto.migrate
+
+# Grab JS dependencies from NPM
+echo "Installing npm dependencies"
+cd assets
+npm install
+cd ..
