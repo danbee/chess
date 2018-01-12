@@ -1,4 +1,4 @@
-defmodule Chess.Api.GameView do
+defmodule ChessWeb.Api.GameView do
   use Chess.Web, :view
 
   alias Chess.Board

@@ -1,4 +1,4 @@
-defmodule Chess.ConnCase do
+defmodule ChessWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule Chess.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import Chess.Router.Helpers
+      import ChessWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Chess.Endpoint
+      @endpoint ChessWeb.Endpoint
     end
   end
 

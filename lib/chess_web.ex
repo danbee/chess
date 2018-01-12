@@ -30,20 +30,21 @@ defmodule Chess.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: ChessWeb
 
       alias Chess.Repo
       import Ecto
       import Ecto.Query
 
-      import Chess.Router.Helpers
-      import Chess.Gettext
+      import ChessWeb.Router.Helpers
+      import ChessWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "web/templates"
+      use Phoenix.View, root: "lib/chess_web/templates",
+                        namespace: ChessWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -51,9 +52,9 @@ defmodule Chess.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Chess.Router.Helpers
-      import Chess.ErrorHelpers
-      import Chess.Gettext
+      import ChessWeb.Router.Helpers
+      import ChessWeb.ErrorHelpers
+      import ChessWeb.Gettext
     end
   end
 
@@ -70,7 +71,7 @@ defmodule Chess.Web do
       alias Chess.Repo
       import Ecto
       import Ecto.Query
-      import Chess.Gettext
+      import ChessWeb.Gettext
     end
   end
 

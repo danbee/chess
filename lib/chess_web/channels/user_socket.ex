@@ -1,4 +1,4 @@
-defmodule Chess.UserSocket do
+defmodule ChessWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels

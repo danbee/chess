@@ -1,4 +1,4 @@
-defmodule Chess.Api.GameController do
+defmodule ChessWeb.Api.GameController do
   use Chess.Web, :controller
 
   alias Chess.Game

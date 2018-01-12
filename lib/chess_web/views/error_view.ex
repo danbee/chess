@@ -1,4 +1,4 @@
-defmodule Chess.ErrorView do
+defmodule ChessWeb.ErrorView do
   use Chess.Web, :view
 
   def render("404.html", _assigns) do

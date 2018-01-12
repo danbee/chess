@@ -10,11 +10,11 @@ config :chess,
   ecto_repos: [Chess.Repo]
 
 # Configures the endpoint
-config :chess, Chess.Endpoint,
+config :chess, ChessWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "iiTDTKorCWTFoeBgAkr35XZp22cNIM2RsmnHiHdzKAuSHXUGXx42z7lawAwiu1B1",
-  render_errors: [view: Chess.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Chess.PubSub,
+  render_errors: [view: ChessWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: ChessWeb.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

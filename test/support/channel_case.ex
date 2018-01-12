@@ -1,4 +1,4 @@
-defmodule Chess.ChannelCase do
+defmodule ChessWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule Chess.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint Chess.Endpoint
+      @endpoint ChessWeb.Endpoint
     end
   end
 

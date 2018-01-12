@@ -1,4 +1,4 @@
-defmodule Chess.Router do
+defmodule ChessWeb.Router do
   use Chess.Web, :router
 
   pipeline :browser do
@@ -13,7 +13,7 @@ defmodule Chess.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Chess do
+  scope "/", ChessWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", GameController, :index
@@ -21,7 +21,7 @@ defmodule Chess.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", Chess do
+  scope "/api", ChessWeb do
     pipe_through :api
 
     resources "/games", Api.GameController, only: [:show, :update]

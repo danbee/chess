@@ -1,4 +1,4 @@
-defmodule Chess.ErrorHelpers do
+defmodule ChessWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule Chess.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Chess.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(ChessWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Chess.Gettext, "errors", msg, opts)
+      Gettext.dgettext(ChessWeb.Gettext, "errors", msg, opts)
     end
   end
 end

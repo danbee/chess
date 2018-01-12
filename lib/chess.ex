@@ -11,7 +11,7 @@ defmodule Chess do
       # Start the Ecto repository
       supervisor(Chess.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Chess.Endpoint, []),
+      supervisor(ChessWeb.Endpoint, []),
       # Start your own worker by calling: Chess.Worker.start_link(arg1, arg2, arg3)
       # worker(Chess.Worker, [arg1, arg2, arg3]),
     ]
@@ -25,7 +25,7 @@ defmodule Chess do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Chess.Endpoint.config_change(changed, removed)
+    ChessWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

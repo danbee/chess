@@ -1,4 +1,4 @@
-defmodule Chess.Gettext do
+defmodule ChessWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 

@@ -1,7 +1,7 @@
-defmodule Chess.Endpoint do
+defmodule ChessWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :chess
 
-  socket "/socket", Chess.UserSocket
+  socket "/socket", ChessWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -38,5 +38,5 @@ defmodule Chess.Endpoint do
     key: "_chess_key",
     signing_salt: "9LqUhZTU"
 
-  plug Chess.Router
+  plug ChessWeb.Router
 end
