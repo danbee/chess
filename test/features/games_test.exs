@@ -1,5 +1,5 @@
 defmodule Chess.GamesTest do
-  use Chess.FeatureCase
+  use ChessWeb.FeatureCase
 
   test "visit homepage" do
     navigate_to "/"

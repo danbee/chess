@@ -1,7 +1,7 @@
 defmodule Chess.GameTest do
   use Chess.ModelCase
 
-  alias Chess.Game
+  alias Chess.Store.Game
 
   @valid_attrs %{board: %{}}
   @invalid_attrs %{}

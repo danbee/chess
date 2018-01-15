@@ -1,3 +1,3 @@
 defmodule Chess.LayoutViewTest do
-  use Chess.ConnCase, async: true
+  use ChessWeb.ConnCase, async: true
 end

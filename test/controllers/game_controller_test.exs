@@ -1,7 +1,7 @@
 defmodule Chess.GameControllerTest do
-  use Chess.ConnCase
+  use ChessWeb.ConnCase
 
-  alias Chess.Game
+  alias Chess.Store.Game
   @valid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do

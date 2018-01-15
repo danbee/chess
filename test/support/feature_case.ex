@@ -1,9 +1,9 @@
-defmodule Chess.FeatureCase do
+defmodule ChessWeb.FeatureCase do
   use ExUnit.CaseTemplate
 
   using do
     quote do
-      use Chess.ConnCase
+      use ChessWeb.ConnCase
 
       use Hound.Helpers
       hound_session()
