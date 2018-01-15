@@ -30,7 +30,9 @@ defmodule Chess.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:credo, "~> 0.8", only: [:dev, :test]},
+    [{:argon2_elixir, "~> 1.2"},
+     {:comeonin, "~> 4.0"},
+     {:credo, "~> 0.8", only: [:dev, :test]},
      {:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
@@ -38,6 +40,7 @@ defmodule Chess.Mixfile do
      {:phoenix_html, "~> 2.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.14.0"},
+     {:guardian, "~> 1.0"},
      {:cowboy, "~> 1.0"},
      {:timex_ecto, "~> 3.0"},
      {:wallaby, "~> 0.19.2", [runtime: false, only: :test]}]
