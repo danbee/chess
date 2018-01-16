@@ -5,8 +5,6 @@ defmodule Chess.Store.Game do
   import Ecto.Changeset
   import Ecto.Query
 
-  alias Chess.Store.Game
-
   schema "games" do
     field :board, :map
 
