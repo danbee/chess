@@ -61,5 +61,17 @@ defmodule Chess.AuthTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+
+    test "authenticate_user/1 returns false on incorrect password " do
+      user_fixture(username: "link", password: "eyeofsheikah")
+      assert Auth.authenticate_user("link", "shadowtemple") ==
+        {:error, "invalid password"}
+    end
+
+    test "authenticate_user/1 returns true on correct password " do
+      user = user_fixture(username: "link", password: "eyeofsheikah")
+      assert Auth.authenticate_user("link", "eyeofsheikah") ==
+        {:ok, user}
+    end
   end
 end
