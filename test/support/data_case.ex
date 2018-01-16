@@ -1,4 +1,4 @@
-defmodule Chess.ModelCase do
+defmodule Chess.DataCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -21,7 +21,7 @@ defmodule Chess.ModelCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Chess.ModelCase
+      import Chess.DataCase
     end
   end
 
@@ -59,7 +59,7 @@ defmodule Chess.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&Chess.ErrorHelpers.translate_error/1)
+    |> Ecto.Changeset.traverse_errors(&ChessWeb.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end
