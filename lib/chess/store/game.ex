@@ -21,7 +21,7 @@ defmodule Chess.Store.Game do
     |> validate_required([:board])
   end
 
-  def changeset(struct, params \\ %{}) do
+  def changeset(struct, params) do
     struct
     |> cast(params, [:board])
     |> validate_required([:board])
