@@ -2,6 +2,7 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
+    "build": "brunch build",
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin"
   },
