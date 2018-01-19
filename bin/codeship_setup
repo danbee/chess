@@ -1,28 +1,18 @@
 #!/usr/bin/env bash
 
-echo "================="
 echo "Installing Erlang"
-echo "-----------------"
 source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/erlang.sh)"
 
-echo "================="
 echo "Installing Elixir"
-echo "-----------------"
 source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/elixir.sh)"
 
-echo "===================="
 echo "Installing PhantomJS"
-echo "--------------------"
 curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
 
-echo "================="
 echo "Installing NodeJS"
-echo "-----------------"
 nvm install $NODE_VERSION
 
-echo "==============================="
 echo "Installing Phoenix dependencies"
-echo "-------------------------------"
 mix local.hex --force
 mix local.rebar --force
 
@@ -30,20 +20,14 @@ export MIX_ENV=test
 mix deps.get
 mix deps.compile
 
-echo "==============================="
 echo "Creating and migrating database"
-echo "-------------------------------"
 mix ecto.create
 mix ecto.migrate
 
-echo "================="
 echo "Running PhantomJS"
-echo "-----------------"
 phantomjs --webdriver=0.0.0.0:8910 2>/dev/null &
 
-echo "====================="
 echo "Installing NPM assets"
-echo "---------------------"
 cd assets
 npm install
 cd ..
