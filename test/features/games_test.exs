@@ -1,49 +1,46 @@
 defmodule Chess.GamesTest do
   use ChessWeb.FeatureCase
 
-  test "visit homepage" do
-    navigate_to "/"
-    find_element(:css, "body")
+  import Wallaby.Query, only: [css: 1, css: 2, button: 1]
 
-    assert title_text() == "Chess"
+  test "visit homepage", %{session: session} do
+    session
+    |> visit("/")
+    |> assert_has(css("header h1", text: "Chess"))
   end
 
-  test "can create a new game" do
-    navigate_to "/"
-    create_game()
-
-    assert page_has_chess_board()
+  test "can create a new game", %{session: session} do
+    session
+    |> create_game()
+    |> assert_has(css(".board"))
   end
 
-  test "can move a piece" do
-    navigate_to "/"
-    create_game()
+  test "can move a piece", %{session: session} do
+    session
+    |> create_game()
 
-    click({:css, "#f4-r1"})
+    session
+    |> click(css("#f4-r1"))
+    |> assert_has(square_selected("f4-r1"))
+    |> assert_has(square_containing("f4-r1", "white.pawn"))
 
-    assert has_class?({:css, "#f4-r1"}, "selected")
-    assert square_has_piece("f4-r1", "white", "pawn")
-
-    click({:css, "#f4-r3"})
-
-    assert !square_has_piece("f4-r1", "white", "pawn")
-    assert square_has_piece("f4-r3", "white", "pawn")
+    session
+    |> click(css("#f4-r3"))
+    |> refute_has(square_containing("f4-r1", "white.pawn"))
+    |> assert_has(square_containing("f4-r3", "white.pawn"))
   end
 
-  defp create_game do
-    click({:css, "form.create-game button[type='submit']"})
+  defp create_game(session) do
+    session
+    |> visit("/")
+    |> click(button("Create game"))
   end
 
-  defp title_text do
-    find_element(:css, "header h1") |> visible_text
+  defp square_selected(square) do
+    css("##{square}.selected")
   end
 
-  defp page_has_chess_board do
-    element_displayed?({:css, ".board"})
-  end
-
-  defp square_has_piece(square, colour, piece) do
-    has_class?({:css, "##{square}"}, colour) &&
-      has_class?({:css, "##{square}"}, piece)
+  defp square_containing(square, piece) do
+    css("##{square}.#{piece}")
   end
 end

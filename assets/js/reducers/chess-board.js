@@ -1,5 +1,4 @@
 import Immutable from "immutable";
-import { Map } from "immutable";
 
 import defaultState from "../store/default-state";
 

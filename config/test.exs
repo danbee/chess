@@ -16,5 +16,3 @@ config :chess, Chess.Repo,
   hostname: "localhost",
   port: System.get_env("POSTGRES_PORT") || "5432",
   pool: Ecto.Adapters.SQL.Sandbox
-
-config :hound, driver: "phantomjs"

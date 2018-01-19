@@ -38,9 +38,9 @@ defmodule Chess.Mixfile do
      {:phoenix_html, "~> 2.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.13.1"},
-     {:hound, "~> 1.0"},
      {:cowboy, "~> 1.0"},
-     {:timex_ecto, "~> 3.0"}]
+     {:timex_ecto, "~> 3.0"},
+     {:wallaby, "~> 0.19.2", [runtime: false, only: :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
