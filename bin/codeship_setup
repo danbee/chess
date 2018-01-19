@@ -1,16 +1,28 @@
-# Cached install of Erlang
+#!/usr/bin/env sh
+
+echo "================="
+echo "Installing Erlang"
+echo "-----------------"
 source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/erlang.sh)"
 
-# Cached install of Elixir
+echo "================="
+echo "Installing Elixir"
+echo "-----------------"
 source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/elixir.sh)"
 
-# Install PhantomJS
+echo "===================="
+echo "Installing PhantomJS"
+echo "--------------------"
 curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
 
-# Install correct version of NodeJS
+echo "================="
+echo "Installing NodeJS"
+echo "-----------------"
 nvm install $NODE_VERSION
 
-# Install Phoenix dependencies
+echo "==============================="
+echo "Installing Phoenix dependencies"
+echo "-------------------------------"
 mix local.hex --force
 mix local.rebar --force
 
@@ -18,14 +30,20 @@ export MIX_ENV=test
 mix deps.get
 mix deps.compile
 
-# Create and migrate database
+echo "==============================="
+echo "Creating and migrating database"
+echo "-------------------------------"
 mix ecto.create
 mix ecto.migrate
 
-# Run PhantomJS in the background
+echo "================="
+echo "Running PhantomJS"
+echo "-----------------"
 phantomjs --webdriver=0.0.0.0:8910 2>/dev/null &
 
-# Install asset dependencies
+echo "====================="
+echo "Installing NPM assets"
+echo "---------------------"
 cd assets
 npm install
 cd ..
