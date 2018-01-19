@@ -24,10 +24,8 @@ echo "Creating and migrating database"
 mix ecto.create
 mix ecto.migrate
 
-echo "Running PhantomJS"
-phantomjs --webdriver=0.0.0.0:8910 2>/dev/null &
-
-echo "Installing NPM assets"
+echo "Building assets"
 cd assets
 npm install
+npm run build
 cd ..
