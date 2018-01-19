@@ -1,0 +1,31 @@
+# Cached install of Erlang
+source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/erlang.sh)"
+
+# Cached install of Elixir
+source /dev/stdin <<< "$(curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/languages/elixir.sh)"
+
+# Install PhantomJS
+curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/phantomjs.sh | bash -s
+
+# Install correct version of NodeJS
+nvm install $NODE_VERSION
+
+# Install Phoenix dependencies
+mix local.hex --force
+mix local.rebar --force
+
+export MIX_ENV=test
+mix deps.get
+mix deps.compile
+
+# Create and migrate database
+mix ecto.create
+mix ecto.migrate
+
+# Run PhantomJS in the background
+phantomjs --webdriver=0.0.0.0:8910 2>/dev/null &
+
+# Install asset dependencies
+cd assets
+npm install
+cd ..
