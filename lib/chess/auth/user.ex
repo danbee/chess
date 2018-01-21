@@ -14,6 +14,11 @@ defmodule Chess.Auth.User do
     timestamps()
   end
 
+  def changeset(user) do
+    user
+    |> cast(%{}, [:username, :password])
+  end
+
   @doc false
   def changeset(%User{} = user, attrs) do
     user

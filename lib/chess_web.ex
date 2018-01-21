@@ -40,6 +40,8 @@ defmodule ChessWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import Formulator
+
       import ChessWeb.Router.Helpers
       import ChessWeb.ErrorHelpers
       import ChessWeb.Gettext

@@ -33,6 +33,7 @@ defmodule Chess.Mixfile do
     [{:argon2_elixir, "~> 1.2"},
      {:comeonin, "~> 4.0"},
      {:credo, "~> 0.8", only: [:dev, :test]},
+     {:formulator, "~> 0.1.6"},
      {:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
