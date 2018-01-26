@@ -13,15 +13,8 @@ defmodule Chess.Auth.User do
     timestamps()
   end
 
-  def changeset(struct) do
-    struct
-    |> cast(%{}, [:username, :password])
-    |> validate_required([:username, :password])
-    |> hash_password()
-  end
-
   @doc false
-  def changeset(struct, params) do
+  def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:username, :password])
     |> validate_required([:username, :password])
