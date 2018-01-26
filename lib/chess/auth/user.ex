@@ -3,7 +3,6 @@ defmodule Chess.Auth.User do
 
   use Ecto.Schema
   import Ecto.Changeset
-  alias Chess.Auth.User
   alias Comeonin.Argon2
 
   schema "users" do
@@ -14,15 +13,17 @@ defmodule Chess.Auth.User do
     timestamps()
   end
 
-  def changeset(user) do
-    user
+  def changeset(struct) do
+    struct
     |> cast(%{}, [:username, :password])
+    |> validate_required([:username, :password])
+    |> hash_password()
   end
 
   @doc false
-  def changeset(%User{} = user, attrs) do
-    user
-    |> cast(attrs, [:username, :password])
+  def changeset(struct, params) do
+    struct
+    |> cast(params, [:username, :password])
     |> validate_required([:username, :password])
     |> hash_password()
   end

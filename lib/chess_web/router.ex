@@ -16,9 +16,10 @@ defmodule ChessWeb.Router do
   scope "/", ChessWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", GameController, :index
+    get "/", PageController, :index
     resources "/games", GameController, only: [:index, :create, :show, :delete]
     resources "/session", SessionController, only: [:new, :create], singleton: true
+    resources "/registration", RegistrationController, only: [:new, :create], singleton: true
   end
 
   # Other scopes may use custom stacks.

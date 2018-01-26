@@ -14,6 +14,9 @@
   <body>
     <div class="container">
       <header role="banner">
+        <nav role="user">
+          <%= link("Register", to: registration_path(@conn, :new)) %>
+        </nav>
         <h1>Chess</h1>
       </header>
 
