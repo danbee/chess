@@ -3,13 +3,14 @@ defmodule Chess.SessionTest do
 
   alias Chess.Auth.User
 
-  import Wallaby.Query, only: [text_field: 1, button: 1]
+  import Wallaby.Query, only: [text_field: 1, link: 1, button: 1]
 
   test "user cannot sign in with incorrect username", %{session: session} do
     create_user()
 
     session
-    |> visit("/session/new")
+    |> visit("/")
+    |> click(link("Log in"))
     |> fill_in(text_field("Username"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Sign in"))
@@ -21,7 +22,8 @@ defmodule Chess.SessionTest do
     create_user()
 
     session
-    |> visit("/session/new")
+    |> visit("/")
+    |> click(link("Log in"))
     |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "calamityganon")
     |> click(button("Sign in"))
@@ -33,7 +35,8 @@ defmodule Chess.SessionTest do
     create_user()
 
     session
-    |> visit("/session/new")
+    |> visit("/")
+    |> click(link("Log in"))
     |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Sign in"))

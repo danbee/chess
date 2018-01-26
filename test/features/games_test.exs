@@ -32,7 +32,7 @@ defmodule Chess.GamesTest do
 
   defp create_game(session) do
     session
-    |> visit("/")
+    |> visit("/games")
     |> click(button("Create game"))
   end
 
