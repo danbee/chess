@@ -41,7 +41,7 @@ defmodule Chess.GamesTest do
     |> visit("/session/new")
     |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
-    |> click(button("Sign in"))
+    |> click(button("Log in"))
   end
 
   defp create_user() do

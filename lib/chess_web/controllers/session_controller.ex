@@ -18,7 +18,7 @@ defmodule ChessWeb.SessionController do
       {:ok, user} ->
         conn
         |> Guardian.Plug.sign_in(user)
-        |> put_flash(:info, "You are signed in")
+        |> put_flash(:info, "You are logged in")
         |> redirect(to: game_path(conn, :index))
       {:error, _error} ->
         changeset = User.changeset(%User{})
