@@ -15,9 +15,15 @@
     <div class="container">
       <header role="banner">
         <nav role="user">
-          <%= link("Register", to: registration_path(@conn, :new)) %>
-          |
-          <%= link("Log in", to: session_path(@conn, :new)) %>
+          <%= if current_user = Guardian.Plug.current_resource(@conn) do %>
+            <%= current_user.username %>
+            |
+            <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
+          <% else %>
+            <%= link("Register", to: registration_path(@conn, :new)) %>
+            |
+            <%= link("Log in", to: session_path(@conn, :new)) %>
+          <% end %>
         </nav>
         <h1>Chess</h1>
       </header>

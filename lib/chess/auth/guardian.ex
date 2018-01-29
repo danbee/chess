@@ -1,5 +1,5 @@
 defmodule Chess.Auth.Guardian do
-  use Guardian, otp_app: :auth_ex
+  use Guardian, otp_app: :chess
 
   alias Chess.Auth
 
@@ -10,8 +10,7 @@ defmodule Chess.Auth.Guardian do
   def resource_from_claims(claims) do
     user = claims["sub"]
     |> Auth.get_user!
-    {:ok, user}
 
-    # If something goes wrong here return {:error, reason}
+    {:ok, user}
   end
 end

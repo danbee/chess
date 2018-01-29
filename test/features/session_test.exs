@@ -42,6 +42,25 @@ defmodule Chess.SessionTest do
     |> click(button("Sign in"))
 
     assert session |> has_text?("You are signed in")
+    assert session |> has_text?("Listing games")
+    assert session |> has_text?("link@hyrule.kingdom")
+  end
+
+  test "user can sign out", %{session: session} do
+    create_user()
+
+    session
+    |> visit("/")
+    |> click(link("Log in"))
+    |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
+    |> fill_in(text_field("Password"), with: "ilovezelda")
+    |> click(button("Sign in"))
+
+    session
+    |> visit("/")
+    |> click(link("Log out"))
+
+    assert session |> has_text?("You are logged out")
   end
 
   defp create_user() do

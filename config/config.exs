@@ -23,9 +23,10 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Configure authentication provider
+# Replace secret_key in prod.secret.exs
 config :chess, Chess.Auth.Guardian,
   issuer: "chess",
-  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+  secret_key: "vd2vXkrYTTFKSKmNMoS2/Hk4Fxn8BkyzsVArRkxJazdQ3mr6bI4YgAC6f8ODiWlM"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
