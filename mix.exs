@@ -37,7 +37,7 @@ defmodule Chess.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.13.1"},
+     {:gettext, "~> 0.14.0"},
      {:cowboy, "~> 1.0"},
      {:timex_ecto, "~> 3.0"},
      {:wallaby, "~> 0.19.2", [runtime: false, only: :test]}]
