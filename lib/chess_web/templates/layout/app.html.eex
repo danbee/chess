@@ -15,8 +15,8 @@
     <div class="container">
       <header role="banner">
         <nav role="user">
-          <%= if current_user = Guardian.Plug.current_resource(@conn) do %>
-            <%= current_user.username %>
+          <%= if current_user(@conn) do %>
+            <%= current_user(@conn).username %>
             |
             <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
           <% else %>
