@@ -23,11 +23,13 @@ defmodule Chess.Auth.User do
     |> hash_password()
   end
 
-  defp hash_password(
-    %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
-  ) do
-    change(changeset, Argon2.add_hash(password))
+  defp hash_password(changeset) do
+    password = get_change(changeset, :password)
+    if password do
+      changeset
+      |> change(Argon2.add_hash(password))
+    else
+      changeset
+    end
   end
-
-  defp hash_password(changeset), do: changeset
 end
