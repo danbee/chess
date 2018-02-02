@@ -1,6 +1,6 @@
 {:ok, _} = Application.ensure_all_started(:wallaby)
 
-ExUnit.start(trace: true)
+ExUnit.start()
 
 Ecto.Adapters.SQL.Sandbox.mode(Chess.Repo, :manual)
 
