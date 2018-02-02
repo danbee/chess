@@ -1,9 +1,8 @@
 defmodule Chess.SessionTest do
   use ChessWeb.FeatureCase
 
-  alias Chess.Auth.User
-
   import Wallaby.Query, only: [text_field: 1, link: 1, button: 1]
+  import Chess.Factory, only: [create_user: 0]
 
   test "user cannot log in with incorrect username", %{session: session} do
     create_user()
@@ -61,13 +60,5 @@ defmodule Chess.SessionTest do
     |> click(link("Log out"))
 
     assert session |> has_text?("You are logged out")
-  end
-
-  defp create_user() do
-    changeset = User.changeset(
-      %User{},
-      %{username: "link@hyrule.kingdom", password: "ilovezelda"}
-    )
-    Repo.insert!(changeset)
   end
 end

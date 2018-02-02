@@ -2,8 +2,7 @@ defmodule Chess.GamesTest do
   use ChessWeb.FeatureCase
 
   import Wallaby.Query, only: [css: 1, css: 2, button: 1, text_field: 1]
-
-  alias Chess.Auth.User
+  import Chess.Factory, only: [create_user: 0]
 
   test "visit homepage", %{session: session} do
     session
@@ -42,14 +41,6 @@ defmodule Chess.GamesTest do
     |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
-  end
-
-  defp create_user() do
-    changeset = User.changeset(
-      %User{},
-      %{username: "link@hyrule.kingdom", password: "ilovezelda"}
-    )
-    Repo.insert!(changeset)
   end
 
   defp create_game(session) do
