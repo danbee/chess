@@ -1,8 +1,11 @@
 defmodule Chess.UserTest do
   use Chess.DataCase
 
+  import Chess.Factory, only: [create_user: 1]
+
   describe "user" do
     alias Chess.Auth.User
+    alias Chess.Repo
 
     @valid_attrs %{username: "zelda", password: "password"}
     @invalid_attrs %{}
@@ -21,15 +24,9 @@ defmodule Chess.UserTest do
       create_user("zelda")
 
       changeset = User.changeset(%User{}, @valid_attrs)
-      refute changeset.valid?
-    end
+      {:error, changeset} = Repo.insert(changeset)
 
-    defp create_user(username) do
-      changeset = User.changeset(
-        %User{},
-        %{username: username, password: "password"}
-      )
-      Repo.insert!(changeset)
+      refute changeset.valid?
     end
   end
 end

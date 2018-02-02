@@ -2,10 +2,10 @@ defmodule Chess.Factory do
   alias Chess.Auth.User
   alias Chess.Repo
 
-  def create_user do
+  def create_user(username \\ "zelda", password \\ "password") do
     User.changeset(
       %User{},
-      %{username: "link@hyrule.kingdom", password: "ilovezelda"}
+      %{username: username, password: password}
     )
     |> Repo.insert!
   end

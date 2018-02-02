@@ -4,7 +4,6 @@ defmodule Chess.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Argon2
-  alias Chess.Repo
 
   schema "users" do
     field :password, :string, virtual: true
@@ -19,7 +18,7 @@ defmodule Chess.Auth.User do
     struct
     |> cast(params, [:username, :password])
     |> validate_required([:username, :password])
-    |> unsafe_validate_unique(:username, Repo)
+    |> unique_constraint(:username)
     |> hash_password()
   end
 
