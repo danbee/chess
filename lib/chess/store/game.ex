@@ -5,8 +5,12 @@ defmodule Chess.Store.Game do
   import Ecto.Changeset
   import Ecto.Query
 
+  alias Chess.Board
+
   schema "games" do
     field :board, :map
+
+    belongs_to :user, Chess.Auth.User
 
     timestamps()
   end
@@ -14,26 +18,26 @@ defmodule Chess.Store.Game do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  def changeset(struct) do
+  def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(%{}, [:board])
-    |> set_default_board
-    |> validate_required([:board])
+    |> cast(params, [:board, :user_id])
+    |> put_change(:board, Board.default)
+    |> validate_required([:board, :user_id])
   end
 
-  def changeset(struct, params) do
+  def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:board])
-    |> validate_required([:board])
+    |> cast(params, [:board, :user_id])
+    |> validate_required([:board, :user_id])
+  end
+
+  def for_user(query, user) do
+    query
+    |> where([game], user_id: ^user.id)
   end
 
   def ordered(query) do
     query
     |> order_by([game], desc: game.inserted_at)
-  end
-
-  def set_default_board(changeset) do
-    changeset
-    |> put_change(:board, Chess.Board.default)
   end
 end

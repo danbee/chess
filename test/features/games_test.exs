@@ -1,8 +1,14 @@
 defmodule Chess.GamesTest do
   use ChessWeb.FeatureCase
 
-  import Wallaby.Query, only: [css: 1, css: 2, button: 1, text_field: 1]
-  import Chess.Factory, only: [create_user: 2]
+  import Wallaby.Query, only: [
+    css: 1,
+    css: 2,
+    button: 1,
+    text_field: 1,
+    link: 1,
+  ]
+  import Chess.Factory, only: [create_user: 2, create_game_for: 1]
 
   test "visit homepage", %{session: session} do
     session
@@ -13,9 +19,19 @@ defmodule Chess.GamesTest do
   test "can create a new game", %{session: session} do
     session
     |> login()
-    |> take_screenshot()
     |> create_game()
     |> assert_has(css(".board"))
+  end
+
+  test "can only see own games", %{session: session} do
+    user = create_user("zelda@hyrule.kingdom", "ganonsucks")
+    create_game_for(user)
+
+    session
+    |> login()
+    |> create_game()
+    |> click(link("Back to games"))
+    |> assert_has(css(".table tr", count: 1))
   end
 
   test "can move a piece", %{session: session} do

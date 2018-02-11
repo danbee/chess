@@ -4,16 +4,30 @@ defmodule Chess.GameTest do
   describe "game" do
     alias Chess.Store.Game
 
-    @valid_attrs %{board: %{}}
-    @invalid_attrs %{}
+    test "game is valid with a board and user" do
+      attrs = %{board: %{}, user_id: 1}
+      changeset = Game.changeset(%Game{}, attrs)
 
-    test "changeset with valid attributes" do
-      changeset = Game.changeset(%Game{}, @valid_attrs)
       assert changeset.valid?
     end
 
-    test "changeset with invalid attributes" do
-      changeset = Game.changeset(%Game{}, @invalid_attrs)
+    test "game is invalid without a board" do
+      attrs = %{user_id: 1}
+      changeset = Game.changeset(%Game{}, attrs)
+
+      refute changeset.valid?
+    end
+
+    test "game is invalid without a user" do
+      attrs = %{board: %{}}
+      changeset = Game.changeset(%Game{}, attrs)
+
+      refute changeset.valid?
+    end
+
+    test "game is invalid without a board or user" do
+      changeset = Game.changeset(%Game{}, %{})
+
       refute changeset.valid?
     end
   end

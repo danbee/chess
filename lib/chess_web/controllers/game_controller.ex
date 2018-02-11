@@ -5,12 +5,18 @@ defmodule ChessWeb.GameController do
 
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
-    games = Game |> Game.ordered |> Repo.all
+    games = Game
+            |> Game.for_user(current_user(conn))
+            |> Game.ordered
+            |> Repo.all
     render(conn, "index.html", games: games, changeset: changeset)
   end
 
   def create(conn, _params) do
-    changeset = Game.changeset(%Game{})
+    changeset = Game.create_changeset(
+      %Game{},
+      %{user_id: current_user(conn).id}
+    )
 
     case Repo.insert(changeset) do
       {:ok, game} ->
@@ -37,5 +43,9 @@ defmodule ChessWeb.GameController do
     conn
     |> put_flash(:info, "Game deleted successfully.")
     |> redirect(to: game_path(conn, :index))
+  end
+
+  defp current_user(conn) do
+    Guardian.Plug.current_resource(conn)
   end
 end

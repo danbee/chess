@@ -10,6 +10,8 @@ defmodule Chess.Auth.User do
     field :password_hash, :string
     field :username, :string
 
+    has_many :games, Chess.Store.Game
+
     timestamps()
   end
 
