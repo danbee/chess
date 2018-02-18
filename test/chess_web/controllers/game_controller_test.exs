@@ -2,9 +2,9 @@ defmodule Chess.GameControllerTest do
   use ChessWeb.ConnCase
 
   alias Chess.Store.Game
-  alias Chess.Auth.User
   alias Chess.Auth.Guardian
-  @valid_attrs %{}
+
+  import Chess.Factory, only: [create_user: 0, create_user: 2]
 
   test "lists all entries on index", %{conn: conn} do
     conn = login(conn)
@@ -13,8 +13,11 @@ defmodule Chess.GameControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
+    opponent = create_user("daruk", "deathmountain")
+    attrs = %{"opponent_id" => opponent.id}
+
     conn = login(conn)
-    conn = post conn, game_path(conn, :create), game: @valid_attrs
+    conn = post conn, game_path(conn, :create), game: attrs
     game = Repo.one(Game)
     assert redirected_to(conn) == game_path(conn, :show, game)
   end
@@ -44,13 +47,5 @@ defmodule Chess.GameControllerTest do
   defp login(conn) do
     user = create_user()
     conn |> Guardian.Plug.sign_in(user)
-  end
-
-  defp create_user() do
-    changeset = User.changeset(
-      %User{},
-      %{username: "link@hyrule.kingdom", password: "ilovezelda"}
-    )
-    Repo.insert!(changeset)
   end
 end

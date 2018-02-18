@@ -21,10 +21,13 @@ defmodule ChessWeb.GameController do
     render(conn, "new.html", changeset: changeset, opponents: opponents)
   end
 
-  def create(conn, _params) do
+  def create(conn, %{"game" => %{"opponent_id" => opponent_id}}) do
     changeset = Game.create_changeset(
       %Game{},
-      %{user_id: current_user(conn).id}
+      %{
+        user_id: current_user(conn).id,
+        opponent_id: opponent_id
+      }
     )
 
     case Repo.insert(changeset) do
