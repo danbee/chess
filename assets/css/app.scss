@@ -1,19 +1,24 @@
-$background-color: #124031;
+@import "bourbon/bourbon";
+@import "base/base";
+
+@import "variables";
 
 body {
   background: $background-color;
-  color: mix($background-color, white, 20%);
-
-  font-family: "Georgia", serif;
+  color: mix($background-color, $foreground-color, 20%);
 }
 
 a {
-  color: mix($background-color, yellow, 30%);
+  color: mix($background-color, $link-color, 30%);
 }
 
 h1, h2, h3, h4 {
-  font-weight: 300;
   font-variant: small-caps;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 2em;
 }
 
 .container {
