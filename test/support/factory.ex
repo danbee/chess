@@ -11,10 +11,10 @@ defmodule Chess.Factory do
     |> Repo.insert!
   end
 
-  def create_game_for(user) do
+  def create_game_for(user, opponent) do
     Game.create_changeset(
       %Game{},
-      %{user_id: user.id}
+      %{user_id: user.id, opponent_id: opponent.id}
     )
     |> Repo.insert!
   end

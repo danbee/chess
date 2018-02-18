@@ -23,15 +23,15 @@ defmodule Chess.Store.Game do
   """
   def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:board, :user_id])
+    |> cast(params, [:board, :user_id, :opponent_id])
     |> put_change(:board, Board.default)
-    |> validate_required([:board, :user_id])
+    |> validate_required([:board, :user_id, :opponent_id])
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:board, :user_id])
-    |> validate_required([:board, :user_id])
+    |> cast(params, [:board, :user_id, :opponent_id])
+    |> validate_required([:board, :user_id, :opponent_id])
   end
 
   def for_user(query, user) do

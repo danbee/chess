@@ -3,7 +3,7 @@ defmodule Chess.GamesTest do
 
   import Wallaby.Query
 
-  import Chess.Factory, only: [create_user: 2, create_game_for: 1]
+  import Chess.Factory, only: [create_user: 2, create_game_for: 2]
 
   test "visit homepage", %{session: session} do
     session
@@ -20,14 +20,16 @@ defmodule Chess.GamesTest do
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "zelda")
     |> click(button("Create game"))
+
+    session
     |> assert_has(css(".board"))
   end
 
   test "can only see own games", %{session: session} do
-    create_user("urbosa", "gerudoqueen")
+    opponent = create_user("urbosa", "gerudoqueen")
 
     user = create_user("zelda", "ganonsucks")
-    create_game_for(user)
+    create_game_for(user, opponent)
 
     session
     |> login()
@@ -36,6 +38,8 @@ defmodule Chess.GamesTest do
     |> select("game[opponent_id]", option: "urbosa")
     |> click(button("Create game"))
     |> click(link("Back to games"))
+
+    session
     |> assert_has(css(".table tr", count: 1))
   end
 
@@ -61,11 +65,11 @@ defmodule Chess.GamesTest do
   end
 
   defp login(session) do
-    create_user("link@hyrule.kingdom", "ilovezelda")
+    create_user("link", "ilovezelda")
 
     session
     |> visit("/session/new")
-    |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
+    |> fill_in(text_field("Username"), with: "link")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
   end
