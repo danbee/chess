@@ -1,13 +1,8 @@
 defmodule Chess.GamesTest do
   use ChessWeb.FeatureCase
 
-  import Wallaby.Query, only: [
-    css: 1,
-    css: 2,
-    button: 1,
-    text_field: 1,
-    link: 1,
-  ]
+  import Wallaby.Query
+
   import Chess.Factory, only: [create_user: 2, create_game_for: 1]
 
   test "visit homepage", %{session: session} do
@@ -17,27 +12,42 @@ defmodule Chess.GamesTest do
   end
 
   test "can create a new game", %{session: session} do
+    create_user("zelda", "ganonsucks")
+
     session
     |> login()
-    |> create_game()
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "zelda")
+    |> click(button("Create game"))
     |> assert_has(css(".board"))
   end
 
   test "can only see own games", %{session: session} do
-    user = create_user("zelda@hyrule.kingdom", "ganonsucks")
+    create_user("urbosa", "gerudoqueen")
+
+    user = create_user("zelda", "ganonsucks")
     create_game_for(user)
 
     session
     |> login()
-    |> create_game()
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "urbosa")
+    |> click(button("Create game"))
     |> click(link("Back to games"))
     |> assert_has(css(".table tr", count: 1))
   end
 
   test "can move a piece", %{session: session} do
+    create_user("zelda", "ganonsucks")
+
     session
     |> login()
-    |> create_game()
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "zelda")
+    |> click(button("Create game"))
 
     session
     |> click(css("#f4-r1"))
@@ -60,10 +70,12 @@ defmodule Chess.GamesTest do
     |> click(button("Log in"))
   end
 
-  defp create_game(session) do
+  def select(session, name, [option: option]) do
     session
-    |> visit("/games")
-    |> click(button("Create game"))
+    |> find(css("[name='#{name}']"))
+    |> click(option(option))
+
+    session
   end
 
   defp square_selected(square) do

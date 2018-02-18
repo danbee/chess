@@ -1,0 +1,14 @@
+<h2>New game</h2>
+
+<%= form_for @changeset, game_path(@conn, :create), [class: "create-game"],
+    fn form -> %>
+  <div class="form-group">
+    <%= label form, :opponent_id %>
+    <%= select form, :opponent_id, @opponents %>
+    <%= error_tag form, :opponent_id %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Create game", class: "button" %>
+  </div>
+<% end %>

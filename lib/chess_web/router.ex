@@ -35,7 +35,7 @@ defmodule ChessWeb.Router do
     pipe_through [:browser, :auth, :ensure_auth]
 
     resources "/games", GameController,
-      only: [:index, :create, :show, :delete]
+      only: [:index, :new, :create, :show, :delete]
   end
 
   # Other scopes may use custom stacks.

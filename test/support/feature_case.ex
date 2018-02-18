@@ -8,7 +8,6 @@ defmodule ChessWeb.FeatureCase do
       alias Chess.Repo
       import Ecto
       import Ecto.Changeset
-      import Ecto.Query
 
       import ChessWeb.Router.Helpers
     end
