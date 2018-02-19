@@ -41,6 +41,7 @@ defmodule Chess.GamesTest do
 
     session
     |> assert_has(css(".table tr", count: 1))
+    |> assert_has(link("Game with urbosa"))
   end
 
   test "can move a piece", %{session: session} do

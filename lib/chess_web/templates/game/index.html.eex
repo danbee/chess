@@ -5,7 +5,10 @@
     <%= for game <- @games do %>
       <tr>
         <td>
-          <%= link "Started on #{Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime)}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+          <%= link "Game with #{game.opponent.username}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+        </td>
+        <td>
+          Started on <%= Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime) %>
         </td>
         <td class="text-right">
           <%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
