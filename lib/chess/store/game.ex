@@ -37,7 +37,8 @@ defmodule Chess.Store.Game do
   def for_user(query, user) do
     query
     |> where([game], user_id: ^user.id)
-    |> preload(:opponent)
+    |> or_where([game], opponent_id: ^user.id)
+    |> preload([:user, :opponent])
   end
 
   def ordered(query) do

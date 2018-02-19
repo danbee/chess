@@ -15,7 +15,7 @@ defmodule Chess.GamesTest do
     create_user("zelda", "ganonsucks")
 
     session
-    |> login()
+    |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "zelda")
@@ -32,7 +32,7 @@ defmodule Chess.GamesTest do
     create_game_for(user, opponent)
 
     session
-    |> login()
+    |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "urbosa")
@@ -44,11 +44,25 @@ defmodule Chess.GamesTest do
     |> assert_has(link("Game with urbosa"))
   end
 
+  test "can see games as an opponent", %{session: session} do
+    opponent = create_user("urbosa", "gerudoqueen")
+
+    user = create_user("zelda", "ganonsucks")
+    create_game_for(user, opponent)
+
+    session
+    |> login("urbosa", "gerudoqueen")
+
+    session
+    |> assert_has(css(".table tr", count: 1))
+    |> assert_has(link("Game with zelda"))
+  end
+
   test "can move a piece", %{session: session} do
     create_user("zelda", "ganonsucks")
 
     session
-    |> login()
+    |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "zelda")
@@ -65,13 +79,18 @@ defmodule Chess.GamesTest do
     |> assert_has(square_containing("f4-r3", "white.pawn"))
   end
 
-  defp login(session) do
+  defp create_user_and_login(session) do
     create_user("link", "ilovezelda")
 
     session
+    |> login("link", "ilovezelda")
+  end
+
+  defp login(session, username, password) do
+    session
     |> visit("/session/new")
-    |> fill_in(text_field("Username"), with: "link")
-    |> fill_in(text_field("Password"), with: "ilovezelda")
+    |> fill_in(text_field("Username"), with: username)
+    |> fill_in(text_field("Password"), with: password)
     |> click(button("Log in"))
   end
 
