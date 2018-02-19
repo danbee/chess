@@ -32,4 +32,8 @@ defmodule ChessWeb.Api.GameController do
 
     Map.put(board, "#{to_file},#{to_rank}", piece)
   end
+
+  defp current_user(conn) do
+    Guardian.Plug.current_resource(conn)
+  end
 end

@@ -18,6 +18,7 @@ defmodule ChessWeb.Router do
   end
 
   pipeline :api do
+    plug :fetch_session
     plug :accepts, ["json"]
   end
 
@@ -39,9 +40,9 @@ defmodule ChessWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", ChessWeb do
-    pipe_through :api
+  scope "/api", as: :api do
+    pipe_through [:api, :auth, :ensure_auth]
 
-    resources "/games", Api.GameController, only: [:show, :update]
+    resources "/games", ChessWeb.Api.GameController, only: [:show, :update]
   end
 end
