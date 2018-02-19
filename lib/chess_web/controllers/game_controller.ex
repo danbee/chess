@@ -42,7 +42,9 @@ defmodule ChessWeb.GameController do
   end
 
   def show(conn, %{"id" => id}) do
-    query = from(game in Game, preload: [:user, :opponent])
+    query =
+      from(game in Game, preload: [:user, :opponent])
+      |> Game.for_user(current_user(conn))
     game =
       query
       |> Repo.get!(id)

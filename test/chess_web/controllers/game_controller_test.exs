@@ -34,7 +34,7 @@ defmodule Chess.GameControllerTest do
     assert redirected_to(conn) == game_path(conn, :show, game)
   end
 
-  test "shows chosen resource", %{conn: conn} do
+  test "shows chosen game", %{conn: conn} do
     user = create_user()
     opponent = create_user("revali", "vahmedoh")
     game = create_game_for(user, opponent)
@@ -45,6 +45,22 @@ defmodule Chess.GameControllerTest do
       |> get(game_path(conn, :show, game))
 
     assert html_response(conn, 200) =~ "<div id=\"app\" data-game-id=\"#{game.id}\">"
+  end
+
+  test "does not show a game if the user is not a player", %{conn: conn} do
+    user = create_user()
+    opponent = create_user("revali", "vahmedoh")
+    game = create_game_for(user, opponent)
+
+    other_user = create_user("mipha", "ilovelink")
+
+    conn =
+      conn
+      |> login(other_user)
+
+    assert_error_sent 404, fn ->
+      get conn, game_path(conn, :show, game.id)
+    end
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

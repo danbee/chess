@@ -4,7 +4,13 @@ defmodule ChessWeb.Api.GameController do
   alias Chess.Store.Game
 
   def show(conn, %{"id" => id}) do
-    game = Repo.get!(Game, id)
+    query =
+      from(game in Game, preload: [:user, :opponent])
+      |> Game.for_user(current_user(conn))
+    game =
+      query
+      |> Repo.get!(id)
+
     render conn, "show.json", game: game
   end
 
