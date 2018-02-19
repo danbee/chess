@@ -32,6 +32,7 @@ defmodule ChessWeb.GameController do
 
   def show(conn, %{"id" => id}) do
     game = Repo.get!(Game, id)
+
     render(conn, "show.html", game: game)
   end
 
