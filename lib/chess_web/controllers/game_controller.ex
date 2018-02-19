@@ -5,10 +5,12 @@ defmodule ChessWeb.GameController do
 
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
-    games = Game
-            |> Game.for_user(current_user(conn))
-            |> Game.ordered
-            |> Repo.all
+    games =
+      Game
+      |> Game.for_user(current_user(conn))
+      |> Game.ordered
+      |> Repo.all
+
     render(conn, "index.html", games: games, changeset: changeset)
   end
 

@@ -1,4 +1,6 @@
 defmodule Chess.Board do
+  @moduledoc false
+
   def output(board) do
     Enum.map(0..7, fn (rank) ->
       Enum.map(0..7, fn (file) ->

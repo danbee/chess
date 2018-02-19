@@ -1,4 +1,6 @@
 defmodule Chess.Store.Game do
+  @moduledoc false
+
   use Ecto.Schema
   use Timex.Ecto.Timestamps
 
