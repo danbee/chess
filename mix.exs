@@ -18,8 +18,10 @@ defmodule Chess.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Chess, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :timex_ecto]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger,
+                    :gettext, :phoenix_ecto, :postgrex, :timex_ecto,
+                    :argon2_elixir, :comeonin, :formulator, :guardian,
+                    :elixir_make]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,7 +35,7 @@ defmodule Chess.Mixfile do
     [{:argon2_elixir, "~> 1.2"},
      {:comeonin, "~> 4.0"},
      {:credo, "~> 0.8", only: [:dev, :test]},
-     {:distillery, "~> 1.5"},
+     {:distillery, "~> 1.5", runtime: false},
      {:formulator, "~> 0.1.6"},
      {:phoenix, "~> 1.3.0"},
      {:phoenix_pubsub, "~> 1.0"},
