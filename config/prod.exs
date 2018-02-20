@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :chess, Chess.Endpoint,
+config :chess, ChessWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "localhost", port: {:system, "PORT"}],
   cache_static_manifest: "priv/static/manifest.json",
