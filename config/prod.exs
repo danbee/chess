@@ -3,7 +3,7 @@ use Mix.Config
 config :chess, ChessWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "localhost", port: {:system, "PORT"}],
-  cache_static_manifest: "priv/static/manifest.json",
+  cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   root: "./assets",
   version: Application.spec(:myapp, :vsn),
