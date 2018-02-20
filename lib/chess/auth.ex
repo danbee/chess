@@ -105,10 +105,11 @@ defmodule Chess.Auth do
 
   @doc false
   def authenticate_user(username, password) do
-    Repo.one(
-      from u in User,
-      where: u.username == ^username
-    )
+    query = from u in User,
+            where: u.username == ^username
+
+    query
+    |> Repo.one
     |> Argon2.check_pass(password)
   end
 end

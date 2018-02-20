@@ -1,4 +1,6 @@
 defmodule Chess.Auth.Guardian do
+  @moduledoc false
+
   use Guardian, otp_app: :chess
 
   alias Chess.Auth
