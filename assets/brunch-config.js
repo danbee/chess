@@ -36,6 +36,9 @@ exports.config = {
 
   // Configure your plugins
   plugins: {
+    sass: {
+      mode: 'native'
+    },
     babel: {
       plugins: [
         'transform-object-rest-spread',
