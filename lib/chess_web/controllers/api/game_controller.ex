@@ -3,6 +3,8 @@ defmodule ChessWeb.Api.GameController do
 
   alias Chess.Store.Game
 
+  import Chess.Auth, only: [current_user: 1]
+
   def show(conn, %{"id" => id}) do
     query =
       from(game in Game, preload: [:user, :opponent])
@@ -31,9 +33,5 @@ defmodule ChessWeb.Api.GameController do
     {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
 
     Map.put(board, "#{to_file},#{to_rank}", piece)
-  end
-
-  defp current_user(conn) do
-    Guardian.Plug.current_resource(conn)
   end
 end

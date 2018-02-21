@@ -3,6 +3,8 @@ defmodule ChessWeb.GameController do
 
   alias Chess.Store.Game
 
+  import Chess.Auth, only: [current_user: 1]
+
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
     games =
@@ -71,9 +73,5 @@ defmodule ChessWeb.GameController do
 
     query
     |> Repo.all
-  end
-
-  defp current_user(conn) do
-    Guardian.Plug.current_resource(conn)
   end
 end
