@@ -37,7 +37,7 @@ $selected-square-color: #66ff00;
 $square-outline-color: darken($black-square-color, 20%);
 $selected-outline-color: lighten($selected-square-color, 20%);
 
-$colours: black white;
+$colours: "black" "white";
 $pieces: king queen bishop knight rook pawn;
 
 .board {
