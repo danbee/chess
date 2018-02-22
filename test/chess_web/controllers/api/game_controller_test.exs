@@ -31,7 +31,7 @@ defmodule Chess.ApiGameControllerTest do
       |> login(other_user)
 
     assert_error_sent 404, fn ->
-      get conn, api_game_path(conn, :show, game.id)
+      get(conn, api_game_path(conn, :show, game.id))
     end
   end
 
@@ -47,12 +47,32 @@ defmodule Chess.ApiGameControllerTest do
     assert json_response(conn, 403)
   end
 
+  test "does not update a game if the user is not a player", %{conn: conn} do
+    user = create_user()
+    opponent = create_user("revali", "vahmedoh")
+    game = create_game_for(user, opponent)
+
+    other_user = create_user("mipha", "ilovelink")
+
+    conn =
+      conn
+      |> login(other_user)
+
+    assert_error_sent 404, fn ->
+      patch(
+        conn,
+        api_game_path(conn, :update, game.id),
+        %{move: %{from: [1, 1], to: [2, 1]}}
+      )
+    end
+  end
+
   test "renders page not found when id is nonexistent", %{conn: conn} do
     user = create_user()
     conn = login(conn, user)
 
     assert_error_sent 404, fn ->
-      get conn, api_game_path(conn, :show, -1)
+      get(conn, api_game_path(conn, :show, -1))
     end
   end
 

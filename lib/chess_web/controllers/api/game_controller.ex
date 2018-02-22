@@ -17,8 +17,16 @@ defmodule ChessWeb.Api.GameController do
   end
 
   def update(conn, %{"id" => id, "move" => move_params}) do
-    game = Repo.get!(Game, id)
-    changeset = Game.changeset(game, %{board: new_board(game.board, move_params)})
+    query =
+      from(game in Game, preload: [:user, :opponent])
+      |> Game.for_user(current_user(conn))
+    game =
+      query
+      |> Repo.get!(id)
+
+    changeset = Game.changeset(
+      game, %{board: new_board(game.board, move_params)}
+    )
 
     case Repo.update(changeset) do
       {:ok, game} ->
