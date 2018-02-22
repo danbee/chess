@@ -8,8 +8,9 @@ defmodule ChessWeb.GameController do
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
     games =
-      Game
-      |> Game.for_user(current_user(conn))
+      conn
+      |> current_user()
+      |> Game.for_user()
       |> Game.ordered
       |> Repo.all
 
@@ -45,8 +46,10 @@ defmodule ChessWeb.GameController do
 
   def show(conn, %{"id" => id}) do
     query =
-      from(game in Game, preload: [:user, :opponent])
-      |> Game.for_user(current_user(conn))
+      conn
+      |> current_user()
+      |> Game.for_user()
+      |> preload([:user, :opponent])
     game =
       query
       |> Repo.get!(id)

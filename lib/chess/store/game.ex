@@ -8,6 +8,7 @@ defmodule Chess.Store.Game do
   import Ecto.Query
 
   alias Chess.Board
+  alias Chess.Store.Game
 
   schema "games" do
     field :board, :map
@@ -34,11 +35,10 @@ defmodule Chess.Store.Game do
     |> validate_required([:board, :user_id, :opponent_id])
   end
 
-  def for_user(query, user) do
-    query
-    |> where([game], user_id: ^user.id)
-    |> or_where([game], opponent_id: ^user.id)
-    |> preload([:user, :opponent])
+  def for_user(user) do
+    from game in Game,
+      where: game.user_id == ^user.id,
+      or_where: game.opponent_id == ^user.id
   end
 
   def ordered(query) do
