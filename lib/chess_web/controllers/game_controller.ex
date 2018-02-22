@@ -12,6 +12,7 @@ defmodule ChessWeb.GameController do
       |> current_user()
       |> Game.for_user()
       |> Game.ordered
+      |> preload([:user, :opponent])
       |> Repo.all
 
     render(conn, "index.html", games: games, changeset: changeset)
