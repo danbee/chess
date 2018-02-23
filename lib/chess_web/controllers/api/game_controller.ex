@@ -6,18 +6,20 @@ defmodule ChessWeb.Api.GameController do
   import Chess.Auth, only: [current_user: 1]
 
   def show(conn, %{"id" => id}) do
-    query = Game.for_user(current_user(conn))
     game =
-      query
+      conn
+      |> current_user()
+      |> Game.for_user()
       |> Repo.get!(id)
 
-    render conn, "show.json", game: game
+    render(conn, "show.json", game: game)
   end
 
   def update(conn, %{"id" => id, "move" => move_params}) do
-    query = Game.for_user(current_user(conn))
     game =
-      query
+      conn
+      |> current_user()
+      |> Game.for_user()
       |> Repo.get!(id)
 
     changeset = Game.changeset(
