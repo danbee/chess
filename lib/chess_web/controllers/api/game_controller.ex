@@ -14,7 +14,7 @@ defmodule ChessWeb.Api.GameController do
       |> Repo.get!(id)
 
     conn
-    |> json(Board.transform(game.board))
+    |> json(game_attrs(conn, game))
   end
 
   def update(conn, %{"id" => id, "move" => move_params}) do
@@ -32,6 +32,21 @@ defmodule ChessWeb.Api.GameController do
       {:ok, game} ->
         conn
         |> json(Board.transform(game.board))
+    end
+  end
+
+  defp game_attrs(conn, game) do
+    %{
+      board: Board.transform(game.board),
+      player: player(conn, game)
+    }
+  end
+
+  defp player(conn, game) do
+    if game.user_id == current_user(conn).id do
+      "white"
+    else
+      "black"
     end
   end
 

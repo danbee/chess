@@ -1,4 +1,5 @@
 const SET_BOARD = "SET_BOARD";
+const SET_PLAYER = "SET_PLAYER";
 const SET_GAME_ID = "SET_GAME_ID";
 const SELECT_PIECE = "SELECT_PIECE";
 
@@ -6,6 +7,13 @@ export const setBoard = (board) => {
   return {
     type: SET_BOARD,
     board: board
+  }
+}
+
+export const setPlayer = (player) => {
+  return {
+    type: SET_PLAYER,
+    player: player
   }
 }
 

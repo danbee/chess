@@ -10,6 +10,11 @@ const chessBoardReducer = (state = defaultState, action) => {
         .set("selectedSquare", null)
         .toJS();
 
+    case "SET_PLAYER":
+      return Immutable.fromJS(state)
+        .set("player", action.player)
+        .toJS();
+
     case "SET_GAME_ID":
       return Immutable.fromJS(state)
         .set("gameId", action.gameId)
