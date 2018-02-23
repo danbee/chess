@@ -1,0 +1,71 @@
+
+.board {
+  display: flex;
+  flex-direction: column;
+  font-size: 0;
+  border: 0.3vmin solid black;
+  margin: 0 auto;
+  width: 80vmin;
+  height: 80vmin;
+}
+
+.board-rank {
+  height: 12.5%;
+}
+
+.board-square {
+  position: relative;
+  border: 0.2vmin solid $square-outline-color;
+  display: inline-block;
+  font-size: $base-font-size;
+  width: 12.5%;
+  height: 100%;
+
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @each $colour in $colours {
+    @each $piece in $pieces {
+      &.#{$colour}.#{$piece} {
+        background-image: url(/images/#{$piece}_#{$colour}.svg);
+      }
+    }
+  }
+}
+
+%black-square {
+  background-color: $black-square-color;
+
+  &.selected {
+    background-color: mix($black-square-color, $selected-square-color, 60%);
+    border: 0.2vmin solid $selected-outline-color;
+  }
+}
+
+%white-square {
+  background-color: $white-square-color;
+
+  &.selected {
+    background-color: mix($white-square-color, $selected-square-color, 60%);
+    border: 0.2vmin solid $selected-outline-color;
+  }
+}
+
+.board-rank:nth-child(odd) {
+  .board-square:nth-child(even) {
+    @extend %black-square;
+  }
+  .board-square:nth-child(odd) {
+    @extend %white-square;
+  }
+}
+
+.board-rank:nth-child(even) {
+  .board-square:nth-child(even) {
+    @extend %white-square;
+  }
+  .board-square:nth-child(odd) {
+    @extend %black-square;
+  }
+}
