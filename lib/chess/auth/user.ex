@@ -11,7 +11,7 @@ defmodule Chess.Auth.User do
     field :username, :string
 
     has_many :games, Chess.Store.Game
-    has_many :other_games, Chess.Store.Game, foreign_key: :opponent_id
+    has_many :games_as_opponent, Chess.Store.Game, foreign_key: :opponent_id
 
     timestamps()
   end
