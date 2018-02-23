@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "Building assets"
+cd assets
+yarn install
+yarn run build
+cd ..

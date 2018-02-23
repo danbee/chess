@@ -11,21 +11,3 @@ curl -sSL https://raw.githubusercontent.com/codeship/scripts/master/packages/pha
 
 echo "Installing NodeJS"
 nvm install $NODE_VERSION
-
-echo "Installing Phoenix dependencies"
-mix local.hex --force
-mix local.rebar --force
-
-export MIX_ENV=test
-mix deps.get
-mix deps.compile
-
-echo "Creating and migrating database"
-mix ecto.create
-mix ecto.migrate
-
-echo "Building assets"
-cd assets
-npm install
-npm run build
-cd ..
