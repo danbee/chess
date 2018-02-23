@@ -2,6 +2,7 @@ defmodule ChessWeb.Api.GameController do
   use ChessWeb, :controller
 
   alias Chess.Store.Game
+  alias Chess.Board
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -12,7 +13,8 @@ defmodule ChessWeb.Api.GameController do
       |> Game.for_user()
       |> Repo.get!(id)
 
-    render(conn, "show.json", game: game)
+    conn
+    |> json(Board.transform(game.board))
   end
 
   def update(conn, %{"id" => id, "move" => move_params}) do
@@ -28,7 +30,8 @@ defmodule ChessWeb.Api.GameController do
 
     case Repo.update(changeset) do
       {:ok, game} ->
-        render(conn, "show.json", game: game)
+        conn
+        |> json(Board.transform(game.board))
     end
   end
 

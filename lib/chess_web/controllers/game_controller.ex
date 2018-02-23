@@ -15,7 +15,8 @@ defmodule ChessWeb.GameController do
       |> preload([:user, :opponent])
       |> Repo.all
 
-    render(conn, "index.html", games: games, changeset: changeset)
+    conn
+    |> render("index.html", games: games, changeset: changeset)
   end
 
   def new(conn, _params) do
@@ -25,7 +26,8 @@ defmodule ChessWeb.GameController do
       |> current_user()
       |> get_opponents()
 
-    render(conn, "new.html", changeset: changeset, opponents: opponents)
+    conn
+    |> render("new.html", changeset: changeset, opponents: opponents)
   end
 
   def create(conn, %{"game" => %{"opponent_id" => opponent_id}}) do
@@ -42,9 +44,11 @@ defmodule ChessWeb.GameController do
         conn
         |> put_flash(:info, "Game created successfully.")
         |> redirect(to: game_path(conn, :show, game))
+
       {:error, changeset} ->
         opponents = get_opponents(current_user(conn))
-        render(conn, "new.html", changeset: changeset, opponents: opponents)
+        conn
+        |> render("new.html", changeset: changeset, opponents: opponents)
     end
   end
 
@@ -58,7 +62,8 @@ defmodule ChessWeb.GameController do
       query
       |> Repo.get!(id)
 
-    render(conn, "show.html", game: game)
+    conn
+    |> render("show.html", game: game)
   end
 
   def delete(conn, %{"id" => id}) do
