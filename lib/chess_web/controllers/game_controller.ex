@@ -20,7 +20,10 @@ defmodule ChessWeb.GameController do
 
   def new(conn, _params) do
     changeset = Game.changeset(%Game{})
-    opponents = get_opponents(current_user(conn))
+    opponents =
+      conn
+      |> current_user()
+      |> get_opponents()
 
     render(conn, "new.html", changeset: changeset, opponents: opponents)
   end
