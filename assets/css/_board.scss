@@ -1,19 +1,15 @@
 .board {
-  border: 0.3vmin solid black;
+  border: 0.3vmin solid $board-border-color;
+  height: 80vmin;
   margin: 0 auto;
   width: 80vmin;
-  height: 80vmin;
-}
-
-.board-rank {
 }
 
 .board-square {
-  border: 0.2vmin solid $square-outline-color;
-
-  background-size: 100%;
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: 0.2vmin solid $square-outline-color;
 
   @each $colour in $colours {
     @each $piece in $pieces {
@@ -24,7 +20,7 @@
   }
 }
 
-%black-square {
+@mixin black-square {
   background-color: $black-square-color;
 
   &.selected {
@@ -33,7 +29,7 @@
   }
 }
 
-%white-square {
+@mixin white-square {
   background-color: $white-square-color;
 
   &.selected {
@@ -44,18 +40,20 @@
 
 .board-rank:nth-child(odd) {
   .board-square:nth-child(even) {
-    @extend %black-square;
+    @include black-square;
   }
+
   .board-square:nth-child(odd) {
-    @extend %white-square;
+    @include white-square;
   }
 }
 
 .board-rank:nth-child(even) {
   .board-square:nth-child(even) {
-    @extend %white-square;
+    @include white-square;
   }
+
   .board-square:nth-child(odd) {
-    @extend %black-square;
+    @include black-square;
   }
 }

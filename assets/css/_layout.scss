@@ -7,7 +7,10 @@ a {
   color: mix($background-color, $link-color, 30%);
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-variant: small-caps;
   font-weight: 300;
 }
@@ -17,8 +20,8 @@ h1 {
 }
 
 .container {
-  width: 80%;
   margin: 0 auto;
+  width: 80%;
 }
 
 .form-group {
