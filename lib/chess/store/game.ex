@@ -24,15 +24,15 @@ defmodule Chess.Store.Game do
   """
   def create_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:board, :user_id, :opponent_id])
+    |> cast(params, required_attrs())
     |> put_change(:board, Board.default)
-    |> validate_required([:board, :user_id, :opponent_id])
+    |> validate_required(required_attrs())
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:board, :user_id, :opponent_id])
-    |> validate_required([:board, :user_id, :opponent_id])
+    |> cast(params, required_attrs())
+    |> validate_required(required_attrs())
   end
 
   def for_user(user) do
@@ -45,4 +45,6 @@ defmodule Chess.Store.Game do
     query
     |> order_by([game], desc: game.inserted_at)
   end
+
+  defp required_attrs, do: ~w[board user_id opponent_id]a
 end
