@@ -43,15 +43,19 @@ class ChessBoard extends React.Component {
 
     return _.map(Object.keys(board).reverse(), (rankId) => {
       return (
-        <div className="board-rank" key={rankId}>
+        <tr className="board-rank" key={rankId}>
           {this.renderFiles(rankId)}
-        </div>
+        </tr>
       );
     });
   }
 
   render() {
-    return <div className="board">{this.renderRanks()}</div>;
+    return (
+      <table className="board">
+        <tbody>{this.renderRanks()}</tbody>
+      </table>
+    );
   }
 }
 

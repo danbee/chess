@@ -60,7 +60,7 @@ class ChessBoardSquare extends React.Component {
   }
 
   render() {
-    return <div
+    return <td
       id={this.squareId()}
       className={this.squareClass()}
       onClick={this.selectSquare.bind(this)}
