@@ -21,22 +21,7 @@ defmodule Chess.Mixfile do
   def application do
     [
       mod: {Chess, []},
-      applications: [
-        :argon2_elixir,
-        :comeonin,
-        :cowboy,
-        :elixir_make,
-        :formulator,
-        :gettext,
-        :guardian,
-        :logger,
-        :phoenix,
-        :phoenix_ecto,
-        :phoenix_html,
-        :phoenix_pubsub,
-        :postgrex,
-        :timex_ecto,
-      ]
+      extra_applications: [:logger]
     ]
   end
 
