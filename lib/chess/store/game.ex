@@ -19,12 +19,11 @@ defmodule Chess.Store.Game do
     timestamps()
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
   def create_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, required_attrs())
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:opponent_id)
     |> put_change(:board, Board.default)
     |> validate_required(required_attrs())
   end
@@ -32,6 +31,8 @@ defmodule Chess.Store.Game do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, required_attrs())
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:opponent_id)
     |> validate_required(required_attrs())
   end
 
