@@ -9,6 +9,15 @@ defmodule Chess.Board do
     end)
   end
 
+  def move_piece(board, move_params) do
+    [from_file, from_rank] = move_params["from"]
+    [to_file, to_rank] = move_params["to"]
+
+    {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
+
+    Map.put(board, "#{to_file},#{to_rank}", piece)
+  end
+
   def default do
     %{
       "0,7" => %{type: :rook,   colour: :black},

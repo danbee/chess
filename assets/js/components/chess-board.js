@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import $ from "jquery";
 import { connect } from "react-redux";
-import { setBoard, setPlayer, setGameId } from "../store/actions";
+import { setGame, setGameId } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
 
@@ -14,8 +14,7 @@ class ChessBoard extends React.Component {
 
     $.ajax({ method: "GET", url: `/api/games/${gameId}` })
       .then((data) => {
-        store.dispatch(setBoard(data.board));
-        store.dispatch(setPlayer(data.player));
+        store.dispatch(setGame(data));
       });
   }
 

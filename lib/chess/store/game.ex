@@ -12,6 +12,7 @@ defmodule Chess.Store.Game do
 
   schema "games" do
     field :board, :map
+    field :turn, :string
 
     belongs_to :user, Chess.Auth.User
     belongs_to :opponent, Chess.Auth.User, references: :id
@@ -24,7 +25,8 @@ defmodule Chess.Store.Game do
     |> cast(params, required_attrs())
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:opponent_id)
-    |> put_change(:board, Board.default)
+    |> put_change(:board, Board.default())
+    |> put_change(:turn, default_turn())
     |> validate_required(required_attrs())
   end
 
@@ -34,6 +36,13 @@ defmodule Chess.Store.Game do
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:opponent_id)
     |> validate_required(required_attrs())
+  end
+
+  def change_turn(turn) do
+    case turn do
+      "white" -> "black"
+      "black" -> "white"
+    end
   end
 
   def for_user(user) do
@@ -47,5 +56,9 @@ defmodule Chess.Store.Game do
     |> order_by([game], desc: game.inserted_at)
   end
 
-  defp required_attrs, do: ~w[board user_id opponent_id]a
+  defp required_attrs, do: ~w[board turn user_id opponent_id]a
+
+  defp default_turn do
+    "white"
+  end
 end

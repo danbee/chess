@@ -11,7 +11,12 @@ defmodule Chess.GameTest do
       user = create_user("link", "ilovezelda")
       opponent = create_user("zelda", "ganonsucks")
 
-      attrs = %{board: %{}, user_id: user.id, opponent_id: opponent.id}
+      attrs = %{
+        board: %{},
+        user_id: user.id,
+        opponent_id: opponent.id,
+        turn: "white"
+      }
       changeset = Game.changeset(%Game{}, attrs)
 
       assert changeset.valid?
@@ -19,7 +24,12 @@ defmodule Chess.GameTest do
     end
 
     test "game cannot be saved if the user or opponent do not exist" do
-      attrs = %{board: %{}, user_id: 1, opponent_id: 2}
+      attrs = %{
+        board: %{},
+        user_id: 1,
+        opponent_id: 2,
+        turn: "white"
+      }
       changeset = Game.changeset(%Game{}, attrs)
 
       assert changeset.valid?

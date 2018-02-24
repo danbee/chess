@@ -1,12 +1,13 @@
-const SET_BOARD = "SET_BOARD";
-const SET_PLAYER = "SET_PLAYER";
+const SET_GAME = "SET_GAME";
 const SET_GAME_ID = "SET_GAME_ID";
 const SELECT_PIECE = "SELECT_PIECE";
 
-export const setBoard = (board) => {
+export const setGame = (data) => {
   return {
-    type: SET_BOARD,
-    board: board
+    type: SET_GAME,
+    board: data.board,
+    player: data.player,
+    turn: data.turn
   }
 }
 

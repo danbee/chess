@@ -3,7 +3,7 @@ import _ from "lodash";
 import $ from "jquery";
 import classNames from "classnames";
 
-import { selectPiece, setBoard } from "../store/actions";
+import { selectPiece, setGame } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
@@ -16,19 +16,35 @@ class ChessBoardSquare extends React.Component {
 
   selectSquare() {
     var { piece, store } = this.props;
-    var { gameId, selectedSquare } = store.getState();
+    var { gameId, selectedSquare, player } = store.getState();
 
-    if (selectedSquare != null) {
+    if (selectedSquare != null && this.moveIsValid()) {
       $.ajax({
         method: "PATCH",
         url: "/api/games/" + gameId,
         data: { move: { from: selectedSquare, to: this.squareCoords() } }
-      }).then((data) => store.dispatch(setBoard(data)));
+      }).then((data) => store.dispatch(setGame(data)));
     }
-    else if (piece != undefined) {
+    else if (selectedSquare != null) {
+      store.dispatch(selectPiece(null));
+    }
+    else if (this.playerCanSelectPiece(player, piece)) {
       store.dispatch(selectPiece(this.squareCoords()));
     }
-  };
+  }
+
+  moveIsValid() {
+    return !this.isSelectedSquare();
+  }
+
+  playerCanSelectPiece(player, piece) {
+    var { store } = this.props;
+    var { turn } = store.getState();
+
+    return piece != undefined &&
+      piece.colour == player &&
+      player == turn;
+  }
 
   isSelectedSquare() {
     var { store } = this.props;

@@ -25,20 +25,24 @@ defmodule ChessWeb.Api.GameController do
       |> Repo.get!(id)
 
     changeset = Game.changeset(
-      game, %{board: new_board(game.board, move_params)}
+      game, %{
+        board: Board.move_piece(game.board, move_params),
+        turn: Game.change_turn(game.turn)
+      }
     )
 
     case Repo.update(changeset) do
       {:ok, game} ->
         conn
-        |> json(Board.transform(game.board))
+        |> json(game_attrs(conn, game))
     end
   end
 
   defp game_attrs(conn, game) do
     %{
       board: Board.transform(game.board),
-      player: player(conn, game)
+      player: player(conn, game),
+      turn: game.turn
     }
   end
 
@@ -48,14 +52,5 @@ defmodule ChessWeb.Api.GameController do
     else
       "black"
     end
-  end
-
-  defp new_board(board, move_params) do
-    [from_file, from_rank] = move_params["from"]
-    [to_file, to_rank] = move_params["to"]
-
-    {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
-
-    Map.put(board, "#{to_file},#{to_rank}", piece)
   end
 end

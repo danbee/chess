@@ -7,6 +7,5 @@ defmodule Chess.Repo.Migrations.CreateGame do
 
       timestamps()
     end
-
   end
 end
