@@ -25,7 +25,7 @@ class ChessBoard extends React.Component {
 
     this.channel.on("game_update", data => {
       store.dispatch(setGame(data));
-    })
+    });
   }
 
   getBoard() {
