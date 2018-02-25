@@ -4,6 +4,8 @@ defmodule ChessWeb.Api.GameController do
   alias Chess.Store.Game
   alias Chess.Board
 
+  alias ChessWeb.GameChannel
+
   import Chess.Auth, only: [current_user: 1]
 
   def show(conn, %{"id" => id}) do
@@ -33,6 +35,8 @@ defmodule ChessWeb.Api.GameController do
 
     case Repo.update(changeset) do
       {:ok, game} ->
+        GameChannel.update_game(game)
+
         conn
         |> json(game_attrs(conn, game))
     end

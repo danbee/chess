@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import $ from "jquery";
 import { connect } from "react-redux";
-import { setGame, setGameId } from "../store/actions";
+import { setPlayer, setGame, setGameId } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
 
@@ -16,13 +16,12 @@ class ChessBoard extends React.Component {
 
     $.ajax({ method: "GET", url: `/api/games/${gameId}` })
       .then((data) => {
+        store.dispatch(setPlayer(data.player));
         store.dispatch(setGame(data));
       });
 
-    this.channel = socket.channel("game:" + gameId, {})
-    this.channel.join()
-      .receive("ok", resp => { console.log("Joined successfully", resp) })
-      .receive("error", resp => { console.log("Unable to join", resp) })
+    this.channel = socket.channel("game:" + gameId, {});
+    this.channel.join();
 
     this.channel.on("game_update", data => {
       store.dispatch(setGame(data));

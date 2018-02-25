@@ -3,7 +3,7 @@ import _ from "lodash";
 import $ from "jquery";
 import classNames from "classnames";
 
-import { selectPiece, setGame } from "../store/actions";
+import { setGame, selectPiece } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
