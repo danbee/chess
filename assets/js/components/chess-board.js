@@ -6,6 +6,8 @@ import { setGame, setGameId } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
 
+import socket from "../socket";
+
 class ChessBoard extends React.Component {
   componentWillMount() {
     const { gameId, store } = this.props;
@@ -16,6 +18,15 @@ class ChessBoard extends React.Component {
       .then((data) => {
         store.dispatch(setGame(data));
       });
+
+    this.channel = socket.channel("game:" + gameId, {})
+    this.channel.join()
+      .receive("ok", resp => { console.log("Joined successfully", resp) })
+      .receive("error", resp => { console.log("Unable to join", resp) })
+
+    this.channel.on("game_update", data => {
+      store.dispatch(setGame(data));
+    })
   }
 
   getBoard() {
