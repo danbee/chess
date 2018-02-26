@@ -61,7 +61,9 @@ class ChessBoard extends React.Component {
     return _.map(this.ranks(), (rankId) => {
       return (
         <tr className="board-rank" key={rankId}>
+          <th class="board-border-left">{rankId}</th>
           {this.renderFiles(rankId)}
+          <td class="board-border-left"></td>
         </tr>
       );
     });
@@ -92,8 +94,29 @@ class ChessBoard extends React.Component {
 
   render() {
     return (
-      <table className="board">
+      <table class="board">
+        <thead>
+          <tr class="board-border-top">
+            <th class="board-border-left"></th>
+            <th>a</th>
+            <th>b</th>
+            <th>c</th>
+            <th>d</th>
+            <th>e</th>
+            <th>f</th>
+            <th>g</th>
+            <th>h</th>
+            <th class="board-border-left"></th>
+          </tr>
+        </thead>
         <tbody>{this.renderRanks()}</tbody>
+        <tfoot>
+          <tr class="board-border-bottom">
+            <th class="board-border-left"></th>
+            <th colspan="8"></th>
+            <th class="board-border-left"></th>
+          </tr>
+        </tfoot>
       </table>
     );
   }

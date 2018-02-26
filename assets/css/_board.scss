@@ -1,15 +1,23 @@
 .board {
-  border: 0.3vmin solid $board-border-color;
+  background: lighten($black-square-color, 7%);
+  border-collapse: unset;
+  color: $white-square-color;
+  border-radius: 2vmin;
+  box-shadow: 0 0.5vmin 3vmin rgba(0, 0, 0, 0.4);
   height: 80vmin;
   margin: 0 auto;
   width: 80vmin;
+
+  th {
+    color: darken($black-square-color, 10%);
+  }
 }
 
 .board-square {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  border: 0.2vmin solid $square-outline-color;
+  border-radius: 0.25vmin;
 
   @each $colour in $colours {
     @each $piece in $pieces {
@@ -18,6 +26,26 @@
       }
     }
   }
+}
+
+.board-border-top,
+.board-border-bottom {
+  height: 4vmin;
+
+  th {
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.board-border-left,
+.board-border-right {
+  width: 4vmin;
+
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
 }
 
 @mixin black-square {
