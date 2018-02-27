@@ -1,11 +1,11 @@
 @mixin move-indicator {
-  display: block;
+  border-radius: 50%;
   content: "";
-  width: 2vmin;
+  display: block;
   height: 2vmin;
   position: absolute;
   right: 2vmin;
-  border-radius: 50%;
+  width: 2vmin;
 }
 
 .board {
