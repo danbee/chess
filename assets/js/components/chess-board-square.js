@@ -71,7 +71,7 @@ class ChessBoardSquare extends React.Component {
         this.props.piece.type,
         this.props.piece.colour,
         { "selected": this.isSelectedSquare() }
-      )
+      );
     }
   }
 

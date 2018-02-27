@@ -1,4 +1,4 @@
-body {
+html {
   background: $background-color;
   color: mix($background-color, $foreground-color, 20%);
 }
@@ -21,7 +21,7 @@ h1 {
 
 .container {
   margin: 0 auto;
-  width: 80%;
+  width: 90%;
 }
 
 .form-group {

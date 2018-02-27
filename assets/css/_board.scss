@@ -1,15 +1,67 @@
+@mixin move-indicator {
+  display: block;
+  content: "";
+  width: 2vmin;
+  height: 2vmin;
+  position: absolute;
+  right: 2vmin;
+  border-radius: 50%;
+}
+
 .board {
   background: lighten($black-square-color, 7%);
   border-collapse: unset;
+  border-spacing: 1px;
   color: $white-square-color;
   border-radius: 2vmin;
   box-shadow: 0 0.5vmin 3vmin rgba(0, 0, 0, 0.4);
-  height: 80vmin;
-  margin: 0 auto;
-  width: 80vmin;
+  position: relative;
+  height: 90vmin;
+  width: 90vmin;
 
   th {
+    font-size: 0.6rem;
     color: darken($black-square-color, 10%);
+  }
+
+  &.white-to-move:before {
+    @include move-indicator;
+    background: #fff;
+  }
+
+  &.black-to-move:before {
+    @include move-indicator;
+    background: #000;
+  }
+
+  &.player-is-white.white-to-move:before,
+  &.player-is-black.black-to-move:before {
+    bottom: 2vmin;
+  }
+
+  &.player-is-white.black-to-move:before,
+  &.player-is-black.white-to-move:before {
+    top: 2vmin;
+  }
+}
+
+@media (min-width: 480px) {
+  .board {
+    border-spacing: 2px;
+
+    th {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .board {
+    border-spacing: 3px;
+
+    th {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -30,7 +82,7 @@
 
 .board-border-top,
 .board-border-bottom {
-  height: 4vmin;
+  height: 5%;
 
   th {
     padding: 0;
@@ -41,7 +93,7 @@
 
 .board-border-left,
 .board-border-right {
-  width: 4vmin;
+  width: 5%;
 
   padding: 0;
   vertical-align: middle;

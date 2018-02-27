@@ -2,11 +2,13 @@ import React from "react";
 import _ from "lodash";
 import $ from "jquery";
 import { connect } from "react-redux";
+import classNames from "classnames";
+
+import socket from "../socket";
+
 import { setPlayer, setGame, setGameId } from "../store/actions";
 
 import ChessBoardSquare from "./chess-board-square";
-
-import socket from "../socket";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
@@ -26,6 +28,11 @@ class ChessBoard extends React.Component {
     this.channel.on("game_update", data => {
       store.dispatch(setGame(data));
     });
+  }
+
+  getTurn() {
+    const { store } = this.props;
+    return store.getState().turn;
   }
 
   getBoard() {
@@ -61,9 +68,9 @@ class ChessBoard extends React.Component {
     return _.map(this.ranks(), (rankId) => {
       return (
         <tr className="board-rank" key={rankId}>
-          <th class="board-border-left">{rankId}</th>
+          <th className="board-border-left">{rankId}</th>
           {this.renderFiles(rankId)}
-          <td class="board-border-left"></td>
+          <td className="board-border-left"></td>
         </tr>
       );
     });
@@ -92,12 +99,23 @@ class ChessBoard extends React.Component {
     }
   }
 
+  boardClass() {
+    const turn = this.getTurn();
+    const player = this.getPlayer();
+
+    return classNames(
+      "board",
+      turn + "-to-move",
+      "player-is-" + player
+    );
+  }
+
   render() {
     return (
-      <table class="board">
+      <table className={this.boardClass()}>
         <thead>
-          <tr class="board-border-top">
-            <th class="board-border-left"></th>
+          <tr className="board-border-top">
+            <th className="board-border-left"></th>
             <th>a</th>
             <th>b</th>
             <th>c</th>
@@ -106,15 +124,15 @@ class ChessBoard extends React.Component {
             <th>f</th>
             <th>g</th>
             <th>h</th>
-            <th class="board-border-left"></th>
+            <th className="board-border-left"></th>
           </tr>
         </thead>
         <tbody>{this.renderRanks()}</tbody>
         <tfoot>
-          <tr class="board-border-bottom">
-            <th class="board-border-left"></th>
+          <tr className="board-border-bottom">
+            <th className="board-border-left"></th>
             <th colspan="8"></th>
-            <th class="board-border-left"></th>
+            <th className="board-border-left"></th>
           </tr>
         </tfoot>
       </table>
