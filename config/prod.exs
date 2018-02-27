@@ -1,13 +1,14 @@
 use Mix.Config
 
 config :chess, ChessWeb.Endpoint,
-  http: [port: {:system, "PORT"}],
-  url: [host: "localhost", port: {:system, "PORT"}],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  server: true,
+  check_origin: ["https://chess.danbarber.me"],
+  http: [port: {:system, "PORT"}],
   root: "./assets",
-  version: Application.spec(:myapp, :vsn),
-  secret_key_base: "${SECRET_KEY_BASE}"
+  secret_key_base: "${SECRET_KEY_BASE}",
+  server: true,
+  url: [host: "localhost", port: {:system, "PORT"}],
+  version: Application.spec(:myapp, :vsn)
 
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
