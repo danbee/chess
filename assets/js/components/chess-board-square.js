@@ -15,20 +15,18 @@ class ChessBoardSquare extends React.Component {
   }
 
   selectSquare() {
-    var { piece, store } = this.props;
-    var { gameId, selectedSquare, player } = store.getState();
+    let { piece, store } = this.props;
+    let { gameId, selectedSquare, player } = store.getState();
 
     if (selectedSquare != null && this.moveIsValid()) {
       $.ajax({
         method: "PATCH",
         url: "/api/games/" + gameId,
-        data: { move: { from: selectedSquare, to: this.squareCoords() } }
+        data: { move: { from: selectedSquare, to: this.squareCoords() } },
       }).then((data) => store.dispatch(setGame(data)));
-    }
-    else if (selectedSquare != null) {
+    } else if (selectedSquare != null) {
       store.dispatch(selectPiece(null));
-    }
-    else if (this.playerCanSelectPiece(player, piece)) {
+    } else if (this.playerCanSelectPiece(player, piece)) {
       store.dispatch(selectPiece(this.squareCoords()));
     }
   }
@@ -38,8 +36,8 @@ class ChessBoardSquare extends React.Component {
   }
 
   playerCanSelectPiece(player, piece) {
-    var { store } = this.props;
-    var { turn } = store.getState();
+    let { store } = this.props;
+    let { turn } = store.getState();
 
     return piece !== undefined &&
       piece.colour == player &&
@@ -47,12 +45,11 @@ class ChessBoardSquare extends React.Component {
   }
 
   isSelectedSquare() {
-    var { store } = this.props;
+    let { store } = this.props;
 
     if (store.getState().selectedSquare == null) {
       return false;
-    }
-    else {
+    } else {
       return _.isEqual(this.squareCoords(), store.getState().selectedSquare);
     }
   }
@@ -64,8 +61,7 @@ class ChessBoardSquare extends React.Component {
   squareClass() {
     if (this.props.piece == undefined) {
       return "board-square";
-    }
-    else {
+    } else {
       return classNames(
         "board-square",
         this.props.piece.type,
@@ -80,7 +76,7 @@ class ChessBoardSquare extends React.Component {
       id={this.squareId()}
       className={this.squareClass()}
       onClick={this.selectSquare.bind(this)}
-    />
+    />;
   }
 }
 

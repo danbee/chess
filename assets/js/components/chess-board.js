@@ -17,14 +17,16 @@ class ChessBoard extends React.Component {
     store.dispatch(setGameId(gameId));
 
     $.ajax({ method: "GET", url: `/api/games/${gameId}` })
-      .then((data) => {
+      .then(data => {
         store.dispatch(setPlayer(data.player));
         store.dispatch(setGame(data));
       });
 
     this.channel = socket.channel("game:" + gameId, {});
     this.channel.join()
-      .receive("error", resp => { console.log("Unable to join", resp); });
+      .receive("error", resp => {
+        console.log("Unable to join", resp);
+      });
 
     this.channel.on("game_update", data => {
       store.dispatch(setGame(data));
@@ -50,7 +52,7 @@ class ChessBoard extends React.Component {
     const { store } = this.props;
     const rank = this.getBoard()[rankId];
 
-    return _.map(this.files(rank), (fileId) => {
+    return _.map(this.files(rank), fileId => {
       return (
         <ChessBoardSquare
           file={fileId}
@@ -66,7 +68,7 @@ class ChessBoard extends React.Component {
   renderRanks() {
     const board = this.getBoard();
 
-    return _.map(this.ranks(), (rankId) => {
+    return _.map(this.ranks(), rankId => {
       return (
         <div className="board-rank" key={rankId}>
           {this.renderFiles(rankId)}
@@ -79,10 +81,12 @@ class ChessBoard extends React.Component {
     const player = this.getPlayer();
 
     switch (player) {
-      case 'white':
+      case "white":
         return Object.keys(rank).sort();
-      case 'black':
-        return Object.keys(rank).sort().reverse();
+      case "black":
+        return Object.keys(rank)
+          .sort()
+          .reverse();
     }
   }
 
@@ -91,9 +95,9 @@ class ChessBoard extends React.Component {
     const player = this.getPlayer();
 
     switch (player) {
-      case 'white':
+      case "white":
         return Object.keys(board).reverse();
-      case 'black':
+      case "black":
         return Object.keys(board);
     }
   }
@@ -102,26 +106,22 @@ class ChessBoard extends React.Component {
     const turn = this.getTurn();
     const player = this.getPlayer();
 
-    return classNames(
-      "board",
-      turn + "-to-move",
-      "player-is-" + player
-    );
+    return classNames("board", turn + "-to-move", "player-is-" + player);
   }
 
   render() {
     return (
       <div className={this.boardClass()}>
         <div className="board-header">
-          <div className="board-border-top"></div>
+          <div className="board-border-top" />
         </div>
         <div className="board-body">
-          <div className="board-border-left"></div>
+          <div className="board-border-left" />
           <div className="board-ranks">{this.renderRanks()}</div>
-          <div className="board-border-right"></div>
+          <div className="board-border-right" />
         </div>
         <div className="board-footer">
-          <div className="board-border-bottom"></div>
+          <div className="board-border-bottom" />
         </div>
       </div>
     );
@@ -131,8 +131,8 @@ class ChessBoard extends React.Component {
 function mapStateToProps(state) {
   return {
     board: state.board,
-    selectedSquare: state.selectedSquare
-  }
+    selectedSquare: state.selectedSquare,
+  };
 }
 
 export default connect(mapStateToProps)(ChessBoard);

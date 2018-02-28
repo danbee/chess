@@ -4,25 +4,25 @@ exports.config = {
     javascripts: {
       joinTo: {
         "js/app.js": /^js/,
-        "js/vendor.js": /^(?!js)/
-      }
+        "js/vendor.js": /^(?!js)/,
+      },
     },
     stylesheets: {
       joinTo: "css/app.css",
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
-      }
+        after: ["web/static/css/app.css"], // concat app.css last
+      },
     },
     templates: {
-      joinTo: "js/app.js"
-    }
+      joinTo: "js/app.js",
+    },
   },
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
   },
 
   // Phoenix paths configuration
@@ -31,40 +31,40 @@ exports.config = {
     watched: ["static", "css", "js", "vendor"],
 
     // Where to compile files to
-    public: "../priv/static"
+    public: "../priv/static",
   },
 
   // Configure your plugins
   plugins: {
     sass: {
-      mode: 'native'
+      mode: "native",
     },
     babel: {
       plugins: [
-        'transform-object-rest-spread',
-        'transform-class-properties',
+        "transform-object-rest-spread",
+        "transform-class-properties",
       ],
       presets: [
         [
-          'env', {
-            'browsers': [ '> 5% in US' ],
-            'useBuiltIns': true,
+          "env", {
+            "browsers": ["> 5% in US"],
+            "useBuiltIns": true,
           },
         ],
-        'es2015',
-        'react',
+        "es2015",
+        "react",
       ],
-      ignore: [ /vendor/ ],
+      ignore: [/vendor/],
     },
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"]
-    }
+      "js/app.js": ["js/app"],
+    },
   },
 
   npm: {
-    enabled: true
-  }
+    enabled: true,
+  },
 };

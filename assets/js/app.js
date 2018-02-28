@@ -1,7 +1,7 @@
 "use strict";
 
 import "babel-polyfill";
-import "phoenix_html"
+import "phoenix_html";
 
 import React from "react";
 import ReactDOM from "react-dom";

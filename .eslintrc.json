@@ -111,7 +111,7 @@
     ],
     "array-bracket-spacing": [
       2,
-      "always"
+      "never"
     ],
     "indent": [
       2,

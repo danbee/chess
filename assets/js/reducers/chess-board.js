@@ -29,6 +29,6 @@ const chessBoardReducer = (state = defaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default chessBoardReducer;
