@@ -1,2 +1,10 @@
 credo:
   enabled: true
+eslint:
+  enabled: true
+  config_file: .eslintrc.json
+javascript:
+  enabled: false
+scss:
+  enabled: true
+  config_file: .scss-lint.yml
