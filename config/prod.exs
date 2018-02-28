@@ -8,7 +8,7 @@ config :chess, ChessWeb.Endpoint,
   secret_key_base: "${SECRET_KEY_BASE}",
   server: true,
   url: [host: "localhost", port: {:system, "PORT"}],
-  version: Application.spec(:myapp, :vsn)
+  version: Application.spec(:chess, :vsn)
 
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
