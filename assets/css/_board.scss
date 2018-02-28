@@ -11,18 +11,16 @@
 .board {
   background: lighten($black-square-color, 7%);
   border-collapse: unset;
-  border-spacing: 1px;
-  color: $white-square-color;
   border-radius: 2vmin;
+  border-spacing: 1px;
   box-shadow: 0 0.5vmin 3vmin rgba(0, 0, 0, 0.4);
-  position: relative;
+  color: $white-square-color;
+  display: flex;
+  flex-direction: column;
   height: 90vmin;
+  position: relative;
+  table-layout: fixed;
   width: 90vmin;
-
-  th {
-    font-size: 0.6rem;
-    color: darken($black-square-color, 10%);
-  }
 
   &.white-to-move:before {
     @include move-indicator;
@@ -45,24 +43,46 @@
   }
 }
 
-@media (min-width: 480px) {
-  .board {
-    border-spacing: 2px;
+.board-header,
+.board-footer {
+  display: flex;
+  flex-direction: row;
+}
 
-    th {
-      font-size: 0.8rem;
-    }
+.board-border-bottom-middle {
+  flex: 1;
+}
+
+.board-body {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  .board-border-left,
+  .board-border-right {
+    height: 100%;
   }
 }
 
-@media (min-width: 768px) {
-  .board {
-    border-spacing: 3px;
+.board-ranks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-    th {
-      font-size: 1rem;
-    }
-  }
+.board-rank {
+  flex: 1;
+  display: flex;
+}
+
+.board-border-left,
+.board-border-right {
+  width: 5vmin;
+}
+
+.board-border-top,
+.board-border-bottom {
+  height: 5vmin;
 }
 
 .board-square {
@@ -70,6 +90,8 @@
   background-repeat: no-repeat;
   background-size: 100%;
   border-radius: 0.25vmin;
+  flex: 1;
+  margin: 0.5px;
 
   @each $colour in $colours {
     @each $piece in $pieces {
@@ -78,26 +100,6 @@
       }
     }
   }
-}
-
-.board-border-top,
-.board-border-bottom {
-  height: 5%;
-
-  th {
-    padding: 0;
-    vertical-align: middle;
-    text-align: center;
-  }
-}
-
-.board-border-left,
-.board-border-right {
-  width: 5%;
-
-  padding: 0;
-  vertical-align: middle;
-  text-align: center;
 }
 
 @mixin black-square {
@@ -135,5 +137,25 @@
 
   .board-square:nth-child(odd) {
     @include black-square;
+  }
+}
+
+@media (min-width: 480px) {
+  .board-square {
+    margin: 1px;
+  }
+
+  .board-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .board-square {
+    margin: 1.5px;
+  }
+
+  .board-label {
+    font-size: 1rem;
   }
 }

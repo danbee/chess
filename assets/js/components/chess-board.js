@@ -69,11 +69,9 @@ class ChessBoard extends React.Component {
 
     return _.map(this.ranks(), (rankId) => {
       return (
-        <tr className="board-rank" key={rankId}>
-          <th className="board-border-left">{rankId}</th>
+        <div className="board-rank" key={rankId}>
           {this.renderFiles(rankId)}
-          <td className="board-border-left"></td>
-        </tr>
+        </div>
       );
     });
   }
@@ -114,30 +112,19 @@ class ChessBoard extends React.Component {
 
   render() {
     return (
-      <table className={this.boardClass()}>
-        <thead>
-          <tr className="board-border-top">
-            <th className="board-border-left"></th>
-            <th>a</th>
-            <th>b</th>
-            <th>c</th>
-            <th>d</th>
-            <th>e</th>
-            <th>f</th>
-            <th>g</th>
-            <th>h</th>
-            <th className="board-border-left"></th>
-          </tr>
-        </thead>
-        <tbody>{this.renderRanks()}</tbody>
-        <tfoot>
-          <tr className="board-border-bottom">
-            <th className="board-border-left"></th>
-            <th colSpan="8"></th>
-            <th className="board-border-left"></th>
-          </tr>
-        </tfoot>
-      </table>
+      <div className={this.boardClass()}>
+        <div className="board-header">
+          <div className="board-border-top"></div>
+        </div>
+        <div className="board-body">
+          <div className="board-border-left"></div>
+          <div className="board-ranks">{this.renderRanks()}</div>
+          <div className="board-border-right"></div>
+        </div>
+        <div className="board-footer">
+          <div className="board-border-bottom"></div>
+        </div>
+      </div>
     );
   }
 }
