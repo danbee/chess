@@ -93,6 +93,11 @@
   flex: 1;
   margin: 0.5px;
 
+  // This is to ensure the squares can be clicked on in PhantomJS
+  // TODO: Figure out why we need this
+  min-width: 2vmin;
+  min-height: 2vmin;
+
   @each $colour in $colours {
     @each $piece in $pieces {
       &.#{$colour}.#{$piece} {
