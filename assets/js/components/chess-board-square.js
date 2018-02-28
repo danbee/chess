@@ -41,7 +41,7 @@ class ChessBoardSquare extends React.Component {
     var { store } = this.props;
     var { turn } = store.getState();
 
-    return piece != undefined &&
+    return piece !== undefined &&
       piece.colour == player &&
       player == turn;
   }
