@@ -24,7 +24,6 @@ class ChessBoard extends React.Component {
 
     this.channel = socket.channel("game:" + gameId, {});
     this.channel.join()
-      .receive("ok", resp => { console.log("Joined successfully", resp) })
       .receive("error", resp => { console.log("Unable to join", resp) });
 
     this.channel.on("game_update", data => {
