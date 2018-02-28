@@ -38,12 +38,8 @@ defmodule Chess.Store.Game do
     |> validate_required(required_attrs())
   end
 
-  def change_turn(turn) do
-    case turn do
-      "white" -> "black"
-      "black" -> "white"
-    end
-  end
+  def change_turn("black"), do: "white"
+  def change_turn("white"), do: "black"
 
   def for_user(user) do
     from game in Game,
