@@ -23,9 +23,9 @@ defmodule Chess.Store.Game do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, required_attrs())
+    |> validate_required(required_attrs())
     |> foreign_key_constraint(:user_id)
     |> foreign_key_constraint(:opponent_id)
-    |> validate_required(required_attrs())
   end
 
   def change_turn("black"), do: "white"
