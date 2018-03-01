@@ -12,7 +12,7 @@ defmodule Chess.Factory do
   end
 
   def create_game_for(user, opponent) do
-    Game.create_changeset(
+    Game.changeset(
       %Game{},
       %{user_id: user.id, opponent_id: opponent.id}
     )

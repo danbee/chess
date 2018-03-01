@@ -31,7 +31,7 @@ defmodule ChessWeb.GameController do
   end
 
   def create(conn, %{"game" => %{"opponent_id" => opponent_id}}) do
-    changeset = Game.create_changeset(
+    changeset = Game.changeset(
       %Game{},
       %{
         user_id: current_user(conn).id,

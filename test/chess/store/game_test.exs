@@ -40,7 +40,7 @@ defmodule Chess.GameTest do
       user = create_user("link", "ilovezelda")
       opponent = create_user("zelda", "ganonsucks")
 
-      attrs = %{user_id: user.id, opponent_id: opponent.id}
+      attrs = %{board: nil, user_id: user.id, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
 
       refute changeset.valid?

@@ -11,23 +11,13 @@ defmodule Chess.Store.Game do
   alias Chess.Store.Game
 
   schema "games" do
-    field :board, :map
-    field :turn, :string
+    field :board, :map, default: Board.default()
+    field :turn, :string, default: "white"
 
     belongs_to :user, Chess.Auth.User
     belongs_to :opponent, Chess.Auth.User, references: :id
 
     timestamps()
-  end
-
-  def create_changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, required_attrs())
-    |> foreign_key_constraint(:user_id)
-    |> foreign_key_constraint(:opponent_id)
-    |> put_change(:board, Board.default())
-    |> put_change(:turn, default_turn())
-    |> validate_required(required_attrs())
   end
 
   def changeset(struct, params \\ %{}) do
@@ -53,8 +43,4 @@ defmodule Chess.Store.Game do
   end
 
   defp required_attrs, do: ~w[board turn user_id opponent_id]a
-
-  defp default_turn do
-    "white"
-  end
 end
