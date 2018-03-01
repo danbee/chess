@@ -13,7 +13,7 @@
   border-collapse: unset;
   border-radius: 2vmin;
   border-spacing: 1px;
-  box-shadow: 0 0.5vmin 3vmin rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.5vmin 3vmin $board-shadow-color;
   color: $white-square-color;
   display: flex;
   flex-direction: column;
@@ -22,23 +22,23 @@
   table-layout: fixed;
   width: 90vmin;
 
-  &.white-to-move:before {
+  &.white-to-move::before {
     @include move-indicator;
-    background: #fff;
+    background: $white;
   }
 
-  &.black-to-move:before {
+  &.black-to-move::before {
     @include move-indicator;
-    background: #000;
+    background: $black;
   }
 
-  &.player-is-white.white-to-move:before,
-  &.player-is-black.black-to-move:before {
+  &.player-is-white.white-to-move::before,
+  &.player-is-black.black-to-move::before {
     bottom: 2vmin;
   }
 
-  &.player-is-white.black-to-move:before,
-  &.player-is-black.white-to-move:before {
+  &.player-is-white.black-to-move::before,
+  &.player-is-black.white-to-move::before {
     top: 2vmin;
   }
 }
@@ -54,9 +54,9 @@
 }
 
 .board-body {
-  flex: 1;
   display: flex;
   flex-direction: row;
+  flex: 1;
 
   .board-border-left,
   .board-border-right {
@@ -65,14 +65,14 @@
 }
 
 .board-ranks {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .board-rank {
-  flex: 1;
   display: flex;
+  flex: 1;
 }
 
 .board-border-left,
@@ -95,8 +95,9 @@
 
   // This is to ensure the squares can be clicked on in PhantomJS
   // TODO: Figure out why we need this
-  min-width: 2vmin;
+
   min-height: 2vmin;
+  min-width: 2vmin;
 
   @each $colour in $colours {
     @each $piece in $pieces {
