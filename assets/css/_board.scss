@@ -55,8 +55,8 @@
 
 .board-body {
   display: flex;
-  flex-direction: row;
   flex: 1;
+  flex-direction: row;
 
   .board-border-left,
   .board-border-right {
@@ -66,8 +66,8 @@
 
 .board-ranks {
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
 }
 
 .board-rank {
