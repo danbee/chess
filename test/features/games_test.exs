@@ -86,6 +86,68 @@ defmodule Chess.GamesTest do
     |> assert_has(square_containing("f4-r3", "white.pawn"))
   end
 
+  test "cannot move the opponents pieces", %{session: session} do
+    create_user("zelda", "ganonsucks")
+
+    session
+    |> create_user_and_login()
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "zelda")
+    |> click(button("Create game"))
+
+    session
+    |> click(css("#f4-r6"))
+    |> refute_has(square_selected("f4-r5"))
+  end
+
+  test "cannot move pieces when it's the opponents turn", %{session: session} do
+    create_user("link", "ilovezelda")
+    create_user("zelda", "ganonsucks")
+
+    session
+    |> login("link", "ilovezelda")
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "zelda")
+    |> click(button("Create game"))
+
+    {:ok, session2} = Wallaby.start_session
+    session2
+    |> login("zelda", "ganonsucks")
+    |> click(link("Game with link"))
+
+    session2
+    |> click(css("#f4-r6"))
+    |> refute_has(square_selected("f4-r5"))
+  end
+
+  test "move is reflected on opponents screen", %{session: session} do
+    create_user("link", "ilovezelda")
+    create_user("zelda", "ganonsucks")
+
+    session
+    |> login("link", "ilovezelda")
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "zelda")
+    |> click(button("Create game"))
+
+    {:ok, session2} = Wallaby.start_session
+    session2
+    |> login("zelda", "ganonsucks")
+    |> click(link("Game with link"))
+
+    session
+    |> click(css("#f4-r1"))
+    |> click(css("#f4-r3"))
+
+    session2
+    |> assert_has(css(".board.black-to-move"))
+    |> refute_has(square_containing("f4-r1", "white.pawn"))
+    |> assert_has(square_containing("f4-r3", "white.pawn"))
+  end
+
   defp create_user_and_login(session) do
     create_user("link", "ilovezelda")
 
