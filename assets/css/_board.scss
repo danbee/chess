@@ -1,26 +1,28 @@
+$board-size: 90vmin;
+
 @mixin move-indicator {
   border-radius: 50%;
   content: "";
   display: block;
-  height: 2vmin;
+  height: 2%;
   position: absolute;
-  right: 2vmin;
-  width: 2vmin;
+  right: 2%;
+  width: 2%;
 }
 
 .board {
   background: lighten($black-square-color, 7%);
   border-collapse: unset;
-  border-radius: 2vmin;
+  border-radius: 2.8%;
   border-spacing: 1px;
-  box-shadow: 0 0.5vmin 3vmin $board-shadow-color;
+  box-shadow: 0 ($board-size / 200) ($board-size / 40) $board-shadow-color;
   color: $white-square-color;
   display: flex;
   flex-direction: column;
-  height: 90vmin;
+  height: $board-size;
   position: relative;
   table-layout: fixed;
-  width: 90vmin;
+  width: $board-size;
 
   &.white-to-move::before {
     @include move-indicator;
@@ -34,12 +36,12 @@
 
   &.player-is-white.white-to-move::before,
   &.player-is-black.black-to-move::before {
-    bottom: 2vmin;
+    bottom: 2%;
   }
 
   &.player-is-white.black-to-move::before,
   &.player-is-black.white-to-move::before {
-    top: 2vmin;
+    top: 2%;
   }
 }
 
@@ -77,27 +79,27 @@
 
 .board-border-left,
 .board-border-right {
-  width: 5vmin;
+  width: $board-size / 20;
 }
 
 .board-border-top,
 .board-border-bottom {
-  height: 5vmin;
+  height: $board-size / 20;
 }
 
 .board-square {
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100%;
-  border-radius: 0.25vmin;
+  border-radius: 2%;
   flex: 1;
   margin: 0.5px;
 
   // This is to ensure the squares can be clicked on in PhantomJS
   // TODO: Figure out why we need this
 
-  min-height: 2vmin;
-  min-width: 2vmin;
+  min-height: 20px;
+  min-width: 20px;
 
   @each $colour in $colours {
     @each $piece in $pieces {
@@ -113,7 +115,7 @@
 
   &.selected {
     background-color: mix($black-square-color, $selected-square-color, 60%);
-    outline: 0.2vmin solid $selected-outline-color;
+    box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
   }
 }
 
@@ -122,7 +124,7 @@
 
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
-    outline: 0.2vmin solid $selected-outline-color;
+    box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
   }
 }
 
