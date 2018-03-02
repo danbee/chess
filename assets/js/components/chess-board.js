@@ -1,10 +1,10 @@
 import React from "react";
 import _ from "lodash";
-import $ from "jquery";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import socket from "../socket";
+import API from "../services/api";
+import Channel from "../services/channel";
 
 import { setPlayer, setGame, setGameId } from "../store/actions";
 
@@ -16,17 +16,13 @@ class ChessBoard extends React.Component {
 
     store.dispatch(setGameId(gameId));
 
-    $.ajax({ method: "GET", url: `/api/games/${gameId}` })
-      .then(data => {
-        store.dispatch(setPlayer(data.player));
-        store.dispatch(setGame(data));
+    API.getGame(gameId)
+      .then(response => {
+        store.dispatch(setPlayer(response.data.player));
+        store.dispatch(setGame(response.data));
       });
 
-    this.channel = socket.channel(`game:${gameId}`, {});
-    this.channel.join()
-      .receive("error", resp => {
-        console.log("Unable to join", resp);
-      });
+    this.channel = Channel.gameChannel(gameId);
 
     this.channel.on("game_update", data => {
       store.dispatch(setGame(data));

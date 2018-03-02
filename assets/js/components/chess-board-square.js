@@ -1,7 +1,8 @@
 import React from "react";
 import _ from "lodash";
-import $ from "jquery";
 import classNames from "classnames";
+
+import API from "../services/api";
 
 import { setGame, selectPiece } from "../store/actions";
 
@@ -19,11 +20,12 @@ class ChessBoardSquare extends React.Component {
     const { gameId, selectedSquare, player } = store.getState();
 
     if (selectedSquare != null && this.moveIsValid()) {
-      $.ajax({
-        method: "PATCH",
-        url: "/api/games/" + gameId,
-        data: { move: { from: selectedSquare, to: this.squareCoords } },
-      }).then((data) => store.dispatch(setGame(data)));
+      API.updateGame(gameId, {
+        from: selectedSquare,
+        to: this.squareCoords,
+      }).then((response) => {
+        store.dispatch(setGame(response.data));
+      });
     } else if (selectedSquare != null) {
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {
