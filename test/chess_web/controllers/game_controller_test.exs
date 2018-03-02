@@ -4,11 +4,10 @@ defmodule Chess.GameControllerTest do
   alias Chess.Store.Game
   alias Chess.Auth.Guardian
 
-  import Chess.Factory,
-    only: [create_user: 0, create_user: 2, create_game_for: 2]
+  import Chess.Factory
 
   test "lists all entries on index", %{conn: conn} do
-    user = create_user()
+    user = insert(:user)
 
     conn =
       conn
@@ -19,10 +18,10 @@ defmodule Chess.GameControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    opponent = create_user("daruk", "deathmountain")
+    opponent = insert(:user, %{username: "daruk"})
     attrs = %{"opponent_id" => opponent.id}
 
-    user = create_user()
+    user = insert(:user)
 
     conn =
       conn
@@ -35,9 +34,9 @@ defmodule Chess.GameControllerTest do
   end
 
   test "shows chosen game", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     conn =
       conn
@@ -48,11 +47,11 @@ defmodule Chess.GameControllerTest do
   end
 
   test "does not show a game if the user is not a player", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
-    other_user = create_user("mipha", "ilovelink")
+    other_user = insert(:user, %{username: "mipha"})
 
     conn =
       conn
@@ -64,7 +63,7 @@ defmodule Chess.GameControllerTest do
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    user = create_user()
+    user = insert(:user)
     conn = login(conn, user)
 
     assert_error_sent 404, fn ->
@@ -74,7 +73,7 @@ defmodule Chess.GameControllerTest do
 
   test "deletes chosen resource", %{conn: conn} do
     game = Repo.insert! %Game{}
-    user = create_user()
+    user = insert(:user)
     conn = login(conn, user)
     conn = delete conn, game_path(conn, :delete, game)
     assert redirected_to(conn) == game_path(conn, :index)

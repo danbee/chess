@@ -1,21 +1,28 @@
 defmodule Chess.Factory do
+  @moduledoc false
+
   alias Chess.Auth.User
   alias Chess.Store.Game
   alias Chess.Repo
 
-  def create_user(username \\ "link", password \\ "ilovezelda") do
-    User.changeset(
-      %User{},
-      %{username: username, password: password}
-    )
+  def insert(_resource, _params \\ %{})
+
+  def insert(:user, params) do
+    attrs = %{
+      name: "Zelda",
+      username: "zelda",
+      password: "ilovelink"
+    }
+    |> Map.merge(params)
+
+    %User{}
+    |> User.changeset(attrs)
     |> Repo.insert!
   end
 
-  def create_game_for(user, opponent) do
-    Game.changeset(
-      %Game{},
-      %{user_id: user.id, opponent_id: opponent.id}
-    )
+  def insert(:game, params) do
+    %Game{}
+    |> Game.changeset(params)
     |> Repo.insert!
   end
 end

@@ -3,13 +3,12 @@ defmodule Chess.ApiGameControllerTest do
 
   alias Chess.Auth.Guardian
 
-  import Chess.Factory,
-    only: [create_user: 0, create_user: 2, create_game_for: 2]
+  import Chess.Factory
 
   test "shows chosen game", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     conn =
       conn
@@ -20,11 +19,11 @@ defmodule Chess.ApiGameControllerTest do
   end
 
   test "does not show a game if the user is not a player", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
-    other_user = create_user("mipha", "ilovelink")
+    other_user = insert(:user, %{username: "mipha"})
 
     conn =
       conn
@@ -36,9 +35,9 @@ defmodule Chess.ApiGameControllerTest do
   end
 
   test "responds with 403 if user is not logged in", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     conn =
       conn
@@ -48,11 +47,11 @@ defmodule Chess.ApiGameControllerTest do
   end
 
   test "does not update a game if the user is not a player", %{conn: conn} do
-    user = create_user()
-    opponent = create_user("revali", "vahmedoh")
-    game = create_game_for(user, opponent)
+    user = insert(:user)
+    opponent = insert(:user, %{username: "revali"})
+    game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
-    other_user = create_user("mipha", "ilovelink")
+    other_user = insert(:user, %{username: "mipha"})
 
     conn =
       conn
@@ -68,7 +67,7 @@ defmodule Chess.ApiGameControllerTest do
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    user = create_user()
+    user = insert(:user)
     conn = login(conn, user)
 
     assert_error_sent 404, fn ->

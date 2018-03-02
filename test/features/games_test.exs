@@ -3,7 +3,7 @@ defmodule Chess.GamesTest do
 
   import Wallaby.Query
 
-  import Chess.Factory, only: [create_user: 2, create_game_for: 2]
+  import Chess.Factory
 
   test "visit homepage", %{session: session} do
     session
@@ -12,7 +12,7 @@ defmodule Chess.GamesTest do
   end
 
   test "can create a new game", %{session: session} do
-    create_user("zelda", "ganonsucks")
+    insert(:user, %{username: "zelda", password: "ganonsucks"})
 
     session
     |> create_user_and_login()
@@ -27,10 +27,10 @@ defmodule Chess.GamesTest do
   end
 
   test "can only see own games", %{session: session} do
-    opponent = create_user("urbosa", "gerudoqueen")
+    opponent = insert(:user, %{username: "urbosa", password: "gerudoqueen"})
 
-    user = create_user("zelda", "ganonsucks")
-    create_game_for(user, opponent)
+    user = insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session
     |> create_user_and_login()
@@ -46,10 +46,10 @@ defmodule Chess.GamesTest do
   end
 
   test "can see games as an opponent", %{session: session} do
-    opponent = create_user("urbosa", "gerudoqueen")
+    opponent = insert(:user, %{username: "urbosa", password: "gerudoqueen"})
 
-    user = create_user("zelda", "ganonsucks")
-    create_game_for(user, opponent)
+    user = insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session
     |> login("urbosa", "gerudoqueen")
@@ -66,7 +66,7 @@ defmodule Chess.GamesTest do
   end
 
   test "can move a piece", %{session: session} do
-    create_user("zelda", "ganonsucks")
+    insert(:user, %{username: "zelda", password: "ganonsucks"})
 
     session
     |> create_user_and_login()
@@ -87,7 +87,7 @@ defmodule Chess.GamesTest do
   end
 
   test "cannot move the opponents pieces", %{session: session} do
-    create_user("zelda", "ganonsucks")
+    insert(:user, %{username: "zelda", password: "ganonsucks"})
 
     session
     |> create_user_and_login()
@@ -102,8 +102,8 @@ defmodule Chess.GamesTest do
   end
 
   test "cannot move pieces when it's the opponents turn", %{session: session} do
-    create_user("link", "ilovezelda")
-    create_user("zelda", "ganonsucks")
+    insert(:user, %{username: "link", password: "ilovezelda"})
+    insert(:user, %{username: "zelda", password: "ganonsucks"})
 
     session
     |> login("link", "ilovezelda")
@@ -123,8 +123,8 @@ defmodule Chess.GamesTest do
   end
 
   test "move is reflected on opponents screen", %{session: session} do
-    create_user("link", "ilovezelda")
-    create_user("zelda", "ganonsucks")
+    insert(:user, %{username: "link", password: "ilovezelda"})
+    insert(:user, %{username: "zelda", password: "ganonsucks"})
 
     session
     |> login("link", "ilovezelda")
@@ -149,7 +149,7 @@ defmodule Chess.GamesTest do
   end
 
   defp create_user_and_login(session) do
-    create_user("link", "ilovezelda")
+    insert(:user, %{username: "link", password: "ilovezelda"})
 
     session
     |> login("link", "ilovezelda")

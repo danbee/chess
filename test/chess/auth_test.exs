@@ -6,9 +6,9 @@ defmodule Chess.AuthTest do
   describe "users" do
     alias Chess.Auth.User
 
-    @valid_attrs %{password: "some password", username: "some username"}
-    @update_attrs %{password: "some updated password", username: "some updated username"}
-    @invalid_attrs %{password: nil, username: nil}
+    @valid_attrs %{name: "some name", password: "some password", username: "some username"}
+    @update_attrs %{name: "some name", password: "some updated password", username: "some updated username"}
+    @invalid_attrs %{name: nil, password: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =

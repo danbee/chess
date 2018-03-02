@@ -5,11 +5,11 @@ defmodule Chess.GameTest do
     alias Chess.Repo
     alias Chess.Store.Game
 
-    import Chess.Factory, only: [create_user: 2]
+    import Chess.Factory
 
     test "game is valid with a board and user" do
-      user = create_user("link", "ilovezelda")
-      opponent = create_user("zelda", "ganonsucks")
+      user = insert(:user, %{username: "link"})
+      opponent = insert(:user, %{username: "zelda"})
 
       attrs = %{
         board: %{},
@@ -37,8 +37,8 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without a board" do
-      user = create_user("link", "ilovezelda")
-      opponent = create_user("zelda", "ganonsucks")
+      user = insert(:user, %{username: "link"})
+      opponent = insert(:user, %{username: "zelda"})
 
       attrs = %{board: nil, user_id: user.id, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -48,7 +48,7 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without a user" do
-      opponent = create_user("zelda", "ganonsucks")
+      opponent = insert(:user, %{username: "zelda"})
 
       attrs = %{board: %{}, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -58,7 +58,7 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without an opponent" do
-      user = create_user("link", "ilovezelda")
+      user = insert(:user, %{username: "link"})
 
       attrs = %{board: %{}, user_id: user.id}
       changeset = Game.changeset(%Game{}, attrs)
