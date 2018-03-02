@@ -22,7 +22,7 @@ class ChessBoard extends React.Component {
         store.dispatch(setGame(data));
       });
 
-    this.channel = socket.channel("game:" + gameId, {});
+    this.channel = socket.channel(`game:${gameId}`, {});
     this.channel.join()
       .receive("error", resp => {
         console.log("Unable to join", resp);
@@ -102,7 +102,7 @@ class ChessBoard extends React.Component {
     }
   }
 
-  boardClass() {
+  get boardClass() {
     const turn = this.getTurn();
     const player = this.getPlayer();
 
@@ -111,7 +111,7 @@ class ChessBoard extends React.Component {
 
   render() {
     return (
-      <div className={this.boardClass()}>
+      <div className={this.boardClass}>
         <div className="board-header">
           <div className="board-border-top" />
         </div>

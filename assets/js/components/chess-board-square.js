@@ -10,24 +10,24 @@ class ChessBoardSquare extends React.Component {
     super(props);
   }
 
-  squareCoords() {
+  get squareCoords() {
     return [this.props.file, this.props.rank];
   }
 
   selectSquare() {
-    let { piece, store } = this.props;
-    let { gameId, selectedSquare, player } = store.getState();
+    const { piece, store } = this.props;
+    const { gameId, selectedSquare, player } = store.getState();
 
     if (selectedSquare != null && this.moveIsValid()) {
       $.ajax({
         method: "PATCH",
         url: "/api/games/" + gameId,
-        data: { move: { from: selectedSquare, to: this.squareCoords() } },
+        data: { move: { from: selectedSquare, to: this.squareCoords } },
       }).then((data) => store.dispatch(setGame(data)));
     } else if (selectedSquare != null) {
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {
-      store.dispatch(selectPiece(this.squareCoords()));
+      store.dispatch(selectPiece(this.squareCoords));
     }
   }
 
@@ -36,8 +36,8 @@ class ChessBoardSquare extends React.Component {
   }
 
   playerCanSelectPiece(player, piece) {
-    let { store } = this.props;
-    let { turn } = store.getState();
+    const { store } = this.props;
+    const { turn } = store.getState();
 
     return piece !== undefined &&
       piece.colour == player &&
@@ -45,12 +45,12 @@ class ChessBoardSquare extends React.Component {
   }
 
   isSelectedSquare() {
-    let { store } = this.props;
+    const { store } = this.props;
 
     if (store.getState().selectedSquare == null) {
       return false;
     } else {
-      return _.isEqual(this.squareCoords(), store.getState().selectedSquare);
+      return _.isEqual(this.squareCoords, store.getState().selectedSquare);
     }
   }
 
@@ -58,7 +58,7 @@ class ChessBoardSquare extends React.Component {
     return `f${this.props.file}-r${this.props.rank}`;
   }
 
-  squareClass() {
+  get squareClass() {
     if (this.props.piece == undefined) {
       return "board-square";
     } else {
@@ -74,7 +74,7 @@ class ChessBoardSquare extends React.Component {
   render() {
     return <div
       id={this.squareId()}
-      className={this.squareClass()}
+      className={this.squareClass}
       onClick={this.selectSquare.bind(this)}
     />;
   }
