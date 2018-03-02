@@ -9,6 +9,9 @@
 
   <div class="form-group">
     <div class="form-field">
+      <%= input f, :name %>
+    </div>
+    <div class="form-field">
       <%= input f, :username %>
     </div>
     <div class="form-field">

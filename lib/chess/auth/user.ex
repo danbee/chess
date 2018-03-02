@@ -6,9 +6,10 @@ defmodule Chess.Auth.User do
   alias Comeonin.Argon2
 
   schema "users" do
+    field :name, :string
+    field :username, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-    field :username, :string
 
     has_many :games, Chess.Store.Game
     has_many :games_as_opponent, Chess.Store.Game, foreign_key: :opponent_id
@@ -19,8 +20,8 @@ defmodule Chess.Auth.User do
   @doc false
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :password])
-    |> validate_required([:username, :password])
+    |> cast(params, required_attrs())
+    |> validate_required(required_attrs())
     |> unique_constraint(:username)
     |> hash_password()
   end
@@ -34,4 +35,6 @@ defmodule Chess.Auth.User do
       changeset
     end
   end
+
+  defp required_attrs, do: ~w[name username password]a
 end
