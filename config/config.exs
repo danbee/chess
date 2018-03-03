@@ -28,6 +28,9 @@ config :chess, Chess.Auth.Guardian,
   issuer: "chess",
   secret_key: "vd2vXkrYTTFKSKmNMoS2/Hk4Fxn8BkyzsVArRkxJazdQ3mr6bI4YgAC6f8ODiWlM"
 
+config :formulator,
+    translate_error_module: ChessWeb.ErrorHelpers
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
