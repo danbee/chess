@@ -4,39 +4,39 @@ defmodule Chess.SessionTest do
   import Wallaby.Query, only: [text_field: 1, link: 1, button: 1]
   import Chess.Factory
 
-  test "user cannot log in with incorrect username", %{session: session} do
-    insert(:user, %{username: "link@hyrule.kingdom", password: "ilovezelda"})
+  test "user cannot log in with incorrect email", %{session: session} do
+    insert(:user, %{email: "link@hyrule.kingdom", password: "ilovezelda"})
 
     session
     |> visit("/")
     |> click(link("Log in"))
-    |> fill_in(text_field("Username"), with: "link@example.com")
+    |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
 
-    assert session |> has_text?("Bad username or password")
+    assert session |> has_text?("Bad email or password")
   end
 
   test "user cannot log in with incorrect password", %{session: session} do
-    insert(:user, %{username: "link@hyrule.kingdom", password: "ilovezelda"})
+    insert(:user, %{email: "link@hyrule.kingdom", password: "ilovezelda"})
 
     session
     |> visit("/")
     |> click(link("Log in"))
-    |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
+    |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "calamityganon")
     |> click(button("Log in"))
 
-    assert session |> has_text?("Bad username or password")
+    assert session |> has_text?("Bad email or password")
   end
 
   test "user can log in with correct details", %{session: session} do
-    insert(:user, %{username: "link@hyrule.kingdom", password: "ilovezelda"})
+    insert(:user, %{email: "link@hyrule.kingdom", password: "ilovezelda"})
 
     session
     |> visit("/")
     |> click(link("Log in"))
-    |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
+    |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
 
@@ -46,12 +46,12 @@ defmodule Chess.SessionTest do
   end
 
   test "user can log out", %{session: session} do
-    insert(:user, %{username: "link@hyrule.kingdom", password: "ilovezelda"})
+    insert(:user, %{email: "link@hyrule.kingdom", password: "ilovezelda"})
 
     session
     |> visit("/")
     |> click(link("Log in"))
-    |> fill_in(text_field("Username"), with: "link@hyrule.kingdom")
+    |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
 

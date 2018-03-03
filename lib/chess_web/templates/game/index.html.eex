@@ -5,7 +5,7 @@
     <%= for game <- @games do %>
       <tr>
         <td>
-          <%= link "Game with #{opponent(@conn, game).username}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+          <%= link "Game with #{opponent(@conn, game).name}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
         </td>
         <td>
           Started on <%= Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime) %>

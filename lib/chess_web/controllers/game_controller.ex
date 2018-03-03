@@ -81,7 +81,7 @@ defmodule ChessWeb.GameController do
   defp get_opponents(user) do
     query = from user in "users",
             where: user.id != ^user.id,
-            select: {user.username, user.id}
+            select: {user.name, user.id}
 
     query
     |> Repo.all

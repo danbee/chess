@@ -6,9 +6,21 @@ defmodule Chess.AuthTest do
   describe "users" do
     alias Chess.Auth.User
 
-    @valid_attrs %{name: "some name", password: "some password", username: "some username"}
-    @update_attrs %{name: "some name", password: "some updated password", username: "some updated username"}
-    @invalid_attrs %{name: nil, password: nil, username: nil}
+    @valid_attrs %{
+      name: "some name",
+      email: "some email",
+      password: "some password"
+    }
+    @update_attrs %{
+      name: "some name",
+      email: "some updated email",
+      password: "some updated password"
+    }
+    @invalid_attrs %{
+      name: nil,
+      email: nil,
+      password: nil
+    }
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -31,7 +43,7 @@ defmodule Chess.AuthTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Auth.create_user(@valid_attrs)
-      assert user.username == "some username"
+      assert user.email == "some email"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -42,7 +54,7 @@ defmodule Chess.AuthTest do
       user = user_fixture()
       assert {:ok, user} = Auth.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.username == "some updated username"
+      assert user.email == "some updated email"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -63,14 +75,16 @@ defmodule Chess.AuthTest do
     end
 
     test "authenticate_user/1 returns false on incorrect password " do
-      user_fixture(username: "link", password: "eyeofsheikah")
-      assert {:error, message} = Auth.authenticate_user("link", "shadowtemple")
+      user_fixture(email: "link@hyrule.com", password: "eyeofsheikah")
+      assert {:error, message} =
+        Auth.authenticate_user("link@hyrule.com", "shadowtemple")
       assert message == "invalid password"
     end
 
     test "authenticate_user/1 returns true on correct password " do
-      user = user_fixture(username: "link", password: "eyeofsheikah")
-      assert {:ok, ^user} = Auth.authenticate_user("link", "eyeofsheikah")
+      user = user_fixture(email: "link@hyrule.com", password: "eyeofsheikah")
+      assert {:ok, ^user} =
+        Auth.authenticate_user("link@hyrule.com", "eyeofsheikah")
     end
   end
 end

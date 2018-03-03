@@ -7,7 +7,7 @@ defmodule Chess.Auth.User do
 
   schema "users" do
     field :name, :string
-    field :username, :string
+    field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
 
@@ -22,7 +22,7 @@ defmodule Chess.Auth.User do
     struct
     |> cast(params, required_attrs())
     |> validate_required(required_attrs())
-    |> unique_constraint(:username)
+    |> unique_constraint(:email)
     |> hash_password()
   end
 
@@ -36,5 +36,5 @@ defmodule Chess.Auth.User do
     end
   end
 
-  defp required_attrs, do: ~w[name username password]a
+  defp required_attrs, do: ~w[name email password]a
 end

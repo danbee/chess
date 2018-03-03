@@ -8,7 +8,7 @@ defmodule Chess.RegistrationTest do
     |> visit("/")
     |> click(link("Register"))
     |> fill_in(text_field("Name"), with: "Link")
-    |> fill_in(text_field("Username"), with: "link@example.com")
+    |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Register"))
 

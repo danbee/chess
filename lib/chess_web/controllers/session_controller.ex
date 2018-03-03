@@ -12,9 +12,9 @@ defmodule ChessWeb.SessionController do
 
   def create(
     conn,
-    %{"user" => %{"username" => username, "password" => password}}
+    %{"user" => %{"email" => email, "password" => password}}
   ) do
-    case Auth.authenticate_user(username, password) do
+    case Auth.authenticate_user(email, password) do
       {:ok, user} ->
         conn
         |> Guardian.Plug.sign_in(user)
@@ -23,7 +23,7 @@ defmodule ChessWeb.SessionController do
       {:error, _error} ->
         changeset = User.changeset(%User{})
         conn
-        |> put_flash(:error, "Bad username or password")
+        |> put_flash(:error, "Bad email or password")
         |> render("new.html", changeset: changeset)
     end
   end

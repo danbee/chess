@@ -8,8 +8,8 @@ defmodule Chess.GameTest do
     import Chess.Factory
 
     test "game is valid with a board and user" do
-      user = insert(:user, %{username: "link"})
-      opponent = insert(:user, %{username: "zelda"})
+      user = insert(:user, %{email: "link@hyrule.com"})
+      opponent = insert(:user, %{email: "zelda@hyrule.com"})
 
       attrs = %{
         board: %{},
@@ -37,8 +37,8 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without a board" do
-      user = insert(:user, %{username: "link"})
-      opponent = insert(:user, %{username: "zelda"})
+      user = insert(:user, %{email: "link@hyrule.com"})
+      opponent = insert(:user, %{email: "zelda@hyrule.com"})
 
       attrs = %{board: nil, user_id: user.id, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -48,7 +48,7 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without a user" do
-      opponent = insert(:user, %{username: "zelda"})
+      opponent = insert(:user, %{email: "zelda@hyrule.com"})
 
       attrs = %{board: %{}, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -58,7 +58,7 @@ defmodule Chess.GameTest do
     end
 
     test "game is invalid without an opponent" do
-      user = insert(:user, %{username: "link"})
+      user = insert(:user, %{email: "link@hyrule.com"})
 
       attrs = %{board: %{}, user_id: user.id}
       changeset = Game.changeset(%Game{}, attrs)

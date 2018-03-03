@@ -16,7 +16,7 @@
       <header role="banner">
         <nav role="user">
           <%= if current_user(@conn) do %>
-            <%= current_user(@conn).name %> (<%= current_user(@conn).username %>)
+            <%= current_user(@conn).name %> (<%= current_user(@conn).email %>)
             |
             <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
           <% else %>

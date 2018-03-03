@@ -10,7 +10,7 @@ defmodule Chess.Factory do
   def insert(:user, params) do
     attrs = %{
       name: "Zelda",
-      username: "zelda",
+      email: "zelda@hyrule.com",
       password: "ilovelink"
     }
     |> Map.merge(params)

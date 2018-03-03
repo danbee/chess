@@ -40,9 +40,9 @@ defmodule Chess.Auth do
   end
 
   @doc false
-  def authenticate_user(username, password) do
+  def authenticate_user(email, password) do
     query = from u in User,
-            where: u.username == ^username
+            where: u.email == ^email
 
     query
     |> Repo.one

@@ -18,7 +18,7 @@ defmodule Chess.GameControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    opponent = insert(:user, %{username: "daruk"})
+    opponent = insert(:user, %{email: "daruk@goron.city"})
     attrs = %{"opponent_id" => opponent.id}
 
     user = insert(:user)
@@ -35,7 +35,7 @@ defmodule Chess.GameControllerTest do
 
   test "shows chosen game", %{conn: conn} do
     user = insert(:user)
-    opponent = insert(:user, %{username: "revali"})
+    opponent = insert(:user, %{email: "revali@rito.village"})
     game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     conn =
@@ -48,10 +48,10 @@ defmodule Chess.GameControllerTest do
 
   test "does not show a game if the user is not a player", %{conn: conn} do
     user = insert(:user)
-    opponent = insert(:user, %{username: "revali"})
+    opponent = insert(:user, %{email: "revali@rito.village"})
     game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
-    other_user = insert(:user, %{username: "mipha"})
+    other_user = insert(:user, %{email: "mipha@zora.domain"})
 
     conn =
       conn

@@ -12,67 +12,89 @@ defmodule Chess.GamesTest do
   end
 
   test "can create a new game", %{session: session} do
-    insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
 
     session
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "zelda")
+    |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
     session
-    |> assert_has(css("h2", text: "Game with zelda"))
+    |> assert_has(css("h2", text: "Game with Zelda"))
     |> assert_has(css(".board"))
   end
 
   test "can only see own games", %{session: session} do
-    opponent = insert(:user, %{username: "urbosa", password: "gerudoqueen"})
-
-    user = insert(:user, %{username: "zelda", password: "ganonsucks"})
+    opponent = insert(:user, %{
+      name: "Urbosa",
+      email: "urbosa@gerudo.town",
+      password: "gerudoqueen"
+    })
+    user = insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
     insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "urbosa")
+    |> select("game[opponent_id]", option: "Urbosa")
     |> click(button("Create game"))
     |> click(link("Back to games"))
 
     session
     |> assert_has(css(".table tr", count: 1))
-    |> assert_has(link("Game with urbosa"))
+    |> assert_has(link("Game with Urbosa"))
   end
 
   test "can see games as an opponent", %{session: session} do
-    opponent = insert(:user, %{username: "urbosa", password: "gerudoqueen"})
-
-    user = insert(:user, %{username: "zelda", password: "ganonsucks"})
+    opponent = insert(:user, %{
+      name: "Urbosa",
+      email: "urbosa@gerudo.town",
+      password: "gerudoqueen"
+    })
+    user = insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
     insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session
-    |> login("urbosa", "gerudoqueen")
+    |> login("urbosa@gerudo.town", "gerudoqueen")
 
     session
     |> assert_has(css(".table tr", count: 1))
-    |> assert_has(link("Game with zelda"))
+    |> assert_has(link("Game with Zelda"))
 
     session
-    |> click(link("Game with zelda"))
+    |> click(link("Game with Zelda"))
 
     session
-    |> assert_has(css("h2", text: "Game with zelda"))
+    |> assert_has(css("h2", text: "Game with Zelda"))
   end
 
   test "can move a piece", %{session: session} do
-    insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
 
     session
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "zelda")
+    |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
     session
@@ -87,13 +109,17 @@ defmodule Chess.GamesTest do
   end
 
   test "cannot move the opponents pieces", %{session: session} do
-    insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
 
     session
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "zelda")
+    |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
     session
@@ -102,20 +128,28 @@ defmodule Chess.GamesTest do
   end
 
   test "cannot move pieces when it's the opponents turn", %{session: session} do
-    insert(:user, %{username: "link", password: "ilovezelda"})
-    insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:user, %{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
+    })
+    insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
 
     session
-    |> login("link", "ilovezelda")
+    |> login("link@hyrule.com", "ilovezelda")
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "zelda")
+    |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
     {:ok, session2} = Wallaby.start_session
     session2
-    |> login("zelda", "ganonsucks")
-    |> click(link("Game with link"))
+    |> login("zelda@hyrule.com", "ganonsucks")
+    |> click(link("Game with Link"))
 
     session2
     |> click(css("#f4-r6"))
@@ -123,20 +157,28 @@ defmodule Chess.GamesTest do
   end
 
   test "move is reflected on opponents screen", %{session: session} do
-    insert(:user, %{username: "link", password: "ilovezelda"})
-    insert(:user, %{username: "zelda", password: "ganonsucks"})
+    insert(:user, %{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
+    })
+    insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
 
     session
-    |> login("link", "ilovezelda")
+    |> login("link@hyrule.com", "ilovezelda")
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "zelda")
+    |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
     {:ok, session2} = Wallaby.start_session
     session2
-    |> login("zelda", "ganonsucks")
-    |> click(link("Game with link"))
+    |> login("zelda@hyrule.com", "ganonsucks")
+    |> click(link("Game with Link"))
 
     session
     |> click(css("#f4-r1"))
@@ -149,16 +191,20 @@ defmodule Chess.GamesTest do
   end
 
   defp create_user_and_login(session) do
-    insert(:user, %{username: "link", password: "ilovezelda"})
+    insert(:user, %{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
+    })
 
     session
-    |> login("link", "ilovezelda")
+    |> login("link@hyrule.com", "ilovezelda")
   end
 
-  defp login(session, username, password) do
+  defp login(session, email, password) do
     session
     |> visit("/session/new")
-    |> fill_in(text_field("Username"), with: username)
+    |> fill_in(text_field("Email"), with: email)
     |> fill_in(text_field("Password"), with: password)
     |> click(button("Log in"))
   end

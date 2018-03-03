@@ -12,7 +12,7 @@
       <%= input f, :name %>
     </div>
     <div class="form-field">
-      <%= input f, :username %>
+      <%= input f, :email %>
     </div>
     <div class="form-field">
       <%= input f, :password, as: :password %>
