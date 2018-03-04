@@ -6,6 +6,8 @@ config :chess, ChessWeb.Endpoint,
   http: [port: 4001],
   server: true
 
+config :chess, :sql_sandbox, true
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
