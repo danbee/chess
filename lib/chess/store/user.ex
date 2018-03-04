@@ -2,7 +2,10 @@ defmodule Chess.Store.User do
   @moduledoc false
 
   use Ecto.Schema
+
   import Ecto.Changeset
+  import Ecto.Query
+
   alias Comeonin.Argon2
 
   schema "users" do
@@ -24,6 +27,12 @@ defmodule Chess.Store.User do
     |> validate_required(required_attrs())
     |> unique_constraint(:email)
     |> hash_password()
+  end
+
+  def opponents(user) do
+    from user in "users",
+      where: user.id != ^user.id,
+      select: {user.name, user.id}
   end
 
   defp hash_password(changeset) do

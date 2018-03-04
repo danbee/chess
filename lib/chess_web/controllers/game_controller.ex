@@ -2,11 +2,13 @@ defmodule ChessWeb.GameController do
   use ChessWeb, :controller
 
   alias Chess.Store.Game
+  alias Chess.Store.User
 
   import Chess.Auth, only: [current_user: 1]
 
   def index(conn, _params) do
     changeset = Game.changeset(%Game{})
+
     games =
       conn
       |> current_user()
@@ -21,23 +23,22 @@ defmodule ChessWeb.GameController do
 
   def new(conn, _params) do
     changeset = Game.changeset(%Game{})
+
     opponents =
       conn
       |> current_user()
-      |> get_opponents()
+      |> User.opponents()
+      |> Repo.all
 
     conn
     |> render("new.html", changeset: changeset, opponents: opponents)
   end
 
   def create(conn, %{"game" => %{"opponent_id" => opponent_id}}) do
-    changeset = Game.changeset(
-      %Game{},
-      %{
-        user_id: current_user(conn).id,
-        opponent_id: opponent_id
-      }
-    )
+    changeset = Game.changeset(%Game{}, %{
+      user_id: current_user(conn).id,
+      opponent_id: opponent_id
+    })
 
     case Repo.insert(changeset) do
       {:ok, game} ->
@@ -46,7 +47,12 @@ defmodule ChessWeb.GameController do
         |> redirect(to: game_path(conn, :show, game))
 
       {:error, changeset} ->
-        opponents = get_opponents(current_user(conn))
+        opponents =
+          conn
+          |> current_user()
+          |> User.opponents()
+          |> Repo.all
+
         conn
         |> render("new.html", changeset: changeset, opponents: opponents)
     end
@@ -58,6 +64,7 @@ defmodule ChessWeb.GameController do
       |> current_user()
       |> Game.for_user()
       |> preload([:user, :opponent])
+
     game =
       query
       |> Repo.get!(id)
@@ -76,14 +83,5 @@ defmodule ChessWeb.GameController do
     conn
     |> put_flash(:info, "Game deleted successfully.")
     |> redirect(to: game_path(conn, :index))
-  end
-
-  defp get_opponents(user) do
-    query = from user in "users",
-            where: user.id != ^user.id,
-            select: {user.name, user.id}
-
-    query
-    |> Repo.all
   end
 end
