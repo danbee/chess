@@ -8,15 +8,12 @@ defmodule Chess.Factory do
   def insert(_resource, _params \\ %{})
 
   def insert(:user, params) do
-    attrs = %{
+    %User{
       name: "Zelda",
       email: "zelda@hyrule.com",
       password: "ilovelink"
     }
-    |> Map.merge(params)
-
-    %User{}
-    |> User.changeset(attrs)
+    |> User.changeset(params)
     |> Repo.insert!
   end
 
