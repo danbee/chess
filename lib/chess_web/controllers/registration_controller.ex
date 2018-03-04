@@ -1,7 +1,7 @@
 defmodule ChessWeb.RegistrationController do
   use ChessWeb, :controller
 
-  alias Chess.Auth.User
+  alias Chess.Store.User
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})

@@ -4,7 +4,7 @@ defmodule Chess.AuthTest do
   alias Chess.Auth
 
   describe "users" do
-    alias Chess.Auth.User
+    alias Chess.Store.User
 
     @valid_attrs %{
       name: "some name",

@@ -7,7 +7,7 @@ defmodule Chess.Auth do
   alias Comeonin.Argon2
   alias Chess.Repo
 
-  alias Chess.Auth.User
+  alias Chess.Store.User
 
   def current_user(conn) do
     Guardian.Plug.current_resource(conn)

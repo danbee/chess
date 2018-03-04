@@ -14,8 +14,8 @@ defmodule Chess.Store.Game do
     field :board, :map, default: Board.default()
     field :turn, :string, default: "white"
 
-    belongs_to :user, Chess.Auth.User
-    belongs_to :opponent, Chess.Auth.User, references: :id
+    belongs_to :user, Chess.Store.User
+    belongs_to :opponent, Chess.Store.User, references: :id
 
     timestamps()
   end

@@ -1,4 +1,4 @@
-defmodule Chess.Auth.User do
+defmodule Chess.Store.User do
   @moduledoc false
 
   use Ecto.Schema

@@ -4,7 +4,7 @@ defmodule Chess.UserTest do
   import Chess.Factory
 
   describe "user" do
-    alias Chess.Auth.User
+    alias Chess.Store.User
     alias Chess.Repo
 
     @valid_attrs %{

@@ -2,8 +2,8 @@ defmodule ChessWeb.SessionController do
   use ChessWeb, :controller
 
   alias Chess.Auth
-  alias Chess.Auth.User
   alias Chess.Auth.Guardian
+  alias Chess.Store.User
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})

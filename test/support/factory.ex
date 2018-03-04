@@ -1,7 +1,7 @@
 defmodule Chess.Factory do
   @moduledoc false
 
-  alias Chess.Auth.User
+  alias Chess.Store.User
   alias Chess.Store.Game
   alias Chess.Repo
 
