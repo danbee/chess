@@ -22,7 +22,7 @@
             |
             <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
           <% else %>
-            <%= link("Register", to: registration_path(@conn, :new)) %>yout
+            <%= link("Register", to: registration_path(@conn, :new)) %>
             |
             <%= link("Log in", to: session_path(@conn, :new)) %>
           <% end %>
