@@ -34,13 +34,11 @@ defmodule ChessWeb.GameController do
     |> render("new.html", changeset: changeset, opponents: opponents)
   end
 
-  def create(conn, %{"game" => %{"opponent_id" => opponent_id}}) do
-    changeset = Game.changeset(%Game{}, %{
-      user_id: current_user(conn).id,
-      opponent_id: opponent_id
-    })
-
-    case Repo.insert(changeset) do
+  def create(conn, %{"game" => game}) do
+    %Game{user_id: current_user(conn).id}
+    |> Game.changeset(game)
+    |> Repo.insert()
+    |> case do
       {:ok, game} ->
         conn
         |> put_flash(:info, "Game created successfully.")
