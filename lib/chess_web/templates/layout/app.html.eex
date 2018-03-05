@@ -12,29 +12,35 @@
   </head>
 
   <body>
-    <div class="container">
-      <header role="banner">
-        <nav role="user">
+    <header role="banner">
+      <div class="container">
+        <h1>Chess</h1>
+
+        <nav class="user-nav" role="user">
           <%= if current_user(@conn) do %>
             <%= current_user(@conn).name %> (<%= current_user(@conn).email %>)
             |
             <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
           <% else %>
-            <%= link("Register", to: registration_path(@conn, :new)) %>
+            <%= link("Register", to: registration_path(@conn, :new)) %>yout
             |
             <%= link("Log in", to: session_path(@conn, :new)) %>
           <% end %>
         </nav>
-        <h1>Chess</h1>
-      </header>
+      </div>
+    </header>
 
+    <div class="container alerts">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    </div>
 
-      <main role="main">
+    <main role="main">
+      <div class="container">
         <%= render @view_module, @view_template, assigns %>
-      </main>
-    </div> <!-- /container -->
+      </div>
+    </main>
+
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

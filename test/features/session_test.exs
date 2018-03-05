@@ -1,7 +1,7 @@
 defmodule Chess.SessionTest do
   use ChessWeb.FeatureCase
 
-  import Wallaby.Query, only: [text_field: 1, link: 1, button: 1]
+  import Wallaby.Query
   import Chess.Factory
 
   test "user cannot log in with incorrect email", %{session: session} do
@@ -9,7 +9,7 @@ defmodule Chess.SessionTest do
 
     session
     |> visit("/")
-    |> click(link("Log in"))
+    |> click(css(".user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
@@ -22,7 +22,7 @@ defmodule Chess.SessionTest do
 
     session
     |> visit("/")
-    |> click(link("Log in"))
+    |> click(css(".user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "calamityganon")
     |> click(button("Log in"))
@@ -35,7 +35,7 @@ defmodule Chess.SessionTest do
 
     session
     |> visit("/")
-    |> click(link("Log in"))
+    |> click(css(".user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
@@ -50,7 +50,7 @@ defmodule Chess.SessionTest do
 
     session
     |> visit("/")
-    |> click(link("Log in"))
+    |> click(css(".user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))

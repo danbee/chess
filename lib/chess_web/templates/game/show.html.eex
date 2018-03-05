@@ -1,6 +1,6 @@
-<h2>Game with <%= opponent(@conn, @game).name %></h2>
-
 <p><%= link "Back to games", to: game_path(@conn, :index) %></p>
+
+<h2>Game with <%= opponent(@conn, @game).name %></h2>
 
 <div id="app" data-game-id="<%= @game.id %>">
 </div>

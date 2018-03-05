@@ -6,7 +6,7 @@ defmodule Chess.RegistrationTest do
   test "user can register", %{session: session} do
     session
     |> visit("/")
-    |> click(link("Register"))
+    |> click(css(".user-nav a", text: "Register"))
     |> fill_in(text_field("Name"), with: "Link")
     |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
@@ -18,7 +18,7 @@ defmodule Chess.RegistrationTest do
   test "user cannot register without a name", %{session: session} do
     session
     |> visit("/")
-    |> click(link("Register"))
+    |> click(css(".user-nav a", text: "Register"))
     |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Register"))
@@ -32,7 +32,7 @@ defmodule Chess.RegistrationTest do
   test "user cannot register without an email", %{session: session} do
     session
     |> visit("/")
-    |> click(link("Register"))
+    |> click(css(".user-nav a", text: "Register"))
     |> fill_in(text_field("Name"), with: "Link")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Register"))
@@ -46,7 +46,7 @@ defmodule Chess.RegistrationTest do
   test "user cannot register without a password", %{session: session} do
     session
     |> visit("/")
-    |> click(link("Register"))
+    |> click(css(".user-nav a", text: "Register"))
     |> fill_in(text_field("Name"), with: "Link")
     |> fill_in(text_field("Email"), with: "link@example.com")
     |> click(button("Register"))
