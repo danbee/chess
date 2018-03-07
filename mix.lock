@@ -1,4 +1,5 @@
-%{"argon2_elixir": {:hex, :argon2_elixir, "1.2.14", "0fc4bfbc1b7e459954987d3d2f3836befd72d63f3a355e3978f5005dd6e80816", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
+%{
+  "argon2_elixir": {:hex, :argon2_elixir, "1.2.14", "0fc4bfbc1b7e459954987d3d2f3836befd72d63f3a355e3978f5005dd6e80816", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
   "base64url": {:hex, :base64url, "0.0.1", "36a90125f5948e3afd7be97662a1504b934dd5dac78451ca6e9abf85a10286be", [:rebar], [], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "certifi": {:hex, :certifi, "2.0.0", "a0c0e475107135f76b8c1d5bc7efb33cd3815cb3cf3dea7aefdd174dabead064", [:rebar3], [], "hexpm"},
@@ -25,7 +26,7 @@
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [:rebar3], [], "hexpm"},
   "mime": {:hex, :mime, "1.2.0", "78adaa84832b3680de06f88f0997e3ead3b451a440d183d688085be2d709b534", [:mix], [], "hexpm"},
   "mimerl": {:hex, :mimerl, "1.0.2", "993f9b0e084083405ed8252b99460c4f0563e41729ab42d9074fd5e52439be88", [:rebar3], [], "hexpm"},
-  "phoenix": {:hex, :phoenix, "1.3.0", "1c01124caa1b4a7af46f2050ff11b267baa3edb441b45dbf243e979cd4c5891b", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.3.3 or ~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
+  "phoenix": {:hex, :phoenix, "1.3.1", "dc9fb380bd9afd002882c960aa066098d44bdb93094cf09db38173b933e462b6", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.3.3 or ~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "3.3.0", "702f6e164512853d29f9d20763493f2b3bcfcb44f118af2bc37bb95d0801b480", [:mix], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: false]}, {:phoenix_html, "~> 2.9", [hex: :phoenix_html, repo: "hexpm", optional: true]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_html": {:hex, :phoenix_html, "2.10.5", "4f9df6b0fb7422a9440a73182a566cb9cbe0e3ffe8884ef9337ccf284fc1ef0a", [:mix], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.1.3", "1d178429fc8950b12457d09c6afec247bfe1fcb6f36209e18fbb0221bdfe4d41", [:mix], [{:file_system, "~> 0.2.1 or ~> 0.3", [hex: :file_system, repo: "hexpm", optional: false]}, {:phoenix, "~> 1.0 or ~> 1.2 or ~> 1.3", [hex: :phoenix, repo: "hexpm", optional: false]}], "hexpm"},
@@ -41,4 +42,5 @@
   "tzdata": {:hex, :tzdata, "0.5.16", "13424d3afc76c68ff607f2df966c0ab4f3258859bbe3c979c9ed1606135e7352", [:mix], [{:hackney, "~> 1.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.3.1", "a1f612a7b512638634a603c8f401892afbf99b8ce93a45041f8aaca99cadb85e", [:rebar3], [], "hexpm"},
   "uuid": {:hex, :uuid, "1.1.8", "e22fc04499de0de3ed1116b770c7737779f226ceefa0badb3592e64d5cfb4eb9", [:mix], [], "hexpm"},
-  "wallaby": {:hex, :wallaby, "0.19.2", "358bbff251e3555e02566280d1795132da792969dd58ff89963536d013058719", [:mix], [{:httpoison, "~> 0.12", [hex: :httpoison, repo: "hexpm", optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, repo: "hexpm", optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, repo: "hexpm", optional: false]}], "hexpm"}}
+  "wallaby": {:hex, :wallaby, "0.19.2", "358bbff251e3555e02566280d1795132da792969dd58ff89963536d013058719", [:mix], [{:httpoison, "~> 0.12", [hex: :httpoison, repo: "hexpm", optional: false]}, {:poison, ">= 1.4.0", [hex: :poison, repo: "hexpm", optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, repo: "hexpm", optional: false]}], "hexpm"},
+}
