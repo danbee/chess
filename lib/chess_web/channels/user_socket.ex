@@ -22,7 +22,7 @@ defmodule ChessWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{"token" => token}, socket) do
-    case Token.verify(socket, "game socket", token, max_age: 1209600) do
+    case Token.verify(socket, "game socket", token, max_age: 1_209_600) do
       {:ok, user_id} ->
         {:ok, assign(socket, :current_user, user_id)}
       {:error, _reason} ->
