@@ -4,7 +4,7 @@
     fn form -> %>
   <div class="form-group">
     <%= label form, :opponent_id %>
-    <%= select form, :opponent_id, @opponents %>
+    <%= select form, :opponent_id, @opponents, prompt: "Choose an opponent" %>
     <%= error_tag form, :opponent_id %>
   </div>
 
