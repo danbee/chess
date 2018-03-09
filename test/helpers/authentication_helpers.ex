@@ -1,4 +1,6 @@
 defmodule Chess.AuthenticationHelpers do
+  @moduledoc false
+
   use Wallaby.DSL
 
   import Wallaby.Query

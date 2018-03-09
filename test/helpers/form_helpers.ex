@@ -1,4 +1,6 @@
 defmodule Chess.FormHelpers do
+  @moduledoc false
+
   use Wallaby.DSL
 
   import Wallaby.Query
