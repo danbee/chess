@@ -1,6 +1,8 @@
 defmodule ChessWeb.UserSocket do
   use Phoenix.Socket
 
+  alias Phoenix.Token
+
   ## Channels
   channel "game:*", ChessWeb.GameChannel
 
@@ -19,8 +21,13 @@ defmodule ChessWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case Token.verify(socket, "game socket", token, max_age: 1209600) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :current_user, user_id)}
+      {:error, _reason} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

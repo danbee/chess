@@ -1,6 +1,8 @@
 defmodule ChessWeb.Router do
   use ChessWeb, :router
 
+  alias Phoenix.Token
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,6 +17,7 @@ defmodule ChessWeb.Router do
 
   pipeline :ensure_auth do
     plug Guardian.Plug.EnsureAuthenticated
+    plug :put_user_token
   end
 
   pipeline :api do
@@ -44,5 +47,14 @@ defmodule ChessWeb.Router do
     pipe_through [:api, :auth, :ensure_auth]
 
     resources "/games", ChessWeb.Api.GameController, only: [:show, :update]
+  end
+
+  defp put_user_token(conn, _) do
+    if current_user = Guardian.Plug.current_resource(conn) do
+      token = Token.sign(conn, "game socket", current_user.id)
+      assign(conn, :user_token, token)
+    else
+      conn
+    end
   end
 end
