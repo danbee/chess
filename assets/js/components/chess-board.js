@@ -3,30 +3,11 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import classNames from "classnames";
 
-import API from "../services/api";
-import Channel from "../services/channel";
-
-import { setPlayer, setGame, setGameId } from "../store/actions";
-
 import ChessBoardSquare from "./chess-board-square";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
     const { gameId, store } = this.props;
-
-    store.dispatch(setGameId(gameId));
-
-    API.getGame(gameId)
-      .then(response => {
-        store.dispatch(setPlayer(response.data.player));
-        store.dispatch(setGame(response.data));
-      });
-
-    this.channel = Channel.gameChannel(gameId);
-
-    this.channel.on("game_update", data => {
-      store.dispatch(setGame(data));
-    });
   }
 
   getTurn() {
@@ -45,7 +26,7 @@ class ChessBoard extends React.Component {
   }
 
   renderFiles(rankId) {
-    const { store } = this.props;
+    const { store, sendMove } = this.props;
     const rank = this.getBoard()[rankId];
 
     return _.map(this.files(rank), fileId => {
@@ -56,6 +37,7 @@ class ChessBoard extends React.Component {
           rank={rankId}
           piece={rank[fileId]}
           store={store}
+          sendMove={sendMove}
         />
       );
     });

@@ -16,16 +16,14 @@ class ChessBoardSquare extends React.Component {
   }
 
   selectSquare() {
-    const { piece, store } = this.props;
+    const { piece, store, sendMove } = this.props;
     const { gameId, selectedSquare, player } = store.getState();
 
     if (selectedSquare != null && this.moveIsValid()) {
-      API.updateGame(gameId, {
+      sendMove(gameId, {
         from: selectedSquare,
         to: this.squareCoords,
-      }).then((response) => {
-        store.dispatch(setGame(response.data));
-      });
+      })
     } else if (selectedSquare != null) {
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {
