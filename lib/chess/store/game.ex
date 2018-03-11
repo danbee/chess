@@ -32,9 +32,13 @@ defmodule Chess.Store.Game do
   def change_turn("white"), do: "black"
 
   def for_user(user) do
+    for_user_id(user.id)
+  end
+
+  def for_user_id(user_id) do
     from game in Game,
-      where: game.user_id == ^user.id,
-      or_where: game.opponent_id == ^user.id
+      where: game.user_id == ^user_id,
+      or_where: game.opponent_id == ^user_id
   end
 
   def ordered(query) do

@@ -25,28 +25,34 @@ class App extends React.Component {
 
     store.dispatch(setGameId(gameId));
 
-    API.getGame(gameId)
-      .then(response => {
-        store.dispatch(setPlayer(response.data.player));
-        store.dispatch(setGame(response.data));
-      });
-
     this.channel = Channel.gameChannel(gameId);
 
-    this.channel.on("game_update", data => {
+    this.channel.on("game:update", data => {
+      if (data.player != undefined) {
+        store.dispatch(setPlayer(data.player));
+      };
       store.dispatch(setGame(data));
     });
+
+    this.channel.join()
+      .receive("error", resp => {
+        console.log("Unable to join", resp);
+      });
   }
 
   sendMove(gameId, move) {
-    API.updateGame(gameId, move);
+    this.channel.push("game:move", move);
   }
 
   render() {
     const { store, gameId } = this.props;
 
     return (
-      <ChessBoard gameId={gameId} store={store} sendMove={this.sendMove} />
+      <ChessBoard
+        gameId={gameId}
+        store={store}
+        sendMove={this.sendMove.bind(this)}
+      />
     );
   }
 }
