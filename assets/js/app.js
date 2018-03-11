@@ -8,16 +8,13 @@ import ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-import chessBoardReducer from "./reducers/chess-board";
-
-const store = createStore(chessBoardReducer);
-
-import { setPlayer, setGame, setGameId } from "./store/actions";
-
-import API from "./services/api";
 import Channel from "./services/channel";
 
+import chessBoardReducer from "./reducers/chess-board";
+import { setPlayer, setGame, setGameId } from "./store/actions";
 import ChessBoard from "./components/chess-board";
+
+const store = createStore(chessBoardReducer);
 
 class App extends React.Component {
   componentWillMount() {
@@ -25,23 +22,11 @@ class App extends React.Component {
 
     store.dispatch(setGameId(gameId));
 
-    this.channel = Channel.gameChannel(gameId);
-
-    this.channel.on("game:update", data => {
-      if (data.player != undefined) {
-        store.dispatch(setPlayer(data.player));
-      };
-      store.dispatch(setGame(data));
-    });
-
-    this.channel.join()
-      .receive("error", resp => {
-        console.log("Unable to join", resp);
-      });
+    this.channel = new Channel(store, gameId);
   }
 
   sendMove(gameId, move) {
-    this.channel.push("game:move", move);
+    this.channel.sendMove(move);
   }
 
   render() {
