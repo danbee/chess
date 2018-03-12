@@ -3,6 +3,7 @@ defmodule Chess.Moves do
 
   alias Chess.Moves.Pawn
   alias Chess.Moves.Rook
+  alias Chess.Moves.Bishop
 
   def available(board, {file, rank}) do
     piece = board["#{file},#{rank}"]
@@ -13,7 +14,7 @@ defmodule Chess.Moves do
       %{"type" => "rook"} ->
         Rook.moves(board, {file, rank})
       %{"type" => "bishop"} ->
-        []
+        Bishop.moves(board, {file, rank})
       %{"type" => "knight"} ->
         []
       %{"type" => "king"} ->
