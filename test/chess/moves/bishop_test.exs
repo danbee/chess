@@ -1,11 +1,11 @@
 defmodule Chess.Moves.BishopTest do
   use Chess.DataCase
 
-  alias Chess.Moves.Bishop
+  alias Chess.Moves
 
   test "bishops can move diagonally" do
     board = %{"4,5" => %{"type" => "bishop", "colour" => "white"}}
-    moves = Bishop.moves(board, {4, 5})
+    moves = Moves.available(board, {4, 5})
 
     expected_moves = Enum.sort([
       {5, 6}, {6, 7},
@@ -18,7 +18,7 @@ defmodule Chess.Moves.BishopTest do
 
   test "bishops cannot move further than the edge" do
     board = %{"0,0" => %{"type" => "bishop", "colour" => "white"}}
-    moves = Bishop.moves(board, {0, 0})
+    moves = Moves.available(board, {0, 0})
 
     expected_moves = Enum.sort([
       {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}

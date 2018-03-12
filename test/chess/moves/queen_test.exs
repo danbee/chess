@@ -1,11 +1,11 @@
 defmodule Chess.Moves.QueenTest do
   use Chess.DataCase
 
-  alias Chess.Moves.Queen
+  alias Chess.Moves
 
   test "queens can move in any direction" do
-    board = %{"4,5" => %{"type" => "rook", "colour" => "white"}}
-    moves = Queen.moves(board, {4, 5})
+    board = %{"4,5" => %{"type" => "queen", "colour" => "white"}}
+    moves = Moves.available(board, {4, 5})
 
     expected_moves = Enum.sort([
       {4, 0}, {4, 1}, {4, 2}, {4, 3}, {4, 4}, {4, 6}, {4, 7},
