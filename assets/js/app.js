@@ -13,6 +13,8 @@ import Channel from "./services/channel";
 import chessBoardReducer from "./reducers/chess-board";
 import { setGameId } from "./store/actions";
 
+import ChessBoard from "./components/chess-board";
+
 const store = createStore(chessBoardReducer);
 
 class App extends React.Component {
