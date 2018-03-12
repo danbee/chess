@@ -14,6 +14,7 @@ const chessBoardReducer = (state = defaultState, action) => {
         .set("board", action.board)
         .set("turn", action.turn)
         .set("selectedSquare", null)
+        .set("moves", [])
         .toJS();
 
     case "SET_MOVES":
@@ -29,6 +30,7 @@ const chessBoardReducer = (state = defaultState, action) => {
     case "SELECT_PIECE":
       return Immutable.fromJS(state)
         .set("selectedSquare", action.coords)
+        .set("moves", [])
         .toJS();
 
     default:

@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import API from "../services/api";
 
-import { setGame, setMoves, selectPiece } from "../store/actions";
+import { selectPiece } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
@@ -15,27 +15,48 @@ class ChessBoardSquare extends React.Component {
     return [this.props.file, this.props.rank];
   }
 
+  get squareId() {
+    return `f${this.props.file}-r${this.props.rank}`;
+  }
+
+  get squareClass() {
+    if (this.props.piece == undefined) {
+      return classNames(
+        "board-square",
+        { "available": this.isAvailableSquare() }
+      );
+    } else {
+      return classNames(
+        "board-square",
+        this.props.piece.type,
+        this.props.piece.colour,
+        { "selected": this.isSelectedSquare() },
+        { "available": this.isAvailableSquare() }
+      );
+    }
+  }
+
   selectSquare() {
     const { piece, store, channel } = this.props;
     const { gameId, selectedSquare, player } = store.getState();
 
-    if (selectedSquare != null && this.moveIsValid()) {
-      store.dispatch(setMoves([]));
+    if (this.moveIsValid(selectedSquare)) {
       channel.sendMove({
         from: selectedSquare,
         to: this.squareCoords,
       });
     } else if (selectedSquare != null) {
-      store.dispatch(setMoves([]));
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {
-      channel.getAvailableMoves(this.squareCoords);
       store.dispatch(selectPiece(this.squareCoords));
+      channel.getAvailableMoves(this.squareCoords);
     }
   }
 
-  moveIsValid() {
-    return !this.isSelectedSquare;
+  moveIsValid(selectedSquare) {
+    return selectedSquare != null &&
+      !this.isSelectedSquare() &&
+      this.isAvailableSquare();
   }
 
   playerCanSelectPiece(player, piece) {
@@ -47,7 +68,7 @@ class ChessBoardSquare extends React.Component {
       player == turn;
   }
 
-  get isSelectedSquare() {
+  isSelectedSquare() {
     const { store } = this.props;
 
     if (store.getState().selectedSquare == null) {
@@ -57,39 +78,18 @@ class ChessBoardSquare extends React.Component {
     }
   }
 
-  get isAvailableSquare() {
+  isAvailableSquare() {
     const { store } = this.props;
     const moves = store.getState().moves;
 
-    return _.find(moves, function(square) {
+    return _.find(moves, (square) => {
       return square.join() == this.squareCoords.join();
-    }.bind(this));
-  }
-
-  squareId() {
-    return `f${this.props.file}-r${this.props.rank}`;
-  }
-
-  get squareClass() {
-    if (this.props.piece == undefined) {
-      return classNames(
-        "board-square",
-        { "available": this.isAvailableSquare }
-      );
-    } else {
-      return classNames(
-        "board-square",
-        this.props.piece.type,
-        this.props.piece.colour,
-        { "selected": this.isSelectedSquare },
-        { "available": this.isAvailableSquare }
-      );
-    }
+    });
   }
 
   render() {
     return <div
-      id={this.squareId()}
+      id={this.squareId}
       className={this.squareClass}
       onClick={this.selectSquare.bind(this)}
     />;
