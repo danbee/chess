@@ -11,8 +11,7 @@ import { Provider } from "react-redux";
 import Channel from "./services/channel";
 
 import chessBoardReducer from "./reducers/chess-board";
-import { setPlayer, setGame, setGameId } from "./store/actions";
-import ChessBoard from "./components/chess-board";
+import { setGameId } from "./store/actions";
 
 const store = createStore(chessBoardReducer);
 

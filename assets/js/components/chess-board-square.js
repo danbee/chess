@@ -23,7 +23,7 @@ class ChessBoardSquare extends React.Component {
       sendMove(gameId, {
         from: selectedSquare,
         to: this.squareCoords,
-      })
+      });
     } else if (selectedSquare != null) {
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {

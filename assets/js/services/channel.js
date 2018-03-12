@@ -21,7 +21,7 @@ class Channel {
     this.channel.on("game:update", data => {
       if (data.player != undefined) {
         this.store.dispatch(setPlayer(data.player));
-      };
+      }
       this.store.dispatch(setGame(data));
     });
   }
