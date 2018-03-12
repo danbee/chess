@@ -2,6 +2,7 @@ defmodule Chess.Moves do
   @moduledoc false
 
   alias Chess.Moves.Pawn
+  alias Chess.Moves.Rook
 
   def available(board, {file, rank}) do
     piece = board["#{file},#{rank}"]
@@ -9,6 +10,8 @@ defmodule Chess.Moves do
     case piece do
       %{"type" => "pawn"} ->
         Pawn.moves(board, {file, rank})
+      %{"type" => "rook"} ->
+        Rook.moves(board, {file, rank})
     end
   end
 end
