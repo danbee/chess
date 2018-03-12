@@ -8,10 +8,8 @@ defmodule Chess.Moves.BishopTest do
     moves = Moves.available(board, {4, 5})
 
     expected_moves = Enum.sort([
-      {5, 6}, {6, 7},
-      {5, 4}, {6, 3}, {7, 2},
-      {3, 4}, {2, 3}, {1, 2}, {0, 1},
-      {3, 6}, {2, 7},
+      {0, 1}, {1, 2}, {2, 3}, {3, 4}, {5, 6}, {6, 7},
+      {2, 7}, {3, 6}, {5, 4}, {6, 3}, {7, 2},
     ])
     assert Enum.sort(moves) == expected_moves
   end
