@@ -7,10 +7,8 @@ defmodule ChessWeb.GameChannel do
   alias Chess.Board
   alias Chess.Moves
 
-  import Chess.Auth, only: [current_user: 1]
-
   def join("game:" <> game_id, _params, socket) do
-    send(self, {:after_join, game_id})
+    send(self(), {:after_join, game_id})
 
     {:ok, assign(socket, :game_id, game_id)}
   end
