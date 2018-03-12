@@ -7,7 +7,7 @@ defmodule Chess.Moves do
     piece = board["#{file},#{rank}"]
 
     case piece do
-      %{type: :pawn} ->
+      %{"type" => "pawn"} ->
         Pawn.moves(board, {file, rank})
     end
   end

@@ -15,10 +15,12 @@ $base-font-size: 16px;
 $black-square-color: #777;
 $white-square-color: #bbb;
 
-$selected-square-color: #6f0;
+$selected-square-color: #0cf;
+$available-square-color: #6f0;
 
 $square-outline-color: darken($black-square-color, 20%);
 $selected-outline-color: lighten($selected-square-color, 20%);
+$available-outline-color: rgba(lighten($available-square-color, 20%), 0.7);
 
 $colours: "black" "white";
 $pieces: king queen bishop knight rook pawn;

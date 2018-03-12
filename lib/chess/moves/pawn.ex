@@ -5,12 +5,12 @@ defmodule Chess.Moves.Pawn do
     piece = board["#{file},#{rank}"]
 
     case piece do
-      %{colour: :white} ->
+      %{"colour" => "white"} ->
         case rank do
           1 -> [{file, rank + 1}, {file, rank + 2}]
           _ -> [{file, rank + 1}]
         end
-      %{colour: :black} ->
+      %{"colour" => "black"} ->
         case rank do
           6 -> [{file, rank - 1}, {file, rank - 2}]
           _ -> [{file, rank - 1}]

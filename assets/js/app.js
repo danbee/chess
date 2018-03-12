@@ -24,10 +24,6 @@ class App extends React.Component {
     this.channel = new Channel(store, gameId);
   }
 
-  sendMove(gameId, move) {
-    this.channel.sendMove(move);
-  }
-
   render() {
     const { store, gameId } = this.props;
 
@@ -35,7 +31,7 @@ class App extends React.Component {
       <ChessBoard
         gameId={gameId}
         store={store}
-        sendMove={this.sendMove.bind(this)}
+        channel={this.channel}
       />
     );
   }

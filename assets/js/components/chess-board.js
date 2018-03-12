@@ -26,7 +26,7 @@ class ChessBoard extends React.Component {
   }
 
   renderFiles(rankId) {
-    const { store, sendMove } = this.props;
+    const { store, channel } = this.props;
     const rank = this.getBoard()[rankId];
 
     return _.map(this.files(rank), fileId => {
@@ -37,7 +37,7 @@ class ChessBoard extends React.Component {
           rank={rankId}
           piece={rank[fileId]}
           store={store}
-          sendMove={sendMove}
+          channel={channel}
         />
       );
     });

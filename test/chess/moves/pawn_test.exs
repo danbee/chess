@@ -18,7 +18,7 @@ defmodule Chess.Moves.PawnTest do
   end
 
   test "white pawn not on starting square can move forward one space" do
-    board = %{"4,2" => %{type: :pawn, colour: :white}}
+    board = %{"4,2" => %{"type" => "pawn", "colour" => "white"}}
     moves = Pawn.moves(board, {4, 2})
 
     expected_moves = [{4, 3}]
@@ -26,7 +26,7 @@ defmodule Chess.Moves.PawnTest do
   end
 
   test "black pawn not on starting square can move forward one space" do
-    board = %{"4,5" => %{type: :pawn, colour: :black}}
+    board = %{"4,5" => %{"type" => "pawn", "colour" => "black"}}
     moves = Pawn.moves(board, {4, 5})
 
     expected_moves = [{4, 4}]

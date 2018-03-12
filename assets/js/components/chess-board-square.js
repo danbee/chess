@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import API from "../services/api";
 
-import { setGame, selectPiece } from "../store/actions";
+import { setGame, setMoves, selectPiece } from "../store/actions";
 
 class ChessBoardSquare extends React.Component {
   constructor(props) {
@@ -16,23 +16,26 @@ class ChessBoardSquare extends React.Component {
   }
 
   selectSquare() {
-    const { piece, store, sendMove } = this.props;
+    const { piece, store, channel } = this.props;
     const { gameId, selectedSquare, player } = store.getState();
 
     if (selectedSquare != null && this.moveIsValid()) {
-      sendMove(gameId, {
+      store.dispatch(setMoves([]));
+      channel.sendMove({
         from: selectedSquare,
         to: this.squareCoords,
       });
     } else if (selectedSquare != null) {
+      store.dispatch(setMoves([]));
       store.dispatch(selectPiece(null));
     } else if (this.playerCanSelectPiece(player, piece)) {
+      channel.getAvailableMoves(this.squareCoords);
       store.dispatch(selectPiece(this.squareCoords));
     }
   }
 
   moveIsValid() {
-    return !this.isSelectedSquare();
+    return !this.isSelectedSquare;
   }
 
   playerCanSelectPiece(player, piece) {
@@ -44,7 +47,7 @@ class ChessBoardSquare extends React.Component {
       player == turn;
   }
 
-  isSelectedSquare() {
+  get isSelectedSquare() {
     const { store } = this.props;
 
     if (store.getState().selectedSquare == null) {
@@ -54,19 +57,32 @@ class ChessBoardSquare extends React.Component {
     }
   }
 
+  get isAvailableSquare() {
+    const { store } = this.props;
+    const moves = store.getState().moves;
+
+    return _.find(moves, function(square) {
+      return square.join() == this.squareCoords.join();
+    }.bind(this));
+  }
+
   squareId() {
     return `f${this.props.file}-r${this.props.rank}`;
   }
 
   get squareClass() {
     if (this.props.piece == undefined) {
-      return "board-square";
+      return classNames(
+        "board-square",
+        { "available": this.isAvailableSquare }
+      );
     } else {
       return classNames(
         "board-square",
         this.props.piece.type,
         this.props.piece.colour,
-        { "selected": this.isSelectedSquare() }
+        { "selected": this.isSelectedSquare },
+        { "available": this.isAvailableSquare }
       );
     }
   }

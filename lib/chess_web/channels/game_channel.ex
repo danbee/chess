@@ -5,6 +5,7 @@ defmodule ChessWeb.GameChannel do
 
   alias Chess.Store.Game
   alias Chess.Board
+  alias Chess.Moves
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -47,8 +48,30 @@ defmodule ChessWeb.GameChannel do
       {:ok, game} ->
         send_update(game)
 
-        {:noreply, socket}
+      {:noreply, socket}
     end
+  end
+
+  def handle_in(
+    "game:get_available_moves",
+    %{"square" => [file, rank]},
+    socket
+  ) do
+    game =
+      socket.assigns.current_user_id
+      |> Game.for_user_id()
+      |> Repo.get!(socket.assigns.game_id)
+
+    moves = Moves.available(game.board, {
+      String.to_integer(file),
+      String.to_integer(rank)
+    })
+
+    reply = %{
+      moves: Enum.map(moves, &(Tuple.to_list(&1)))
+    }
+
+    {:reply, {:ok, reply}, socket}
   end
 
   def send_update(game) do

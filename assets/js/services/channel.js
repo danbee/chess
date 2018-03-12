@@ -1,5 +1,5 @@
 import socket from "../socket";
-import { setPlayer, setGame } from "../store/actions";
+import { setPlayer, setGame, setMoves } from "../store/actions";
 
 class Channel {
   constructor(store, gameId) {
@@ -24,6 +24,13 @@ class Channel {
       }
       this.store.dispatch(setGame(data));
     });
+  }
+
+  getAvailableMoves(square) {
+    this.channel.push("game:get_available_moves", { square })
+      .receive("ok", (data) => {
+        this.store.dispatch(setMoves(data.moves));
+      });
   }
 
   sendMove(move) {

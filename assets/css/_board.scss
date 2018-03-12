@@ -117,6 +117,11 @@ $board-size: 90vmin;
     background-color: mix($black-square-color, $selected-square-color, 60%);
     box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
   }
+
+  &.available {
+    background-color: mix($black-square-color, $available-square-color, 80%);
+    box-shadow: 0 0 0 ($board-size / 400) $available-outline-color;
+  }
 }
 
 @mixin white-square {
@@ -125,6 +130,11 @@ $board-size: 90vmin;
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
     box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
+  }
+
+  &.available {
+    background-color: mix($white-square-color, $available-square-color, 80%);
+    box-shadow: 0 0 0 ($board-size / 400) $available-outline-color;
   }
 }
 
