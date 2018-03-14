@@ -16,6 +16,38 @@ defmodule Chess.Moves.QueenTest do
     assert Enum.sort(moves) == expected_moves
   end
 
+  test "queens are blocked by another piece of the same colour" do
+    board = %{
+      "0,0" => %{"type" => "queen", "colour" => "white"},
+      "0,5" => %{"type" => "king", "colour" => "white"},
+      "5,0" => %{"type" => "bishop", "colour" => "white"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {0, 1}, {0, 2}, {0, 3}, {0, 4},
+      {1, 0}, {2, 0}, {3, 0}, {4, 0},
+      {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
+  test "queens can take an opponents piece" do
+    board = %{
+      "0,0" => %{"type" => "queen", "colour" => "white"},
+      "0,5" => %{"type" => "knight", "colour" => "black"},
+      "5,0" => %{"type" => "rook", "colour" => "black"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5},
+      {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0},
+      {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
   def board do
     Chess.Board.default
   end
