@@ -13,7 +13,7 @@ defmodule Chess.Moves.Rook do
   defp moves_north(board, {file, rank}) do
     board["#{file},#{rank}"]
     |> Map.get("colour")
-    |> Generator.moves(board, {file, rank}, {0, +1})
+    |> Generator.moves(board, {file, rank}, {0, 1})
   end
 
   defp moves_south(board, {file, rank}) do
@@ -25,7 +25,7 @@ defmodule Chess.Moves.Rook do
   defp moves_east(board, {file, rank}) do
     board["#{file},#{rank}"]
     |> Map.get("colour")
-    |> Generator.moves(board, {file, rank}, {+1, 0})
+    |> Generator.moves(board, {file, rank}, {1, 0})
   end
 
   defp moves_west(board, {file, rank}) do

@@ -14,7 +14,7 @@ defmodule Chess.Moves.RookTest do
     assert Enum.sort(moves) == expected_moves
   end
 
-  test "rook cannot move further than the edge" do
+  test "rooks cannot move further than the edge" do
     board = %{"0,0" => %{"type" => "rook", "colour" => "white"}}
     moves = Moves.available(board, {0, 0})
 
@@ -25,7 +25,7 @@ defmodule Chess.Moves.RookTest do
     assert Enum.sort(moves) == expected_moves
   end
 
-  test "rook is obstructed by another piece of the same colour" do
+  test "rooks are blocked by another piece of the same colour" do
     board = %{
       "0,0" => %{"type" => "rook", "colour" => "white"},
       "0,5" => %{"type" => "king", "colour" => "white"},
@@ -39,7 +39,7 @@ defmodule Chess.Moves.RookTest do
     assert Enum.sort(moves) == expected_moves
   end
 
-  test "rook can take a piece of the opposite colour" do
+  test "rooks can take an opponents piece" do
     board = %{
       "0,0" => %{"type" => "rook", "colour" => "white"},
       "0,5" => %{"type" => "knight", "colour" => "black"},
