@@ -25,6 +25,34 @@ defmodule Chess.Moves.RookTest do
     assert Enum.sort(moves) == expected_moves
   end
 
+  test "rook is obstructed by another piece of the same colour" do
+    board = %{
+      "0,0" => %{"type" => "rook", "colour" => "white"},
+      "0,5" => %{"type" => "king", "colour" => "white"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {0, 1}, {0, 2}, {0, 3}, {0, 4},
+      {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
+  test "rook can take a piece of the opposite colour" do
+    board = %{
+      "0,0" => %{"type" => "rook", "colour" => "white"},
+      "0,5" => %{"type" => "knight", "colour" => "black"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5},
+      {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
   def board do
     Chess.Board.default
   end
