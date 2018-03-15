@@ -66,6 +66,28 @@ defmodule Chess.Moves.PawnTest do
     assert moves == expected_moves
   end
 
+  test "white pawn can take an opponents piece" do
+    board = %{
+      "4,2" => %{"type" => "pawn", "colour" => "white"},
+      "5,3" => %{"type" => "pawn", "colour" => "black"},
+    }
+    moves = Pawn.moves(board, {4, 2})
+
+    expected_moves = [{4, 3}, {5, 3}]
+    assert moves == expected_moves
+  end
+
+  test "black pawn can take an opponents piece" do
+    board = %{
+      "6,6" => %{"type" => "pawn", "colour" => "black"},
+      "5,5" => %{"type" => "pawn", "colour" => "white"},
+    }
+    moves = Pawn.moves(board, {6, 6})
+
+    expected_moves = [{6, 5}, {6, 4}, {5, 5}]
+    assert moves == expected_moves
+  end
+
   def default_board do
     Chess.Board.default
   end
