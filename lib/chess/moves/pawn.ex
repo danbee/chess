@@ -3,7 +3,7 @@ defmodule Chess.Moves.Pawn do
 
   def moves(board, {file, rank}) do
     normal_moves(board, {file, rank}) ++
-      taking_moves(board, {file, rank})
+      capture_moves(board, {file, rank})
   end
 
   defp normal_moves(board, {file, rank}) do
@@ -12,13 +12,13 @@ defmodule Chess.Moves.Pawn do
     |> _moves(board, {file, rank})
   end
 
-  defp taking_moves(board, {file, rank}) do
+  defp capture_moves(board, {file, rank}) do
     colour =
       board["#{file},#{rank}"]
       |> Map.get("colour")
 
     colour
-    |> _taking_moves(board, {file, rank}, patterns(colour))
+    |> _capture_moves(board, {file, rank}, patterns(colour))
   end
 
   defp patterns("white") do
@@ -51,17 +51,17 @@ defmodule Chess.Moves.Pawn do
     end
   end
 
-  def _taking_moves(_colour, _board, {_file, _rank}, []), do: []
-  def _taking_moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
+  def _capture_moves(_colour, _board, {_file, _rank}, []), do: []
+  def _capture_moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
     move_square = {file + fv, rank + rv}
-    if can_take_piece?(colour, board, move_square) do
-      [move_square | _taking_moves(colour, board, {file, rank}, moves)]
+    if can_capture_piece?(colour, board, move_square) do
+      [move_square | _capture_moves(colour, board, {file, rank}, moves)]
     else
-      _taking_moves(colour, board, {file, rank}, moves)
+      _capture_moves(colour, board, {file, rank}, moves)
     end
   end
 
-  defp can_take_piece?(colour, board, {file, rank}) do
+  defp can_capture_piece?(colour, board, {file, rank}) do
     piece = board["#{file},#{rank}"]
     piece && piece["colour"] != colour
   end

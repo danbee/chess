@@ -9,7 +9,7 @@ defmodule Chess.Moves.Generator do
   def moves(colour, board, {file, rank}, {fv, rv}) do
     next_square = {file + fv, rank + rv}
     cond do
-      can_take_piece?(colour, board, next_square) ->
+      can_capture_piece?(colour, board, next_square) ->
         [next_square]
       obstruction?(colour, board, next_square) ->
         []
@@ -26,7 +26,7 @@ defmodule Chess.Moves.Generator do
       outside_board?(move_square) ||
         obstruction?(colour, board, move_square) ->
         moves(colour, board, {file, rank}, moves)
-      can_take_piece?(colour, board, move_square) ->
+      can_capture_piece?(colour, board, move_square) ->
         [move_square | moves(colour, board, {file, rank}, moves)]
       true ->
         [move_square | moves(colour, board, {file, rank}, moves)]
@@ -38,7 +38,7 @@ defmodule Chess.Moves.Generator do
       rank < 0 || rank > 7
   end
 
-  defp can_take_piece?(colour, board, {file, rank}) do
+  defp can_capture_piece?(colour, board, {file, rank}) do
     piece = board["#{file},#{rank}"]
     piece && piece["colour"] != colour
   end
