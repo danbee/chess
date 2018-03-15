@@ -25,7 +25,7 @@ defmodule Chess.Moves.RookTest do
     assert Enum.sort(moves) == expected_moves
   end
 
-  test "rooks are blocked by another piece of the same colour" do
+  test "rooks are blocked by other pieces of the same colour" do
     board = %{
       "0,0" => %{"type" => "rook", "colour" => "white"},
       "0,5" => %{"type" => "king", "colour" => "white"},
