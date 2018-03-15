@@ -13,12 +13,25 @@ defmodule Chess.Moves.KingTest do
     assert Enum.sort(moves) == expected_moves
   end
 
-  test "knights cannot move beyond the edges of the board" do
-    board = %{"0,0" => %{"type" => "knight", "colour" => "white"}}
+  test "kings cannot move beyond the edges of the board" do
+    board = %{"0,0" => %{"type" => "king", "colour" => "white"}}
     moves = Moves.available(board, {0, 0})
 
     expected_moves = Enum.sort([
-      {1, 2}, {2, 1}
+      {0, 1}, {1, 1}, {1, 0},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
+  test "kings are blocked by pieces of the same colour" do
+    board = %{
+      "0,0" => %{"type" => "king", "colour" => "white"},
+      "1,1" => %{"type" => "rook", "colour" => "white"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {0, 1}, {1, 0},
     ])
     assert Enum.sort(moves) == expected_moves
   end
