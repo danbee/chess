@@ -23,6 +23,19 @@ defmodule Chess.Moves.KnightTest do
     assert Enum.sort(moves) == expected_moves
   end
 
+  test "knights are blocked by other pieces of the same colour" do
+    board = %{
+      "0,0" => %{"type" => "knight", "colour" => "white"},
+      "1,2" => %{"type" => "king", "colour" => "white"},
+    }
+    moves = Moves.available(board, {0, 0})
+
+    expected_moves = Enum.sort([
+      {2, 1},
+    ])
+    assert Enum.sort(moves) == expected_moves
+  end
+
   def board do
     Chess.Board.default
   end
