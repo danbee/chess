@@ -1,6 +1,8 @@
 defmodule Chess.Moves do
   @moduledoc false
 
+  alias Chess.Board
+
   alias Chess.Moves.Pieces.Pawn
   alias Chess.Moves.Pieces.Bishop
   alias Chess.Moves.Pieces.Knight
@@ -9,7 +11,9 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.King
 
   def available(board, {file, rank}) do
-    piece = board["#{file},#{rank}"]
+    piece =
+      board
+      |> Board.piece({file, rank})
 
     case piece do
       %{"type" => "pawn"} ->

@@ -1,8 +1,12 @@
 defmodule Chess.Moves.Piece do
   @moduledoc false
 
+  alias Chess.Board
   alias Chess.Moves.Generator
   alias Chess.Moves.Pieces.Knight
+
+  def find(board, piece) do
+  end
 
   def attacked?(board, {file, rank}) do
     attacked_by_rook_or_queen?(board, {file, rank}) ||
@@ -48,7 +52,9 @@ defmodule Chess.Moves.Piece do
   end
 
   defp match_piece(board, {file, rank}, piece_type) do
-    piece = board["#{file},#{rank}"]
+    piece =
+      board
+      |> Board.piece({file, rank})
 
     piece["type"] == piece_type
   end

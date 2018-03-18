@@ -9,6 +9,10 @@ defmodule Chess.Board do
     end)
   end
 
+  def piece(board, {file, rank}) do
+    board["#{file},#{rank}"]
+  end
+
   def move_piece(board, move_params) do
     [from_file, from_rank] = move_params["from"]
     [to_file, to_rank] = move_params["to"]

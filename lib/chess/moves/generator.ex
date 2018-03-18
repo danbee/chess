@@ -6,10 +6,13 @@ defmodule Chess.Moves.Generator do
   like this.
   """
 
+  alias Chess.Board
+
   # `movement` is either a vector (bishop, rook, queen)
   # or a pattern (king, knight)
   def moves(board, {file, rank}, movement) do
-    board["#{file},#{rank}"]
+    board
+    |> Board.piece({file, rank})
     |> Map.get("colour")
     |> _moves(board, {file, rank}, movement)
   end
@@ -52,12 +55,17 @@ defmodule Chess.Moves.Generator do
   end
 
   defp can_capture_piece?(colour, board, {file, rank}) do
-    piece = board["#{file},#{rank}"]
+    piece =
+      board
+      |> Board.piece({file, rank})
+
     piece && piece["colour"] != colour
   end
 
   defp obstruction?(colour, board, {file, rank}) do
-    piece = board["#{file},#{rank}"]
+    piece =
+      board
+      |> Board.piece({file, rank})
     piece && piece["colour"] == colour
   end
 end

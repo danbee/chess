@@ -1,20 +1,24 @@
 defmodule Chess.Moves.Pieces.Pawn do
   @moduledoc false
 
+  alias Chess.Board
+
   def moves(board, {file, rank}) do
     normal_moves(board, {file, rank}) ++
       capture_moves(board, {file, rank})
   end
 
   defp normal_moves(board, {file, rank}) do
-    board["#{file},#{rank}"]
+    board
+    |> Board.piece({file, rank})
     |> Map.get("colour")
     |> _moves(board, {file, rank})
   end
 
   defp capture_moves(board, {file, rank}) do
     colour =
-      board["#{file},#{rank}"]
+      board
+      |> Board.piece({file, rank})
       |> Map.get("colour")
 
     colour
@@ -62,7 +66,10 @@ defmodule Chess.Moves.Pieces.Pawn do
   end
 
   defp can_capture_piece?(colour, board, {file, rank}) do
-    piece = board["#{file},#{rank}"]
+    piece =
+      board
+      |> Board.piece({file, rank})
+
     piece && piece["colour"] != colour
   end
 
