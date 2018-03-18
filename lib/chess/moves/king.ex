@@ -4,9 +4,7 @@ defmodule Chess.Moves.King do
   alias Chess.Moves.Generator
 
   def moves(board, {file, rank}) do
-    board["#{file},#{rank}"]
-    |> Map.get("colour")
-    |> Generator.moves(board, {file, rank}, patterns())
+    Generator.moves(board, {file, rank}, patterns())
   end
 
   defp patterns do

@@ -18,14 +18,14 @@ defmodule Chess.Moves.Pawn do
       |> Map.get("colour")
 
     colour
-    |> _capture_moves(board, {file, rank}, patterns(colour))
+    |> _capture_moves(board, {file, rank}, pattern(colour))
   end
 
-  defp patterns("white") do
+  def pattern("white") do
     [{-1, 1}, {1, 1}]
   end
 
-  defp patterns("black") do
+  def pattern("black") do
     [{-1, -1}, {1, -1}]
   end
 
