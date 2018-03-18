@@ -9,6 +9,14 @@ defmodule Chess.Board do
     end)
   end
 
+  def search(board, %{"type" => type, "colour" => colour}) do
+    board
+    |> Enum.filter(fn({_index, piece}) ->
+      match?(%{"type" => ^type, "colour" => ^colour}, piece)
+    end)
+    |> Enum.map(fn({index, _piece}) -> index_to_tuple(index) end)
+  end
+
   def piece(board, {file, rank}) do
     board["#{file},#{rank}"]
   end
@@ -60,5 +68,12 @@ defmodule Chess.Board do
       "6,0" => %{"type" => "knight", "colour" => "white"},
       "7,0" => %{"type" => "rook",   "colour" => "white"}
     }
+  end
+
+  defp index_to_tuple(index) do
+    index
+    |> String.split(",")
+    |> Enum.map(&(String.to_integer(&1)))
+    |> List.to_tuple
   end
 end
