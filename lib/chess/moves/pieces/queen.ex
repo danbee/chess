@@ -1,8 +1,8 @@
-defmodule Chess.Moves.Queen do
+defmodule Chess.Moves.Pieces.Queen do
   @moduledoc false
 
-  alias Chess.Moves.Rook
-  alias Chess.Moves.Bishop
+  alias Chess.Moves.Pieces.Rook
+  alias Chess.Moves.Pieces.Bishop
 
   def moves(board, {file, rank}) do
     Rook.moves(board, {file, rank}) ++

@@ -1,4 +1,4 @@
-defmodule Chess.Moves.King do
+defmodule Chess.Moves.Pieces.King do
   @moduledoc false
 
   alias Chess.Moves.Generator

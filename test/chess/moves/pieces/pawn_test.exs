@@ -1,17 +1,17 @@
-defmodule Chess.Moves.PawnTest do
+defmodule Chess.Moves.Pieces.PawnTest do
   use Chess.DataCase
 
-  alias Chess.Moves.Pawn
+  alias Chess.Moves
 
   test "white pawn can move forward one or two spaces" do
-    moves = Pawn.moves(default_board(), {4, 1})
+    moves = Moves.available(default_board(), {4, 1})
 
     expected_moves = [{4, 2}, {4, 3}]
     assert moves == expected_moves
   end
 
   test "black pawn can move forward one or two spaces" do
-    moves = Pawn.moves(default_board(), {4, 6})
+    moves = Moves.available(default_board(), {4, 6})
 
     expected_moves = [{4, 5}, {4, 4}]
     assert moves == expected_moves
@@ -19,7 +19,7 @@ defmodule Chess.Moves.PawnTest do
 
   test "white pawn not on starting square can move forward one space" do
     board = %{"4,2" => %{"type" => "pawn", "colour" => "white"}}
-    moves = Pawn.moves(board, {4, 2})
+    moves = Moves.available(board, {4, 2})
 
     expected_moves = [{4, 3}]
     assert moves == expected_moves
@@ -27,7 +27,7 @@ defmodule Chess.Moves.PawnTest do
 
   test "black pawn not on starting square can move forward one space" do
     board = %{"4,5" => %{"type" => "pawn", "colour" => "black"}}
-    moves = Pawn.moves(board, {4, 5})
+    moves = Moves.available(board, {4, 5})
 
     expected_moves = [{4, 4}]
     assert moves == expected_moves
@@ -38,7 +38,7 @@ defmodule Chess.Moves.PawnTest do
       "4,1" => %{"type" => "pawn", "colour" => "white"},
       "4,3" => %{"type" => "pawn", "colour" => "black"},
     }
-    moves = Pawn.moves(board, {4, 1})
+    moves = Moves.available(board, {4, 1})
 
     expected_moves = [{4, 2}]
     assert moves == expected_moves
@@ -49,7 +49,7 @@ defmodule Chess.Moves.PawnTest do
       "4,1" => %{"type" => "pawn", "colour" => "white"},
       "4,2" => %{"type" => "pawn", "colour" => "black"},
     }
-    moves = Pawn.moves(board, {4, 1})
+    moves = Moves.available(board, {4, 1})
 
     expected_moves = []
     assert moves == expected_moves
@@ -60,7 +60,7 @@ defmodule Chess.Moves.PawnTest do
       "4,2" => %{"type" => "pawn", "colour" => "white"},
       "4,3" => %{"type" => "pawn", "colour" => "black"},
     }
-    moves = Pawn.moves(board, {4, 2})
+    moves = Moves.available(board, {4, 2})
 
     expected_moves = []
     assert moves == expected_moves
@@ -71,7 +71,7 @@ defmodule Chess.Moves.PawnTest do
       "4,2" => %{"type" => "pawn", "colour" => "white"},
       "5,3" => %{"type" => "pawn", "colour" => "black"},
     }
-    moves = Pawn.moves(board, {4, 2})
+    moves = Moves.available(board, {4, 2})
 
     expected_moves = [{4, 3}, {5, 3}]
     assert moves == expected_moves
@@ -82,7 +82,7 @@ defmodule Chess.Moves.PawnTest do
       "6,6" => %{"type" => "pawn", "colour" => "black"},
       "5,5" => %{"type" => "pawn", "colour" => "white"},
     }
-    moves = Pawn.moves(board, {6, 6})
+    moves = Moves.available(board, {6, 6})
 
     expected_moves = [{6, 5}, {6, 4}, {5, 5}]
     assert moves == expected_moves

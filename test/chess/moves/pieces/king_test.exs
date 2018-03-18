@@ -1,4 +1,4 @@
-defmodule Chess.Moves.KingTest do
+defmodule Chess.Moves.Pieces.KingTest do
   use Chess.DataCase
 
   alias Chess.Moves

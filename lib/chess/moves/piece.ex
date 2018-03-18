@@ -2,7 +2,7 @@ defmodule Chess.Moves.Piece do
   @moduledoc false
 
   alias Chess.Moves.Generator
-  alias Chess.Moves.Knight
+  alias Chess.Moves.Pieces.Knight
 
   def attacked?(board, {file, rank}) do
     attacked_by_rook_or_queen?(board, {file, rank}) ||

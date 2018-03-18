@@ -1,12 +1,12 @@
 defmodule Chess.Moves do
   @moduledoc false
 
-  alias Chess.Moves.Pawn
-  alias Chess.Moves.Bishop
-  alias Chess.Moves.Knight
-  alias Chess.Moves.Rook
-  alias Chess.Moves.Queen
-  alias Chess.Moves.King
+  alias Chess.Moves.Pieces.Pawn
+  alias Chess.Moves.Pieces.Bishop
+  alias Chess.Moves.Pieces.Knight
+  alias Chess.Moves.Pieces.Rook
+  alias Chess.Moves.Pieces.Queen
+  alias Chess.Moves.Pieces.King
 
   def available(board, {file, rank}) do
     piece = board["#{file},#{rank}"]

@@ -1,4 +1,4 @@
-defmodule Chess.Moves.BishopTest do
+defmodule Chess.Moves.Pieces.BishopTest do
   use Chess.DataCase
 
   alias Chess.Moves

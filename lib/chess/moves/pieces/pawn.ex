@@ -1,4 +1,4 @@
-defmodule Chess.Moves.Pawn do
+defmodule Chess.Moves.Pieces.Pawn do
   @moduledoc false
 
   def moves(board, {file, rank}) do
