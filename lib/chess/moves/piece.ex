@@ -54,14 +54,17 @@ defmodule Chess.Moves.Piece do
   defp _attacked?(_board, {7, _rank}, {1, _}, _), do: false
   defp _attacked?(_board, {_file, 7}, {_, 1}, _), do: false
   defp _attacked?(board, {file, rank}, {fv, rv}, pieces) do
-    {file, rank} =
-      board
-      |> Generator.moves({file, rank}, {fv, rv})
-      |> List.last
+    board
+    |> Generator.moves({file, rank}, {fv, rv})
+    |> List.last
+    |> case do
+      {file, rank} ->
+        piece = board["#{file},#{rank}"]
 
-    piece = board["#{file},#{rank}"]
-
-    Enum.any?(pieces, &(match?(%{"type" => ^&1}, piece)))
+        Enum.any?(pieces, &(match?(%{"type" => ^&1}, piece)))
+      nil ->
+        false
+    end
   end
 
   defp _attacked?(board, {file, rank}, pattern, piece_type) do

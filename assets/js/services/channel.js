@@ -34,7 +34,10 @@ class Channel {
   }
 
   sendMove(move) {
-    this.channel.push("game:move", move);
+    this.channel.push("game:move", move)
+      .receive("error", resp => {
+        alert(resp.message);
+      });
   }
 }
 

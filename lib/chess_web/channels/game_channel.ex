@@ -24,7 +24,9 @@ defmodule ChessWeb.GameChannel do
       board: Board.transform(game.board),
       turn: game.turn
     }
-    push(socket, "game:update", payload)
+
+    socket
+    |> push("game:update", payload)
 
     {:noreply, socket}
   end
@@ -35,7 +37,7 @@ defmodule ChessWeb.GameChannel do
       |> Game.for_user_id()
       |> Repo.get!(socket.assigns.game_id)
 
-    changeset = Game.changeset(
+    changeset = Game.move_changeset(
       game, %{
         board: Board.move_piece(game.board, move_params),
         turn: Game.change_turn(game.turn)
@@ -46,7 +48,11 @@ defmodule ChessWeb.GameChannel do
       {:ok, game} ->
         send_update(game)
 
-      {:noreply, socket}
+        {:noreply, socket}
+      {:error, changeset} ->
+        {message, _} = changeset.errors[:board]
+
+        {:reply, {:error, %{message: message}}, socket}
     end
   end
 

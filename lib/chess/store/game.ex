@@ -28,6 +28,12 @@ defmodule Chess.Store.Game do
     |> foreign_key_constraint(:opponent_id)
   end
 
+  def move_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, required_attrs())
+    |> validate_king_in_check(struct, params)
+  end
+
   def change_turn("black"), do: "white"
   def change_turn("white"), do: "black"
 
@@ -40,6 +46,20 @@ defmodule Chess.Store.Game do
       where: game.user_id == ^user_id,
       or_where: game.opponent_id == ^user_id
   end
+
+  def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do
+    case Board.king_in_check?(board, turn) do
+      true ->
+        changeset
+        |> add_error(
+          :board,
+          "That move would result in your king being in check"
+        )
+      _ ->
+        changeset
+    end
+  end
+  def validate_king_in_check(changeset, _, _), do: changeset
 
   def ordered(query) do
     query
