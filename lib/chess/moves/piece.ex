@@ -49,6 +49,10 @@ defmodule Chess.Moves.Piece do
     Enum.any?(moves, &(match_piece(board, &1, "pawn")))
   end
 
+  defp _attacked?(_board, {0, _rank}, {-1, _}, _), do: false
+  defp _attacked?(_board, {_file, 0}, {_, -1}, _), do: false
+  defp _attacked?(_board, {7, _rank}, {1, _}, _), do: false
+  defp _attacked?(_board, {_file, 7}, {_, 1}, _), do: false
   defp _attacked?(board, {file, rank}, {fv, rv}, pieces) do
     {file, rank} =
       board

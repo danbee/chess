@@ -1,6 +1,8 @@
 defmodule Chess.Board do
   @moduledoc false
 
+  alias Chess.Moves.Piece
+
   def transform(board) do
     Enum.map(0..7, fn (rank) ->
       Enum.map(0..7, fn (file) ->
@@ -28,6 +30,16 @@ defmodule Chess.Board do
     {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
 
     Map.put(board, "#{to_file},#{to_rank}", piece)
+  end
+
+  def check?(board, colour) do
+    king =
+      board
+      |> search(%{"type" => "king", "colour" => colour})
+      |> List.first
+
+    board
+    |> Piece.attacked?(king)
   end
 
   def default do

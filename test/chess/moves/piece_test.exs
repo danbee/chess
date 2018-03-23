@@ -12,6 +12,15 @@ defmodule Chess.Moves.PieceTest do
     refute Piece.attacked?(board, {4, 5})
   end
 
+  test "piece on the edge of the board is not being attacked" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "2,7" => %{"type" => "rook", "colour" => "black"},
+    }
+
+    refute Piece.attacked?(board, {4, 0})
+  end
+
   test "piece is not being attacked by piece of its own colour" do
     board = %{
       "4,5" => %{"type" => "king", "colour" => "white"},

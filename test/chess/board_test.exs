@@ -31,13 +31,49 @@ defmodule Chess.BoardTest do
 
   test "moves a piece" do
     board = %{
-      "3,0" => %{"type" => "queen",  "colour" => "white"},
+      "3,0" => %{"type" => "queen", "colour" => "white"},
     }
 
     new_board = Board.move_piece(board, %{"from" => [3, 0], "to" => [5, 2]})
 
     assert new_board == %{
-      "5,2" => %{"type" => "queen",  "colour" => "white"},
+      "5,2" => %{"type" => "queen", "colour" => "white"},
     }
+  end
+
+  test "recognise when the king is in check" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "4,7" => %{"type" => "queen", "colour" => "black"},
+    }
+
+    assert Board.check?(board, "white")
+  end
+
+  test "recognise when the king is not in check" do
+    board = %{
+      "5,0" => %{"type" => "king", "colour" => "white"},
+      "4,7" => %{"type" => "queen", "colour" => "black"},
+    }
+
+    refute Board.check?(board, "white")
+  end
+
+  test "recognize when the king is in check by a knight" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "3,2" => %{"type" => "knight", "colour" => "black"},
+    }
+
+    assert Board.check?(board, "white")
+  end
+
+  test "recognize when the king is in check by a pawn" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "3,1" => %{"type" => "pawn", "colour" => "black"},
+    }
+
+    assert Board.check?(board, "white")
   end
 end
