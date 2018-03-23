@@ -32,7 +32,7 @@ defmodule Chess.Board do
     Map.put(board, "#{to_file},#{to_rank}", piece)
   end
 
-  def check?(board, colour) do
+  def king_in_check?(board, colour) do
     king =
       board
       |> search(%{"type" => "king", "colour" => colour})

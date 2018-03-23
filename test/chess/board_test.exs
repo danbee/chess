@@ -47,7 +47,7 @@ defmodule Chess.BoardTest do
       "4,7" => %{"type" => "queen", "colour" => "black"},
     }
 
-    assert Board.check?(board, "white")
+    assert Board.king_in_check?(board, "white")
   end
 
   test "recognise when the king is not in check" do
@@ -56,7 +56,7 @@ defmodule Chess.BoardTest do
       "4,7" => %{"type" => "queen", "colour" => "black"},
     }
 
-    refute Board.check?(board, "white")
+    refute Board.king_in_check?(board, "white")
   end
 
   test "recognize when the king is in check by a knight" do
@@ -65,7 +65,7 @@ defmodule Chess.BoardTest do
       "3,2" => %{"type" => "knight", "colour" => "black"},
     }
 
-    assert Board.check?(board, "white")
+    assert Board.king_in_check?(board, "white")
   end
 
   test "recognize when the king is in check by a pawn" do
@@ -74,6 +74,6 @@ defmodule Chess.BoardTest do
       "3,1" => %{"type" => "pawn", "colour" => "black"},
     }
 
-    assert Board.check?(board, "white")
+    assert Board.king_in_check?(board, "white")
   end
 end
