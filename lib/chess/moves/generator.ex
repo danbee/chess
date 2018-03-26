@@ -18,11 +18,11 @@ defmodule Chess.Moves.Generator do
   end
 
   # Move generation for pieces that move in straight lines
-  def _moves(_colour, _board, {0, _rank}, {-1, _}), do: []
-  def _moves(_colour, _board, {_file, 0}, {_, -1}), do: []
-  def _moves(_colour, _board, {7, _rank}, {1, _}), do: []
-  def _moves(_colour, _board, {_file, 7}, {_, 1}), do: []
-  def _moves(colour, board, {file, rank}, {fv, rv}) do
+  defp _moves(_colour, _board, {0, _rank}, {-1, _}), do: []
+  defp _moves(_colour, _board, {_file, 0}, {_, -1}), do: []
+  defp _moves(_colour, _board, {7, _rank}, {1, _}), do: []
+  defp _moves(_colour, _board, {_file, 7}, {_, 1}), do: []
+  defp _moves(colour, board, {file, rank}, {fv, rv}) do
     next_square = {file + fv, rank + rv}
     cond do
       can_capture_piece?(colour, board, next_square) ->
@@ -35,8 +35,8 @@ defmodule Chess.Moves.Generator do
   end
 
   # Move generation for pieces that follow a pattern
-  def _moves(_colour, _board, {_file, _rank}, []), do: []
-  def _moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
+  defp _moves(_colour, _board, {_file, _rank}, []), do: []
+  defp _moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
     move_square = {file + fv, rank + rv}
     cond do
       outside_board?(move_square) ||
