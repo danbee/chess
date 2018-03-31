@@ -48,15 +48,14 @@ defmodule Chess.Store.Game do
   end
 
   def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do
-    case Board.king_in_check?(board, turn) do
-      true ->
-        changeset
-        |> add_error(
-          :board,
-          "That move would result in your king being in check"
-        )
-      _ ->
-        changeset
+    if Board.king_in_check?(board, turn) do
+      changeset
+      |> add_error(
+        :board,
+        "That move would result in your king being in check"
+      )
+    else
+      changeset
     end
   end
   def validate_king_in_check(changeset, _, _), do: changeset
