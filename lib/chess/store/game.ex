@@ -52,7 +52,7 @@ defmodule Chess.Store.Game do
       changeset
       |> add_error(
         :board,
-        "That move would result in your king being in check"
+        "That move would leave your king in check"
       )
     else
       changeset
