@@ -17,11 +17,9 @@ $board-size: 90vmin;
   border-spacing: 1px;
   box-shadow: 0 ($board-size / 200) ($board-size / 40) $board-shadow-color;
   color: $white-square-color;
-  display: flex;
-  flex-direction: column;
   height: $board-size;
+  padding: $board-size / 20;
   position: relative;
-  table-layout: fixed;
   width: $board-size;
 
   &.white-to-move::before {
@@ -45,41 +43,13 @@ $board-size: 90vmin;
   }
 }
 
-.board-header,
-.board-footer {
-  display: flex;
-  flex-direction: row;
-}
-
-.board-border-bottom-middle {
-  flex: 1;
-}
-
 .board-body {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 
-  .board-border-left,
-  .board-border-right {
-    height: 100%;
-  }
-}
-
-.board-ranks {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.board-rank {
-  display: flex;
-  flex: 1;
-}
-
-.board-border-left,
-.board-border-right {
-  width: $board-size / 20;
+  height: 100%;
+  width: 100%;
 }
 
 .board-border-top,
@@ -87,30 +57,7 @@ $board-size: 90vmin;
   height: $board-size / 20;
 }
 
-.board-square {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  border-radius: 2%;
-  flex: 1;
-  margin: 0.5px;
-
-  // This is to ensure the squares can be clicked on in PhantomJS
-  // TODO: Figure out why we need this
-
-  min-height: 20px;
-  min-width: 20px;
-
-  @each $colour in $colours {
-    @each $piece in $pieces {
-      &.#{$colour}.#{$piece} {
-        background-image: url(/images/#{$piece}_#{$colour}.svg);
-      }
-    }
-  }
-}
-
-@mixin black-square {
+%black-square {
   background-color: $black-square-color;
 
   &.selected {
@@ -124,7 +71,7 @@ $board-size: 90vmin;
   }
 }
 
-@mixin white-square {
+%white-square {
   background-color: $white-square-color;
 
   &.selected {
@@ -138,25 +85,59 @@ $board-size: 90vmin;
   }
 }
 
-.board-rank:nth-child(odd) {
-  .board-square:nth-child(even) {
-    @include black-square;
-  }
+.board-square {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 2%;
+  margin: 0.5px;
 
-  .board-square:nth-child(odd) {
-    @include white-square;
+  // This is to ensure the squares can be clicked on in PhantomJS
+  // TODO: Figure out why we need this
+
+  min-height: 20px;
+  min-width: 20px;
+
+  @include odd-between(1, 8) { @extend %white-square; }
+  @include even-between(1, 8) { @extend %black-square; }
+
+  @include odd-between(9, 16) { @extend %black-square; }
+  @include even-between(9, 16) { @extend %white-square; }
+
+  @include odd-between(17, 24) { @extend %white-square; }
+  @include even-between(17, 24) { @extend %black-square; }
+
+  @include odd-between(25, 32) { @extend %black-square; }
+  @include even-between(25, 32) { @extend %white-square; }
+
+  @include odd-between(33, 40) { @extend %white-square; }
+  @include even-between(33, 40) { @extend %black-square; }
+
+  @include odd-between(41, 48) { @extend %black-square; }
+  @include even-between(41, 48) { @extend %white-square; }
+
+  @include odd-between(49, 56) { @extend %white-square; }
+  @include even-between(49, 56) { @extend %black-square; }
+
+  @include odd-between(57, 64) { @extend %black-square; }
+  @include even-between(57, 64) { @extend %white-square; }
+
+  @each $colour in $colours {
+    @each $piece in $pieces {
+      &.#{$colour}.#{$piece} {
+        background-image: url(/images/#{$piece}_#{$colour}.svg);
+      }
+    }
   }
 }
 
-.board-rank:nth-child(even) {
-  .board-square:nth-child(even) {
-    @include white-square;
-  }
+// .board-square:nth-child(even) {
+  // @include black-square;
+// }
 
-  .board-square:nth-child(odd) {
-    @include black-square;
-  }
-}
+// .board-square:nth-child(odd) {
+  // @include white-square;
+// }
 
 @media (min-width: 480px) {
   .board-square {

@@ -25,21 +25,25 @@ class ChessBoard extends React.Component {
     return store.getState().player;
   }
 
-  renderFiles(rankId) {
+  renderSquares() {
+    const board = this.getBoard();
     const { store, channel } = this.props;
-    const rank = this.getBoard()[rankId];
 
-    return _.map(this.files(rank), fileId => {
-      return (
-        <ChessBoardSquare
-          file={fileId}
-          key={fileId}
-          rank={rankId}
-          piece={rank[fileId]}
-          store={store}
-          channel={channel}
-        />
-      );
+    return _.map(this.ranks(), (rankId) => {
+      const rank = this.getBoard()[rankId];
+
+      return _.map(this.files(rank), (fileId) => {
+        return (
+          <ChessBoardSquare
+            file={fileId}
+            key={fileId}
+            rank={rankId}
+            piece={board[rankId][fileId]}
+            store={store}
+            channel={channel}
+          />
+        );
+      });
     });
   }
 
@@ -90,16 +94,8 @@ class ChessBoard extends React.Component {
   render() {
     return (
       <div className={this.boardClass}>
-        <div className="board-header">
-          <div className="board-border-top" />
-        </div>
         <div className="board-body">
-          <div className="board-border-left" />
-          <div className="board-ranks">{this.renderRanks()}</div>
-          <div className="board-border-right" />
-        </div>
-        <div className="board-footer">
-          <div className="board-border-bottom" />
+          {this.renderSquares()}
         </div>
       </div>
     );
