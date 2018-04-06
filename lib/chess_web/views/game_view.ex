@@ -8,10 +8,7 @@ defmodule ChessWeb.GameView do
   end
 
   def player_colour(conn, game) do
-    cond do
-      current_user(conn).id == game.user_id -> "white"
-      current_user(conn).id == game.opponent_id -> "black"
-    end
+    current_user(conn).id == game.user_id && "white" || "black"
   end
 
   def opponent(conn, game) do
