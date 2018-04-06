@@ -9,7 +9,7 @@
 
   <div class="form-group">
     <div class="form-field">
-      <%= input f, :email %>
+      <%= input f, :email, as: :email %>
     </div>
     <div class="form-field">
       <%= input f, :password, as: :password %>
