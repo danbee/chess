@@ -109,12 +109,12 @@
 
   &.selected {
     background-color: mix($black-square-color, $selected-square-color, 60%);
-    box-shadow: inset 0 0 0 (var(--board-size) / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 calc(var(--board-size) / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($black-square-color, $available-square-color, 80%);
-    box-shadow: inset 0 0 0 (var(--board-size) / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 calc(var(--board-size) / 400) $available-outline-color;
   }
 }
 
@@ -123,12 +123,12 @@
 
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
-    box-shadow: inset 0 0 0 (var(--board-size) / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 calc(var(--board-size) / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($white-square-color, $available-square-color, 80%);
-    box-shadow: inset 0 0 0 (var(--board-size) / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 calc(var(--board-size) / 400) $available-outline-color;
   }
 }
 
