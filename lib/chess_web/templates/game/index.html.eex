@@ -3,7 +3,7 @@
 <table class="table">
   <tbody>
     <%= for game <- @games do %>
-      <tr class="<%= if your_turn?(@conn, game), do: "your-turn" %>">
+      <tr class="<%= turn_class(@conn, game) %>">
         <td>
           <span class="player-indicator"><img src="images/pawn_<%= player_colour(@conn, game) %>.svg"></span>
           <%= link "Game with #{opponent(@conn, game).name}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>

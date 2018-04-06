@@ -3,6 +3,12 @@ defmodule ChessWeb.GameView do
 
   import Chess.Auth, only: [current_user: 1]
 
+  def turn_class(conn, game) do
+    if your_turn?(conn, game) do
+      "your-turn"
+    end
+  end
+
   def your_turn?(conn, game) do
     player_colour(conn, game) == game.turn
   end
