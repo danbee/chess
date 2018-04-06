@@ -1,4 +1,12 @@
-$board-size: 90vmin;
+:root {
+  --board-size: 90vmin;
+}
+
+@media (min-aspect-ratio: 10/11) {
+  :root {
+    --board-size: 80vmin;
+  }
+}
 
 @mixin move-indicator {
   border-radius: 50%;
@@ -15,12 +23,12 @@ $board-size: 90vmin;
   border-collapse: unset;
   border-radius: 2.8%;
   border-spacing: 1px;
-  box-shadow: 0 ($board-size / 200) ($board-size / 40) $board-shadow-color;
+  box-shadow: 0 (var(--board-size) / 200) (var(--board-size) / 40) $board-shadow-color;
   color: $white-square-color;
-  height: $board-size;
-  padding: $board-size / 20;
+  height: var(--board-size);
+  padding: calc(var(--board-size) / 20);
   position: relative;
-  width: $board-size;
+  width: var(--board-size);
 
   &.white-to-move::before {
     @include move-indicator;
@@ -83,7 +91,7 @@ $board-size: 90vmin;
   align-items: center;
   display: flex;
   flex-grow: 1;
-  font-size: $board-size / 40;
+  font-size: calc(var(--board-size) / 40);
   justify-content: center;
 }
 
@@ -101,12 +109,12 @@ $board-size: 90vmin;
 
   &.selected {
     background-color: mix($black-square-color, $selected-square-color, 60%);
-    box-shadow: inset 0 0 0 ($board-size / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 (var(--board-size) / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($black-square-color, $available-square-color, 80%);
-    box-shadow: inset 0 0 0 ($board-size / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 (var(--board-size) / 400) $available-outline-color;
   }
 }
 
@@ -115,12 +123,12 @@ $board-size: 90vmin;
 
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
-    box-shadow: inset 0 0 0 ($board-size / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 (var(--board-size) / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($white-square-color, $available-square-color, 80%);
-    box-shadow: inset 0 0 0 ($board-size / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 (var(--board-size) / 400) $available-outline-color;
   }
 }
 
