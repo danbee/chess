@@ -3,9 +3,13 @@
 <table class="table">
   <tbody>
     <%= for game <- @games do %>
-      <tr>
+      <tr class="<%= if your_turn?(@conn, game), do: "your-turn" %>">
         <td>
+          <span class="player-indicator"><img src="images/pawn_<%= player_colour(@conn, game) %>.svg"></span>
           <%= link "Game with #{opponent(@conn, game).name}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+        </td>
+        <td>
+          <%= if your_turn?(@conn, game) do %>Your turn<% end %>
         </td>
         <td>
           Started on <%= Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime) %>
