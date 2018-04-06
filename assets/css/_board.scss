@@ -52,22 +52,17 @@ $board-size: 90vmin;
   width: 100%;
 }
 
-.board-border-top,
-.board-border-bottom {
-  height: $board-size / 20;
-}
-
 %black-square {
   background-color: $black-square-color;
 
   &.selected {
     background-color: mix($black-square-color, $selected-square-color, 60%);
-    box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 ($board-size / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($black-square-color, $available-square-color, 80%);
-    box-shadow: 0 0 0 ($board-size / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 ($board-size / 400) $available-outline-color;
   }
 }
 
@@ -76,12 +71,12 @@ $board-size: 90vmin;
 
   &.selected {
     background-color: mix($white-square-color, $selected-square-color, 60%);
-    box-shadow: 0 0 0 ($board-size / 400) $selected-outline-color;
+    box-shadow: inset 0 0 0 ($board-size / 400) $selected-outline-color;
   }
 
   &.available {
     background-color: mix($white-square-color, $available-square-color, 80%);
-    box-shadow: 0 0 0 ($board-size / 400) $available-outline-color;
+    box-shadow: inset 0 0 0 ($board-size / 400) $available-outline-color;
   }
 }
 
@@ -131,17 +126,9 @@ $board-size: 90vmin;
   }
 }
 
-// .board-square:nth-child(even) {
-  // @include black-square;
-// }
-
-// .board-square:nth-child(odd) {
-  // @include white-square;
-// }
-
 @media (min-width: 480px) {
-  .board-square {
-    margin: 1px;
+  .board-body {
+    grid-gap: 1px;
   }
 
   .board-label {
@@ -150,8 +137,8 @@ $board-size: 90vmin;
 }
 
 @media (min-width: 768px) {
-  .board-square {
-    margin: 1.5px;
+  .board-body {
+    grid-gap: 1.5px;
   }
 
   .board-label {
