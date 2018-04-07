@@ -20,7 +20,7 @@ $available-square-color: #6f0;
 
 $your-turn-background-color: rgba($white, 0.1);
 
-$game-state-background-color: darken($black-square-color, 10%);
+$game-state-background-color: rgba(darken($black-square-color, 10%), 0.9);
 
 $square-outline-color: darken($black-square-color, 20%);
 $selected-outline-color: lighten($selected-square-color, 20%);
