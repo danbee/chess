@@ -6,6 +6,7 @@ import classNames from "classnames";
 import ChessBoardSquare from "./chess-board-square";
 import RankLabels from "./rank-labels";
 import FileLabels from "./file-labels";
+import GameState from "./game-state";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
@@ -74,12 +75,6 @@ class ChessBoard extends React.Component {
     });
   }
 
-  get gameState() {
-    const { store } = this.props;
-    console.log(store.getState().state);
-    return store.getState().state;
-  }
-
   get boardClass() {
     const turn = this.getTurn();
     const player = this.getPlayer();
@@ -88,6 +83,8 @@ class ChessBoard extends React.Component {
   }
 
   render() {
+    const { store } = this.props;
+
     return (
       <div className={this.boardClass}>
         <RankLabels />
@@ -97,9 +94,7 @@ class ChessBoard extends React.Component {
           {this.renderSquares()}
         </div>
 
-        <div className="board-game-state">
-          {this.gameState}
-        </div>
+        <GameState store={store} />
       </div>
     );
   }

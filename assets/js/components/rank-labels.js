@@ -1,12 +1,7 @@
 import React from "react";
 import _ from "lodash";
-import classNames from "classnames";
 
 class RankLabels extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   get rankLabels() {
     return [1, 2, 3, 4, 5, 6, 7, 8];
   }

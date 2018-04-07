@@ -1,12 +1,7 @@
 import React from "react";
 import _ from "lodash";
-import classNames from "classnames";
 
 class FileLabels extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   get fileLabels() {
     return ["a", "b", "c", "d", "e", "f", "g", "h"];
   }
