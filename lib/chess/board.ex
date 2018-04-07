@@ -1,8 +1,6 @@
 defmodule Chess.Board do
   @moduledoc false
 
-  alias Chess.Moves.Piece
-
   def transform(board) do
     Enum.map(0..7, fn (rank) ->
       Enum.map(0..7, fn (file) ->
@@ -16,7 +14,15 @@ defmodule Chess.Board do
     |> Enum.filter(fn({_index, piece}) ->
       match?(%{"type" => ^type, "colour" => ^colour}, piece)
     end)
-    |> Enum.map(fn({index, _piece}) -> index_to_tuple(index) end)
+    |> indexes_to_tuples
+  end
+
+  def search(board, %{"colour" => colour}) do
+    board
+    |> Enum.filter(fn({_index, piece}) ->
+      match?(%{"colour" => ^colour}, piece)
+    end)
+    |> indexes_to_tuples
   end
 
   def piece(board, {file, rank}) do
@@ -30,16 +36,6 @@ defmodule Chess.Board do
     {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
 
     Map.put(board, "#{to_file},#{to_rank}", piece)
-  end
-
-  def king_in_check?(board, colour) do
-    king =
-      board
-      |> search(%{"type" => "king", "colour" => colour})
-      |> List.first
-
-    board
-    |> Piece.attacked?(king)
   end
 
   def default do
@@ -80,6 +76,11 @@ defmodule Chess.Board do
       "6,0" => %{"type" => "knight", "colour" => "white"},
       "7,0" => %{"type" => "rook",   "colour" => "white"}
     }
+  end
+
+  defp indexes_to_tuples(list) do
+    list
+    |> Enum.map(fn({index, _piece}) -> index_to_tuple(index) end)
   end
 
   defp index_to_tuple(index) do
