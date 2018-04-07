@@ -14,10 +14,10 @@
                 class: "btn btn-default btn-xs" %>
         </td>
         <td>
-          <%= if your_turn?(@conn, game), do: gettext("Your turn") %>
+          <%= state(@conn, game) %>
         </td>
         <td>
-          Started on <%= Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime) %>
+          <%= won_lost(@conn, game) %>
         </td>
         <td class="text-right">
           <%= link gettext("Delete"),

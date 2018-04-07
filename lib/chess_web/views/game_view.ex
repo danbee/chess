@@ -1,10 +1,32 @@
 defmodule ChessWeb.GameView do
   use ChessWeb, :view
 
+  alias Chess.Store.Game
+
   import Chess.Auth, only: [current_user: 1]
 
+  def won_lost(conn, game) do
+    if game_over?(game) && game.state == "checkmate" do
+      your_turn?(conn, game) && "You lost" || "You won"
+    end
+  end
+
+  def game_over?(game) do
+    Game.game_over?(game)
+  end
+
+  def state(conn, game) do
+    cond do
+      Game.game_over?(game) ->
+        states[game.state]
+      your_turn?(conn, game) ->
+        "Your turn"
+      true -> nil
+    end
+  end
+
   def turn_class(conn, game) do
-    if your_turn?(conn, game) do
+    if your_turn?(conn, game) && !Game.game_over?(game) do
       "your-turn"
     end
   end
@@ -23,5 +45,13 @@ defmodule ChessWeb.GameView do
     else
       game.user
     end
+  end
+
+  defp states do
+    %{
+      "checkmate" => "Checkmate!",
+      "stalemate" => "Stalemate",
+      "check" => "Check",
+    }
   end
 end

@@ -18,6 +18,8 @@ $white-square-color: #bbb;
 $selected-square-color: #0cf;
 $available-square-color: #6f0;
 
+$your-turn-background-color: rgba($white, 0.1);
+
 $game-state-background-color: darken($black-square-color, 10%);
 
 $square-outline-color: darken($black-square-color, 20%);
