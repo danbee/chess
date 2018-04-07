@@ -10,6 +10,7 @@ defmodule Chess.Store.Game do
 
   alias Chess.Board
   alias Chess.Store.Game
+  alias Chess.GameState
 
   schema "games" do
     field :board, :map, default: Board.default()
@@ -49,7 +50,7 @@ defmodule Chess.Store.Game do
   end
 
   def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do
-    if Board.king_in_check?(board, turn) do
+    if GameState.king_in_check?(board, turn) do
       changeset
       |> add_error(
         :board,
