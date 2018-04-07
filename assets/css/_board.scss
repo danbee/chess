@@ -49,6 +49,35 @@
   &.player-is-black.white-to-move::before {
     top: 2%;
   }
+
+  .board-rank-labels,
+  .board-file-labels {
+    display: none;
+  }
+
+  &.player-is-white {
+    .board-rank-labels {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .board-file-labels {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &.player-is-black {
+    .board-rank-labels {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .board-file-labels {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
 }
 
 .board-rank-labels {
@@ -59,31 +88,19 @@
   width: 5%;
 }
 
-.board.player-is-white {
-  .board-rank-labels {
-    flex-direction: column-reverse;
-  }
-
-  .board-file-labels {
-    flex-direction: row;
-  }
-}
-
-.board.player-is-black {
-  .board-rank-labels {
-    flex-direction: column;
-  }
-
-  .board-file-labels {
-    flex-direction: row-reverse;
-  }
-}
-
 .board-file-labels {
   display: flex;
   height: 5%;
   position: absolute;
   top: 0;
+  width: 90%;
+}
+
+.board-game-state {
+  bottom: 0;
+  color: white;
+  height: 5%;
+  position: absolute;
   width: 90%;
 }
 

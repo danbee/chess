@@ -15,6 +15,7 @@ defmodule Chess.Store.Game do
   schema "games" do
     field :board, :map, default: Board.default()
     field :turn, :string, default: "white"
+    field :state, :string
 
     belongs_to :user, Chess.Store.User
     belongs_to :opponent, Chess.Store.User, references: :id
@@ -34,6 +35,7 @@ defmodule Chess.Store.Game do
     struct
     |> cast(params, required_attrs())
     |> validate_king_in_check(struct, params)
+    |> check_game_state(struct, params)
   end
 
   def change_turn("black"), do: "white"
@@ -47,6 +49,11 @@ defmodule Chess.Store.Game do
     from game in Game,
       where: game.user_id == ^user_id,
       or_where: game.opponent_id == ^user_id
+  end
+
+  def check_game_state(changeset, _struct, params) do
+    changeset
+    |> put_change(:state, GameState.state(params.board, params.turn))
   end
 
   def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do

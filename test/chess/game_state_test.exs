@@ -91,4 +91,14 @@ defmodule Chess.GameStateTest do
 
     refute GameState.player_checkmated?(board, "white")
   end
+
+  test "game can be stalemated" do
+    board = %{
+      "0,0" => %{"type" => "king", "colour" => "white"},
+      "1,2" => %{"type" => "rook", "colour" => "black"},
+      "2,1" => %{"type" => "rook", "colour" => "black"},
+    }
+
+    assert GameState.player_stalemated?(board, "white")
+  end
 end

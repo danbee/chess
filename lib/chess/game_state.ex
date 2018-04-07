@@ -5,16 +5,48 @@ defmodule Chess.GameState do
   alias Chess.Moves
   alias Chess.Moves.Piece
 
+  def state(board, colour) do
+    cond do
+      player_checkmated?(board, colour) ->
+        "checkmate"
+      player_stalemated?(board, colour) ->
+        "stalemate"
+      king_in_check?(board, colour) ->
+        "check"
+      true -> nil
+    end
+  end
+
   def player_checkmated?(board, colour) do
+    king_in_check?(board, colour) &&
+      player_cannot_move?(board, colour)
+  end
+
+  def player_stalemated?(board, colour) do
+    !king_in_check?(board, colour) &&
+      player_cannot_move?(board, colour)
+  end
+
+  def king_in_check?(board, colour) do
+    king =
+      board
+      |> Board.search(%{"type" => "king", "colour" => colour})
+      |> List.first
+
+    board
+    |> Piece.attacked?(king)
+  end
+
+  def player_cannot_move?(board, colour) do
     board
     |> Board.search(%{"colour" => colour})
     |> Enum.all?(fn({file, rank}) ->
       board
-      |> cannot_escape_check?({file, rank})
+      |> piece_cannot_move?({file, rank})
     end)
   end
 
-  def cannot_escape_check?(board, {file, rank}) do
+  def piece_cannot_move?(board, {file, rank}) do
     piece =
       board
       |> Board.piece({file, rank})
@@ -26,15 +58,5 @@ defmodule Chess.GameState do
       |> Board.move_piece(%{"from" => [file, rank], "to" => [to_file, to_rank]})
       |> king_in_check?(piece["colour"])
     end)
-  end
-
-  def king_in_check?(board, colour) do
-    king =
-      board
-      |> Board.search(%{"type" => "king", "colour" => colour})
-      |> List.first
-
-    board
-    |> Piece.attacked?(king)
   end
 end

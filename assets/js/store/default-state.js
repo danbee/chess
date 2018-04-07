@@ -3,6 +3,7 @@ const defaultState = {
 
   player: null,
   turn: null,
+  state: null,
 
   moves: [],
 

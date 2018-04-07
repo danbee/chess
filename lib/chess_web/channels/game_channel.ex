@@ -22,7 +22,8 @@ defmodule ChessWeb.GameChannel do
     payload = %{
       player: player(socket, game),
       board: Board.transform(game.board),
-      turn: game.turn
+      turn: game.turn,
+      state: game.state
     }
 
     socket
@@ -81,7 +82,8 @@ defmodule ChessWeb.GameChannel do
   def send_update(game) do
     payload = %{
       board: Board.transform(game.board),
-      turn: game.turn
+      turn: game.turn,
+      state: game.state
     }
     ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
   end

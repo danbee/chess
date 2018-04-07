@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import classNames from "classnames";
 
 import ChessBoardSquare from "./chess-board-square";
+import RankLabels from "./rank-labels";
+import FileLabels from "./file-labels";
 
 class ChessBoard extends React.Component {
   componentWillMount() {
@@ -72,6 +74,12 @@ class ChessBoard extends React.Component {
     });
   }
 
+  get gameState() {
+    const { store } = this.props;
+    console.log(store.getState().state);
+    return store.getState().state;
+  }
+
   get boardClass() {
     const turn = this.getTurn();
     const player = this.getPlayer();
@@ -79,42 +87,18 @@ class ChessBoard extends React.Component {
     return classNames("board", turn + "-to-move", "player-is-" + player);
   }
 
-  get rankLabels() {
-    return [1, 2, 3, 4, 5, 6, 7, 8];
-  }
-
-  get fileLabels() {
-    return ["a", "b", "c", "d", "e", "f", "g", "h"];
-  }
-
-  renderRankLabels() {
-    return _.map(this.rankLabels, (rankLabel) => {
-      return (
-        <div key={rankLabel} className="board-label">{rankLabel}</div>
-      );
-    });
-  }
-
-  renderFileLabels() {
-    return _.map(this.fileLabels, (fileLabel) => {
-      return (
-        <div key={fileLabel} className="board-label">{fileLabel}</div>
-      );
-    });
-  }
-
   render() {
     return (
       <div className={this.boardClass}>
-        <div className="board-rank-labels">
-          {this.renderRankLabels()}
-        </div>
-        <div className="board-file-labels">
-          {this.renderFileLabels()}
-        </div>
+        <RankLabels />
+        <FileLabels />
 
         <div className="board-body">
           {this.renderSquares()}
+        </div>
+
+        <div className="board-game-state">
+          {this.gameState}
         </div>
       </div>
     );
