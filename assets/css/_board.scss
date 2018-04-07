@@ -23,7 +23,7 @@
   border-collapse: unset;
   border-radius: 2.8%;
   border-spacing: 1px;
-  box-shadow: 0 (var(--board-size) / 200) (var(--board-size) / 40) $board-shadow-color;
+  box-shadow: 0 calc(var(--board-size) / 200) calc(var(--board-size) / 40) $board-shadow-color;
   color: $white-square-color;
   height: var(--board-size);
   padding: calc(var(--board-size) / 20);
@@ -97,11 +97,29 @@
 }
 
 .board-game-state {
+  align-items: center;
   bottom: 0;
-  color: white;
+  color: $foreground-color;
+  display: flex;
+  font-size: calc(var(--board-size) / 30);
   height: 5%;
   position: absolute;
   width: 90%;
+
+  &.checkmate,
+  &.stalemate {
+    align-items: center;
+    background-color: $game-state-background-color;
+    border-radius: calc(var(--board-size) / 75);
+    box-shadow: 0 calc(var(--board-size) / 200) calc(var(--board-size) / 40) $board-shadow-color,
+    inset 0 0 0 calc(var(--board-size) / 300) $white-square-color;
+    display: flex;
+    height: 7.5%;
+    justify-content: center;
+    left: calc(50% - 15%);
+    top: calc(50% - 3.5%);
+    width: 30%;
+  }
 }
 
 .board-label {
