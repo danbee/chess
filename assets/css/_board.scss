@@ -98,24 +98,29 @@
 
 .board-game-state {
   align-items: center;
-  bottom: 0;
+  background-color: $game-state-background-color;
+  border-radius: calc(var(--board-size) / 75);
+  bottom: -2.5%;
+  box-shadow: 0 calc(var(--board-size) / 200) calc(var(--board-size) / 40) $board-shadow-color, inset 0 0 0 calc(var(--board-size) / 300) $white-square-color;
   color: $foreground-color;
-  display: flex;
-  font-size: calc(var(--board-size) / 30);
-  height: 5%;
+  display: none;
+  font-size: calc(var(--board-size) / 40);
+  height: 6%;
+  justify-content: center;
   position: absolute;
-  width: 90%;
+  right: 5%;
+  width: 15%;
+
+  &.check,
+  &.checkmate,
+  &.stalemate {
+    display: flex;
+  }
 
   &.checkmate,
   &.stalemate {
-    align-items: center;
-    background-color: $game-state-background-color;
-    border-radius: calc(var(--board-size) / 75);
-    box-shadow: 0 calc(var(--board-size) / 200) calc(var(--board-size) / 40) $board-shadow-color,
-    inset 0 0 0 calc(var(--board-size) / 300) $white-square-color;
-    display: flex;
+    font-size: calc(var(--board-size) / 30);
     height: 7.5%;
-    justify-content: center;
     left: calc(50% - 15%);
     top: calc(50% - 3.5%);
     width: 30%;
@@ -126,7 +131,6 @@
   align-items: center;
   display: flex;
   flex-grow: 1;
-  font-size: calc(var(--board-size) / 40);
   justify-content: center;
 }
 
