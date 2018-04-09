@@ -18,7 +18,7 @@ defmodule ChessWeb.GameView do
 
   def state(conn, game) do
     cond do
-      Game.game_over?(game) ->
+      GameState.game_over?(game) ->
         states[game.state]
       your_turn?(conn, game) ->
         "Your turn"
@@ -27,7 +27,7 @@ defmodule ChessWeb.GameView do
   end
 
   def turn_class(conn, game) do
-    if your_turn?(conn, game) && !Game.game_over?(game) do
+    if your_turn?(conn, game) && !GameState.game_over?(game) do
       "your-turn"
     end
   end
