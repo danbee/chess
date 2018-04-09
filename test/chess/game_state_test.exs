@@ -60,7 +60,7 @@ defmodule Chess.GameStateTest do
     refute GameState.player_checkmated?(board, "white")
   end
 
-  test "king is checkmate by a queen and a  knight" do
+  test "king is checkmate by a queen and a knight" do
     board = %{
       "0,0" => %{"type" => "king", "colour" => "white"},
       "1,1" => %{"type" => "queen", "colour" => "black"},
