@@ -6,6 +6,7 @@ defmodule Chess.Store.Game do
 
   import Ecto.Changeset
   import Ecto.Query
+  import ChessWeb.Gettext
 
   alias Chess.Board
   alias Chess.Store.Game
@@ -52,7 +53,7 @@ defmodule Chess.Store.Game do
       changeset
       |> add_error(
         :board,
-        "That move would leave your king in check"
+        gettext("That move would leave your king in check")
       )
     else
       changeset

@@ -1,4 +1,4 @@
-<p><%= link "Back to games", to: game_path(@conn, :index) %></p>
+<p><%= link gettext("Back to games"), to: game_path(@conn, :index) %></p>
 
 <h2>Game with <%= opponent(@conn, @game).name %></h2>
 

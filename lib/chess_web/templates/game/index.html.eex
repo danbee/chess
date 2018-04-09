@@ -1,21 +1,30 @@
-<h2>Listing games</h2>
+<h2><%= gettext "Listing games" %></h2>
 
 <table class="table">
   <tbody>
     <%= for game <- @games do %>
       <tr class="<%= turn_class(@conn, game) %>">
         <td>
-          <span class="player-indicator"><img src="images/pawn_<%= player_colour(@conn, game) %>.svg"></span>
-          <%= link "Game with #{opponent(@conn, game).name}", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+          <span class="player-indicator">
+            <img src="images/pawn_<%= player_colour(@conn, game) %>.svg">
+          </span>
+          <%= link gettext("Game with %{name}",
+                name: opponent(@conn, game).name),
+                to: game_path(@conn, :show, game),
+                class: "btn btn-default btn-xs" %>
         </td>
         <td>
-          <%= if your_turn?(@conn, game) do %>Your turn<% end %>
+          <%= if your_turn?(@conn, game), do: gettext("Your turn") %>
         </td>
         <td>
           Started on <%= Timex.format!(game.inserted_at, "%b %e at %I:%M %P", :strftime) %>
         </td>
         <td class="text-right">
-          <%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          <%= link gettext("Delete"),
+                to: game_path(@conn, :delete, game),
+                method: :delete,
+                data: [confirm: gettext("Are you sure?")],
+                class: "btn btn-danger btn-xs" %>
         </td>
       </tr>
     <% end %>
@@ -23,5 +32,5 @@
 </table>
 
 <p>
-  <%= link "New game", to: game_path(@conn, :new), class: "button" %>
+  <%= link gettext("New game"), to: game_path(@conn, :new), class: "button" %>
 </p>

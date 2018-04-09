@@ -1,9 +1,11 @@
-<h2>Log in</h2>
+<h2><%= gettext "Log in" %></h2>
 
 <%= form_for @changeset, session_path(@conn, :create), [class: "create-session"], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+      <p>
+        <%= gettext "Oops, something went wrong! Please check the errors below." %>
+      </p>
     </div>
   <% end %>
 
@@ -16,6 +18,6 @@
     </div>
   </div>
   <div class="form-group">
-    <%= submit "Log in", class: "btn btn-primary" %>
+    <%= submit gettext("Log in"), class: "btn btn-primary" %>
   </div>
 <% end %>

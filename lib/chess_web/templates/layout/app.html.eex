@@ -7,32 +7,38 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shall We Play a Game?</title>
+    <title><%= gettext "Shall We Play a Game?" %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <header role="banner">
       <div class="container">
-        <h1>Chess</h1>
+        <h1><%= gettext "Chess" %></h1>
 
         <nav class="user-nav" role="user">
           <%= if current_user(@conn) do %>
             <%= current_user(@conn).name %> (<%= current_user(@conn).email %>)
             |
-            <%= link("Log out", to: session_path(@conn, :delete), method: :delete) %>
+            <%= link gettext("Log out"),
+                  to: session_path(@conn, :delete),
+                  method: :delete %>
           <% else %>
-            <%= link("Register", to: registration_path(@conn, :new)) %>
+            <%= link gettext("Register"), to: registration_path(@conn, :new) %>
             |
-            <%= link("Log in", to: session_path(@conn, :new)) %>
+            <%= link gettext("Log in"), to: session_path(@conn, :new) %>
           <% end %>
         </nav>
       </div>
     </header>
 
     <div class="container alerts">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <p class="alert alert-info" role="alert">
+        <%= get_flash(@conn, :info) %>
+      </p>
+      <p class="alert alert-danger" role="alert">
+        <%= get_flash(@conn, :error) %>
+      </p>
     </div>
 
     <main role="main">
