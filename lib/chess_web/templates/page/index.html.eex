@@ -1,3 +1,7 @@
-<h2>Welcome</h2>
+<h2><%= gettext "Welcome" %></h2>
 
-<p><%= link("Log in", to: session_path(@conn, :new)) %> or <%= link("Register", to: registration_path(@conn, :new)) %> to get started.</p>
+<p>
+  <%= gettext("%{login_link} or %{register_link} to get started",
+        login_link: login_link(@conn),
+        register_link: register_link(@conn)) |> raw %>
+</p>
