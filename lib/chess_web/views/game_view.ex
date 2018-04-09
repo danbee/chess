@@ -2,6 +2,7 @@ defmodule ChessWeb.GameView do
   use ChessWeb, :view
 
   alias Chess.Store.Game
+  alias Chess.GameState
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -12,7 +13,7 @@ defmodule ChessWeb.GameView do
   end
 
   def game_over?(game) do
-    Game.game_over?(game)
+    GameState.game_over?(game)
   end
 
   def state(conn, game) do

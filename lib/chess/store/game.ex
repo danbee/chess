@@ -69,11 +69,6 @@ defmodule Chess.Store.Game do
   end
   def validate_king_in_check(changeset, _, _), do: changeset
 
-  def game_over?(game) do
-    game.state == "checkmate" ||
-      game.state == "stalemate"
-  end
-
   def ordered(query) do
     query
     |> order_by([game], desc: game.inserted_at)

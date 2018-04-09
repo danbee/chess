@@ -5,6 +5,11 @@ defmodule Chess.GameState do
   alias Chess.Moves
   alias Chess.Moves.Piece
 
+  def game_over?(game) do
+    game.state == "checkmate" ||
+      game.state == "stalemate"
+  end
+
   def state(board, colour) do
     cond do
       player_checkmated?(board, colour) ->
