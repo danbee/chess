@@ -49,7 +49,7 @@ defmodule Chess.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
       {:timex_ecto, "~> 3.2"},
-      {:wallaby, "~> 0.19.2", [runtime: false, only: :test]},
+      {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
     ]
   end
 
