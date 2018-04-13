@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
+    "gettext.js": "^0.5.3",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
     "phoenix": "file:../deps/phoenix",
