@@ -20,7 +20,7 @@ defmodule ChessWeb.GameView do
   def state(conn, game) do
     cond do
       GameState.game_over?(game) ->
-        states[game.state]
+        states()[game.state]
       your_turn?(conn, game) ->
         gettext("Your turn")
       true -> nil
