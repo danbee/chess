@@ -4,7 +4,8 @@ defmodule Chess.Board do
   def transform(board) do
     Enum.map(0..7, fn (rank) ->
       Enum.map(0..7, fn (file) ->
-        board["#{file},#{rank}"]
+        board
+        |> piece({file, rank})
       end)
     end)
   end
