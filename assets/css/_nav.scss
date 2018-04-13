@@ -1,4 +1,4 @@
-header[role='banner'] {
+[role='banner'] {
   background: $black;
   margin-bottom: 1em;
   padding: 0.5em 0;
@@ -11,7 +11,16 @@ header[role='banner'] {
     flex: 0;
   }
 
-  nav.user-nav {
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  .user-nav {
     flex: 1;
     text-align: right;
   }
