@@ -8,8 +8,10 @@
           <span class="player-indicator">
             <img src="images/pawn_<%= player_colour(@conn, game) %>.svg">
           </span>
-          <%= link gettext("Game with %{name}",
-                name: opponent(@conn, game).name),
+          <%= link gettext(
+                "Game with %{name}",
+                name: opponent(@conn, game).name
+              ),
                 to: game_path(@conn, :show, game),
                 class: "btn btn-default btn-xs" %>
         </td>
