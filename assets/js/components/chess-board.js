@@ -13,25 +13,28 @@ class ChessBoard extends React.Component {
     const { gameId, store } = this.props;
   }
 
-  getTurn() {
+  get turn() {
     const { store } = this.props;
     return store.getState().turn;
   }
 
-  getBoard() {
+  get board() {
     const { store } = this.props;
     return store.getState().board;
   }
 
-  getPlayer() {
+  get player() {
     const { store } = this.props;
     return store.getState().player;
   }
 
-  files(rank) {
-    const player = this.getPlayer();
+  get gameState() {
+    const { store } = this.props;
+    return store.getState().state;
+  }
 
-    switch (player) {
+  files(rank) {
+    switch (this.player) {
       case "white":
         return Object.keys(rank).sort();
       case "black":
@@ -42,8 +45,8 @@ class ChessBoard extends React.Component {
   }
 
   ranks() {
-    const board = this.getBoard();
-    const player = this.getPlayer();
+    const board = this.board;
+    const player = this.player;
 
     switch (player) {
       case "white":
@@ -54,11 +57,10 @@ class ChessBoard extends React.Component {
   }
 
   renderSquares() {
-    const board = this.getBoard();
     const { store, channel } = this.props;
 
     return _.map(this.ranks(), (rankId) => {
-      const rank = this.getBoard()[rankId];
+      const rank = this.board[rankId];
 
       return _.map(this.files(rank), (fileId) => {
         return (
@@ -66,7 +68,7 @@ class ChessBoard extends React.Component {
             file={fileId}
             key={fileId}
             rank={rankId}
-            piece={board[rankId][fileId]}
+            piece={this.board[rankId][fileId]}
             store={store}
             channel={channel}
           />
@@ -76,15 +78,13 @@ class ChessBoard extends React.Component {
   }
 
   get boardClass() {
-    const turn = this.getTurn();
-    const player = this.getPlayer();
+    const turn = this.turn;
+    const player = this.player;
 
     return classNames("board", turn + "-to-move", "player-is-" + player);
   }
 
   render() {
-    const { store } = this.props;
-
     return (
       <div className={this.boardClass}>
         <RankLabels />
@@ -94,7 +94,7 @@ class ChessBoard extends React.Component {
           {this.renderSquares()}
         </div>
 
-        <GameState store={store} />
+        <GameState gameState={this.gameState} />
       </div>
     );
   }
