@@ -41,7 +41,6 @@ defmodule ChessWeb.GameChannel do
     changeset = Game.move_changeset(
       game, %{
         board: Board.move_piece(game.board, move_params),
-        turn: Game.change_turn(game.turn)
       }
     )
 

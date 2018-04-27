@@ -36,10 +36,16 @@ defmodule Chess.Store.Game do
     |> cast(params, required_attrs())
     |> validate_king_in_check(struct, params)
     |> check_game_state(struct, params)
+    |> change_turn(struct.turn)
   end
 
-  def change_turn("black"), do: "white"
-  def change_turn("white"), do: "black"
+  def change_turn(changeset, turn) do
+    changeset
+    |> put_change(:turn, _change_turn(turn))
+  end
+
+  def _change_turn("black"), do: "white"
+  def _change_turn("white"), do: "black"
 
   def for_user(user) do
     for_user_id(user.id)
@@ -51,9 +57,9 @@ defmodule Chess.Store.Game do
       or_where: game.opponent_id == ^user_id
   end
 
-  def check_game_state(changeset, _struct, params) do
+  def check_game_state(changeset, struct, params) do
     changeset
-    |> put_change(:state, GameState.state(params.board, params.turn))
+    |> put_change(:state, GameState.state(params.board, struct.turn))
   end
 
   def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do
