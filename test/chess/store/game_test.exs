@@ -1,4 +1,6 @@
 defmodule Chess.GameTest do
+  @moduledoc false
+
   use Chess.DataCase
 
   describe "game" do

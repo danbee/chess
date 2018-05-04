@@ -10,6 +10,7 @@ defmodule Chess.Store.Game do
 
   alias Chess.Board
   alias Chess.Store.Game
+  alias Chess.Store.User
   alias Chess.GameState
 
   schema "games" do
@@ -17,8 +18,8 @@ defmodule Chess.Store.Game do
     field :turn, :string, default: "white"
     field :state, :string
 
-    belongs_to :user, Chess.Store.User
-    belongs_to :opponent, Chess.Store.User, references: :id
+    belongs_to :user, User
+    belongs_to :opponent, User, references: :id
 
     timestamps()
   end
