@@ -38,11 +38,7 @@ defmodule ChessWeb.GameChannel do
       |> Game.for_user_id()
       |> Repo.get!(socket.assigns.game_id)
 
-    changeset = Game.move_changeset(
-      game, %{
-        board: Board.move_piece(game.board, move_params),
-      }
-    )
+    changeset = Game.move_changeset(game, move_params)
 
     case Repo.update(changeset) do
       {:ok, game} ->

@@ -89,9 +89,7 @@ defmodule Chess.GameTest do
 
       move_params = %{"from" => [4, 1], "to" => [4, 3]}
 
-      changeset = Game.move_changeset(game, %{
-        board: Board.move_piece(game.board, move_params),
-      })
+      changeset = Game.move_changeset(game, move_params)
 
       assert {:ok, new_game} = Repo.update(changeset)
       assert new_game.turn == "black"
