@@ -9,9 +9,10 @@ defmodule Chess.Store.Game do
   import ChessWeb.Gettext
 
   alias Chess.Board
-  alias Chess.Store.Game
-  alias Chess.Store.User
   alias Chess.GameState
+  alias Chess.Store.Game
+  alias Chess.Store.Move
+  alias Chess.Store.User
 
   schema "games" do
     field :board, :map, default: Board.default()
@@ -20,6 +21,8 @@ defmodule Chess.Store.Game do
 
     belongs_to :user, User
     belongs_to :opponent, User, references: :id
+
+    has_many :moves, Move
 
     timestamps()
   end
