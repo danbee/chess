@@ -5,6 +5,7 @@ defmodule Chess.GameTest do
 
   describe "game" do
     alias Chess.Repo
+    alias Chess.Board
     alias Chess.Store.Game
 
     import Chess.Factory
@@ -74,6 +75,26 @@ defmodule Chess.GameTest do
 
       refute changeset.valid?
       assert {:error, _changeset} = Repo.insert(changeset)
+    end
+
+    test "moving a piece changes the turn" do
+      user = insert(:user, %{email: "link@hyrule.com"})
+      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+
+      game = insert(:game, %{
+        board: Board.default,
+        user_id: user.id,
+        opponent_id: opponent.id,
+      })
+
+      move_params = %{"from" => [4, 1], "to" => [4, 3]}
+
+      changeset = Game.move_changeset(game, %{
+        board: Board.move_piece(game.board, move_params),
+      })
+
+      assert {:ok, new_game} = Repo.update(changeset)
+      assert new_game.turn == "black"
     end
   end
 end
