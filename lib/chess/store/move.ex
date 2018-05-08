@@ -29,8 +29,8 @@ defmodule Chess.Store.Move do
 
   def translate(move) do
     [
-      <<97 + move.from.file, 49 + move.from.rank>>,
-      <<97 + move.to.file, 49 + move.to.rank>>
+      <<97 + move.from["file"], 49 + move.from["rank"]>>,
+      <<97 + move.to["file"], 49 + move.to["rank"]>>
     ]
     |> Enum.join("-")
   end

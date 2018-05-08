@@ -19,13 +19,15 @@ defmodule ChessWeb.GameChannel do
     game =
       socket.assigns.current_user_id
       |> Game.for_user_id()
+      |> preload(:moves)
       |> Repo.get!(game_id)
 
     payload = %{
       player: player(socket, game),
       board: Board.transform(game.board),
       turn: game.turn,
-      state: game.state
+      state: game.state,
+      moves: Moves.transform(game.moves),
     }
 
     socket
@@ -34,10 +36,13 @@ defmodule ChessWeb.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("game:move", move_params, socket) do
+  def handle_in("game:move", params, socket) do
+    move_params = convert_params(params)
+
     game =
       socket.assigns.current_user_id
       |> Game.for_user_id()
+      |> preload(:moves)
       |> Repo.get!(socket.assigns.game_id)
 
     params = Board.move_piece(game.board, move_params)
@@ -47,8 +52,8 @@ defmodule ChessWeb.GameChannel do
     |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
     |> Repo.transaction
     |> case do
-      {:ok, %{game: game}} ->
-        send_update(game)
+      {:ok, _} ->
+        send_update(socket)
 
         {:noreply, socket}
       {:error, :game, changeset, _} ->
@@ -80,11 +85,25 @@ defmodule ChessWeb.GameChannel do
     {:reply, {:ok, reply}, socket}
   end
 
-  def send_update(game) do
+  def convert_params(%{"from" => from, "to" => to}) do
+    %{
+      "from" => Enum.map(from, fn(s) -> String.to_integer(s) end),
+      "to" => Enum.map(to, fn(s) -> String.to_integer(s) end),
+    }
+  end
+
+  def send_update(socket) do
+    game =
+      socket.assigns.current_user_id
+      |> Game.for_user_id()
+      |> preload(:moves)
+      |> Repo.get!(socket.assigns.game_id)
+
     payload = %{
       board: Board.transform(game.board),
       turn: game.turn,
-      state: game.state
+      state: game.state,
+      moves: Moves.transform(game.moves),
     }
     ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
   end

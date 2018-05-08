@@ -22,8 +22,8 @@ defmodule Chess.MoveTest do
 
       changeset = Move.changeset(%Move{}, %{
         game_id: game.id,
-        from: %{file: 4, rank: 1},
-        to: %{file: 4, rank: 3},
+        from: %{"file" => 4, "rank" => 1},
+        to: %{"file" => 4, "rank" => 3},
         piece: %{"type" => "pawn", "colour" => "white"},
       })
 
@@ -33,8 +33,8 @@ defmodule Chess.MoveTest do
 
     test "move is invalid without a game" do
       changeset = Move.changeset(%Move{}, %{
-        from: %{file: 4, rank: 1},
-        to: %{file: 4, rank: 3},
+        from: %{"file" => 4, "rank" => 1},
+        to: %{"file" => 4, "rank" => 3},
         piece: %{"type" => "pawn", "colour" => "white"},
       })
 
@@ -71,8 +71,8 @@ defmodule Chess.MoveTest do
 
       changeset = Move.changeset(%Move{}, %{
         game_id: game.id,
-        from: %{file: 4, rank: 1},
-        to: %{file: 4, rank: 3},
+        from: %{"file" => 4, "rank" => 1},
+        to: %{"file" => 4, "rank" => 3},
       })
 
       refute changeset.valid?
@@ -81,8 +81,8 @@ defmodule Chess.MoveTest do
 
     test "translates a move" do
       move = %Move{
-        from: %{file: 4, rank: 1},
-        to: %{file: 4, rank: 3},
+        from: %{"file" => 4, "rank" => 1},
+        to: %{"file" => 4, "rank" => 3},
       }
 
       assert Move.translate(move) == "e2-e4"

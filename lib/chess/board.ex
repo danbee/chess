@@ -38,8 +38,8 @@ defmodule Chess.Board do
     {piece_captured, board} = Map.pop(board, "#{to_file},#{to_rank}")
 
     %{
-      from: %{file: from_file, rank: from_rank},
-      to: %{file: to_file, rank: to_rank},
+      from: %{"file" => from_file, "rank" => from_rank},
+      to: %{"file" => to_file, "rank" => to_rank},
       board: Map.put(board, "#{to_file},#{to_rank}", piece),
       piece: piece,
       piece_captured: piece_captured,

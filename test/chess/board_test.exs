@@ -46,7 +46,7 @@ defmodule Chess.BoardTest do
     }
 
     %{board: new_board} =
-      Board.move_piece(board, %{"from" => [3, 0], "to" => [5, 2]})
+      Board.move_piece(board, %{"from" => ["3", "0"], "to" => ["5", "2"]})
 
     assert new_board == %{
       "5,2" => %{"type" => "queen", "colour" => "white"},

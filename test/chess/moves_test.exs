@@ -10,16 +10,16 @@ defmodule Chess.MovesTest do
     test "tranforms a list of moves" do
       moves = [
         %Move{
-          from: %{file: 4, rank: 1},
-          to: %{file: 4, rank: 3},
+          from: %{"file" => 4, "rank" => 1},
+          to: %{"file" => 4, "rank" => 3},
         },
         %Move{
-          from: %{file: 4, rank: 6},
-          to: %{file: 4, rank: 4},
+          from: %{"file" => 4, "rank" => 6},
+          to: %{"file" => 4, "rank" => 4},
         },
         %Move{
-          from: %{file: 1, rank: 0},
-          to: %{file: 2, rank: 2},
+          from: %{"file" => 1, "rank" => 0},
+          to: %{"file" => 2, "rank" => 2},
         },
       ]
 
