@@ -2,6 +2,7 @@ defmodule Chess.Moves do
   @moduledoc false
 
   alias Chess.Board
+  alias Chess.Store.Move
 
   alias Chess.Moves.Pieces.Pawn
   alias Chess.Moves.Pieces.Bishop
@@ -9,6 +10,12 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.Rook
   alias Chess.Moves.Pieces.Queen
   alias Chess.Moves.Pieces.King
+
+  def transform(moves) do
+    moves
+    |> Enum.map(fn(move) -> Move.translate(move) end)
+    |> Enum.chunk_every(2)
+  end
 
   def available(board, {file, rank}) do
     piece =

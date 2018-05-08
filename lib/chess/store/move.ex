@@ -27,5 +27,13 @@ defmodule Chess.Store.Move do
     |> validate_required(required_attrs())
   end
 
+  def translate(move) do
+    [
+      <<97 + move.from.file, 49 + move.from.rank>>,
+      <<97 + move.to.file, 49 + move.to.rank>>
+    ]
+    |> Enum.join("-")
+  end
+
   defp required_attrs, do: ~w[game_id from to piece]a
 end

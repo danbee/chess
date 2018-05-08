@@ -77,5 +77,15 @@ defmodule Chess.MoveTest do
 
       refute changeset.valid?
     end
+
+
+    test "translates a move" do
+      move = %Move{
+        from: %{file: 4, rank: 1},
+        to: %{file: 4, rank: 3},
+      }
+
+      assert Move.translate(move) == "e2-e4"
+    end
   end
 end
