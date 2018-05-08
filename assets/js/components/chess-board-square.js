@@ -80,9 +80,9 @@ class ChessBoardSquare extends React.Component {
 
   isAvailableSquare() {
     const { store } = this.props;
-    const moves = store.getState().moves;
+    const availableMoves = store.getState().availableMoves;
 
-    return _.find(moves, (square) => {
+    return _.find(availableMoves, (square) => {
       return square.join() == this.squareCoords.join();
     });
   }

@@ -5,7 +5,7 @@ const defaultState = {
   turn: null,
   state: null,
 
-  moves: [],
+  availableMoves: [],
 
   board: {
     8: { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },

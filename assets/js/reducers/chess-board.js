@@ -18,9 +18,9 @@ const chessBoardReducer = (state = defaultState, action) => {
         .set("moves", [])
         .toJS();
 
-    case "SET_MOVES":
+    case "SET_AVAILABLE_MOVES":
       return Immutable.fromJS(state)
-        .set("moves", action.moves)
+        .set("availableMoves", action.availableMoves)
         .toJS();
 
     case "SET_GAME_ID":

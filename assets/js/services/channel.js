@@ -29,7 +29,7 @@ class Channel {
   getAvailableMoves(square) {
     this.channel.push("game:get_available_moves", { square })
       .receive("ok", (data) => {
-        this.store.dispatch(setMoves(data.moves));
+        this.store.dispatch(setAvailableMoves(data.moves));
       });
   }
 
