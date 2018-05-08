@@ -13,6 +13,7 @@ import chessBoardReducer from "./reducers/chess-board";
 import { setGameId } from "./store/actions";
 
 import ChessBoard from "./components/chess-board";
+import MoveList from "./components/move-list";
 
 const store = createStore(chessBoardReducer);
 
@@ -25,15 +26,24 @@ class App extends React.Component {
     this.channel = new Channel(store, gameId);
   }
 
+  get moves() {
+    const { store } = this.props;
+    return store.getState().moves;
+  }
+
   render() {
     const { store, gameId } = this.props;
 
     return (
-      <ChessBoard
-        gameId={gameId}
-        store={store}
-        channel={this.channel}
-      />
+      <div>
+        <ChessBoard
+          gameId={gameId}
+          store={store}
+          channel={this.channel}
+        />
+
+        <MoveList store={store} />
+      </div>
     );
   }
 }

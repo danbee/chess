@@ -16,6 +16,7 @@ export const setGame = (data) => {
     type: SET_GAME,
     board: data.board,
     turn: data.turn,
+    moves: data.moves,
     state: data.state,
   };
 };

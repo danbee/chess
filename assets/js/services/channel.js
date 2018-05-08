@@ -1,5 +1,5 @@
 import socket from "../socket";
-import { setPlayer, setGame, setMoves } from "../store/actions";
+import { setPlayer, setGame, setAvailableMoves } from "../store/actions";
 
 class Channel {
   constructor(store, gameId) {
