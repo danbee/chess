@@ -1,4 +1,4 @@
-defmodule Chess.SessionTest do
+defmodule Chess.Features.SessionTest do
   use ChessWeb.FeatureCase
 
   import Wallaby.Query

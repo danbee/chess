@@ -1,4 +1,4 @@
-defmodule Chess.MoveTest do
+defmodule Chess.Store.MoveTest do
   @moduledoc false
 
   use Chess.DataCase

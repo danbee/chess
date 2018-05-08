@@ -1,4 +1,4 @@
-defmodule Chess.RegistrationTest do
+defmodule Chess.Features.RegistrationTest do
   use ChessWeb.FeatureCase
 
   import Wallaby.Query

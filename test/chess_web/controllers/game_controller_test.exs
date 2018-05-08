@@ -1,4 +1,4 @@
-defmodule Chess.GameControllerTest do
+defmodule ChessWeb.GameControllerTest do
   use ChessWeb.ConnCase
 
   alias Chess.Store.Game

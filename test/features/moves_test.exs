@@ -1,4 +1,4 @@
-defmodule Chess.MovesTest do
+defmodule Chess.Features.MovesTest do
   use ChessWeb.FeatureCase
 
   import Wallaby.Query

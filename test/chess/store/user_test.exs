@@ -1,4 +1,4 @@
-defmodule Chess.UserTest do
+defmodule Chess.Store.UserTest do
   use Chess.DataCase
 
   import Chess.Factory

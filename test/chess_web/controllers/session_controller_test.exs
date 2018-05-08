@@ -1,4 +1,4 @@
-defmodule Chess.SessionControllerTest do
+defmodule ChessWeb.SessionControllerTest do
   use ChessWeb.ConnCase
 
   test "shows log in form", %{conn: conn} do
