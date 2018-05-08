@@ -22,15 +22,14 @@ defmodule Chess.MovesTest do
     |> select("game[opponent_id]", option: "Zelda")
     |> click(button("Create game"))
 
-    session
     |> click(css("#f4-r1"))
     |> assert_has(square_selected("f4-r1"))
     |> assert_has(square_containing("f4-r1", "white.pawn"))
 
-    session
+    # TODO: Random failure, Investigate!
     |> click(css("#f4-r3"))
-    |> refute_has(square_containing("f4-r1", "white.pawn"))
     |> assert_has(square_containing("f4-r3", "white.pawn"))
+    |> refute_has(square_containing("f4-r1", "white.pawn"))
   end
 
   test "cannot move the opponents pieces", %{session: session} do
