@@ -35,11 +35,7 @@ defmodule Chess.Store.Game do
     |> foreign_key_constraint(:opponent_id)
   end
 
-  def move_changeset(struct, move_params) do
-    params = %{
-      board: Board.move_piece(struct.board, move_params),
-    }
-
+  def move_changeset(struct, params) do
     struct
     |> cast(params, required_attrs())
     |> validate_king_in_check(struct, params)

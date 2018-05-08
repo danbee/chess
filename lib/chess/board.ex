@@ -30,13 +30,20 @@ defmodule Chess.Board do
     board["#{file},#{rank}"]
   end
 
-  def move_piece(board, move_params) do
-    [from_file, from_rank] = move_params["from"]
-    [to_file, to_rank] = move_params["to"]
+  def move_piece(board, %{"from" => from, "to" => to}) do
+    [from_file, from_rank] = from
+    [to_file, to_rank] = to
 
     {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
+    {piece_captured, board} = Map.pop(board, "#{to_file},#{to_rank}")
 
-    Map.put(board, "#{to_file},#{to_rank}", piece)
+    %{
+      from: %{file: from_file, rank: from_rank},
+      to: %{file: to_file, rank: to_rank},
+      board: Map.put(board, "#{to_file},#{to_rank}", piece),
+      piece: piece,
+      piece_captured: piece_captured,
+    }
   end
 
   def default do

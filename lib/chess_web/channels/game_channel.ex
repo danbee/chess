@@ -3,6 +3,8 @@ defmodule ChessWeb.GameChannel do
 
   use ChessWeb, :channel
 
+  alias Ecto.Multi
+
   alias Chess.Store.Game
   alias Chess.Board
   alias Chess.Moves
@@ -38,14 +40,18 @@ defmodule ChessWeb.GameChannel do
       |> Game.for_user_id()
       |> Repo.get!(socket.assigns.game_id)
 
-    changeset = Game.move_changeset(game, move_params)
+    params = Board.move_piece(game.board, move_params)
 
-    case Repo.update(changeset) do
-      {:ok, game} ->
+    Multi.new
+    |> Multi.update(:game, Game.move_changeset(game, params))
+    |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
+    |> Repo.transaction
+    |> case do
+      {:ok, %{game: game}} ->
         send_update(game)
 
         {:noreply, socket}
-      {:error, changeset} ->
+      {:error, :game, changeset, _} ->
         {message, _} = changeset.errors[:board]
 
         {:reply, {:error, %{message: message}}, socket}
