@@ -31,12 +31,14 @@ defmodule Chess.MoveListTest do
           %{
             id: nil,
             piece: %{"type" => "pawn", "colour" => "white"},
+            piece_captured: nil,
             from: "e2",
             to: "e4"
           },
           %{
             id: nil,
             piece: %{"type" => "pawn", "colour" => "black"},
+            piece_captured: nil,
             from: "e7",
             to: "e5"
           }
@@ -45,6 +47,7 @@ defmodule Chess.MoveListTest do
           %{
             id: nil,
             piece: %{"type" => "knight", "colour" => "white"},
+            piece_captured: nil,
             from: "b1",
             to: "c3"
           }

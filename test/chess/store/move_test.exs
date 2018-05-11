@@ -82,6 +82,7 @@ defmodule Chess.Store.MoveTest do
     test "translates a move" do
       move = %Move{
         piece: %{"type" => "pawn", "colour" => "white"},
+        piece_captured: %{"type" => "pawn", "colour" => "black"},
         from: %{"file" => 4, "rank" => 1},
         to: %{"file" => 4, "rank" => 3},
       }
@@ -89,6 +90,7 @@ defmodule Chess.Store.MoveTest do
       assert Move.transform(move) == %{
         id: nil,
         piece: %{"type" => "pawn", "colour" => "white"},
+        piece_captured: %{"type" => "pawn", "colour" => "black"},
         from: "e2",
         to: "e4"
       }

@@ -31,6 +31,7 @@ defmodule Chess.Store.Move do
     %{
       id: move.id,
       piece: move.piece,
+      piece_captured: move.piece_captured,
       from: <<97 + move.from["file"], 49 + move.from["rank"]>>,
       to: <<97 + move.to["file"], 49 + move.to["rank"]>>,
     }

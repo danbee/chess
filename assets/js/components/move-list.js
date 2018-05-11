@@ -18,10 +18,14 @@ const pieceToNotation = (piece) => {
 const renderMove = (move) => {
   if (move != undefined) {
     return (
-      <td className="move">{pieceToNotation(move.piece)}{move.to}</td>
-    )
+      <td className="move">
+        {pieceToNotation(move.piece)}
+        {move.piece_captured ? "x" : ""}
+        {move.to}
+      </td>
+    );
   }
-}
+};
 
 const renderMoves = (moves) => {
   return _.map(moves, (move) => {
