@@ -8,6 +8,7 @@ defmodule ChessWeb.GameChannel do
   alias Chess.Store.Game
   alias Chess.Board
   alias Chess.Moves
+  alias Chess.MoveList
 
   def join("game:" <> game_id, _params, socket) do
     send(self(), {:after_join, game_id})
@@ -27,7 +28,7 @@ defmodule ChessWeb.GameChannel do
       board: Board.transform(game.board),
       turn: game.turn,
       state: game.state,
-      moves: Moves.transform(game.moves),
+      moves: MoveList.transform(game.moves),
     }
 
     socket
@@ -103,7 +104,7 @@ defmodule ChessWeb.GameChannel do
       board: Board.transform(game.board),
       turn: game.turn,
       state: game.state,
-      moves: Moves.transform(game.moves),
+      moves: MoveList.transform(game.moves),
     }
     ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
   end

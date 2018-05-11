@@ -11,12 +11,6 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.Queen
   alias Chess.Moves.Pieces.King
 
-  def transform(moves) do
-    moves
-    |> Enum.map(fn(move) -> Move.translate(move) end)
-    |> Enum.chunk_every(2)
-  end
-
   def available(board, {file, rank}) do
     piece =
       board
