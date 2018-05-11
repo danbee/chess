@@ -1,7 +1,24 @@
 .game-grid {
   display: grid;
   grid-gap: $base-spacing;
-  grid-template-areas: "board moves";
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: var(--board-size);
+}
+
+@media (min-aspect-ratio: 10/11) {
+  .game-grid {
+    grid-template-areas:
+      "board game-info"
+      "board move-list";
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr;
+  }
+}
+
+@media (max-aspect-ratio: 10/11) {
+  .game-grid {
+    grid-template-areas:
+      "game-info"
+      "board"
+      "move-list";
+    grid-template-rows: min-content min-content min-content;
+  }
 }

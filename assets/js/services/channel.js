@@ -1,5 +1,5 @@
 import socket from "../socket";
-import { setPlayer, setGame, setAvailableMoves } from "../store/actions";
+import { setPlayer, setOpponent, setGame, setAvailableMoves } from "../store/actions";
 
 class Channel {
   constructor(store, gameId) {
@@ -21,6 +21,7 @@ class Channel {
     this.channel.on("game:update", data => {
       if (data.player != undefined) {
         this.store.dispatch(setPlayer(data.player));
+        this.store.dispatch(setOpponent(data.opponent));
       }
       this.store.dispatch(setGame(data));
     });

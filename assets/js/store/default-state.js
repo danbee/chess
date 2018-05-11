@@ -2,6 +2,7 @@ const defaultState = {
   selectedSquare: null,
 
   player: null,
+  opponent: null,
   turn: null,
   state: null,
 

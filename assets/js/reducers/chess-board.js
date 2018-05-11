@@ -9,6 +9,11 @@ const chessBoardReducer = (state = defaultState, action) => {
         .set("player", action.player)
         .toJS();
 
+    case "SET_OPPONENT":
+      return Immutable.fromJS(state)
+        .set("opponent", action.opponent)
+        .toJS();
+
     case "SET_GAME":
       return Immutable.fromJS(state)
         .set("board", action.board)

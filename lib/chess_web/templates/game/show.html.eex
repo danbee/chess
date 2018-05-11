@@ -1,4 +1,2 @@
-<h2><%= gettext "Game with %{name}", name: opponent(@conn, @game).name %></h2>
-
 <div id="app" data-game-id="<%= @game.id %>">
 </div>

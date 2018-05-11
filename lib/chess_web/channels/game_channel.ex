@@ -21,10 +21,13 @@ defmodule ChessWeb.GameChannel do
       socket.assigns.current_user_id
       |> Game.for_user_id()
       |> preload(:moves)
+      |> preload(:user)
+      |> preload(:opponent)
       |> Repo.get!(game_id)
 
     payload = %{
       player: player(socket, game),
+      opponent: opponent(socket, game),
       board: Board.transform(game.board),
       turn: game.turn,
       state: game.state,
@@ -114,6 +117,14 @@ defmodule ChessWeb.GameChannel do
       "white"
     else
       "black"
+    end
+  end
+
+  defp opponent(socket, game) do
+    if game.user_id == socket.assigns.current_user_id do
+      game.opponent.name
+    else
+      game.user.name
     end
   end
 end
