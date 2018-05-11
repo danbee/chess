@@ -28,3 +28,14 @@ $available-outline-color: rgba(lighten($available-square-color, 20%), 0.5);
 
 $colours: "black" "white";
 $pieces: king queen bishop knight rook pawn;
+
+:root {
+  --board-size: 90vmin;
+}
+
+@media (min-aspect-ratio: 10/11) {
+  :root {
+    --board-size: 80vmin;
+  }
+}
+

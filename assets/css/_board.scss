@@ -1,13 +1,3 @@
-:root {
-  --board-size: 90vmin;
-}
-
-@media (min-aspect-ratio: 10/11) {
-  :root {
-    --board-size: 80vmin;
-  }
-}
-
 @mixin move-indicator {
   border-radius: 50%;
   content: "";
@@ -25,6 +15,7 @@
   border-spacing: 1px;
   box-shadow: 0 calc(var(--board-size) / 200) calc(var(--board-size) / 40) $board-shadow-color;
   color: $white-square-color;
+  grid-area: board;
   height: var(--board-size);
   padding: calc(var(--board-size) / 20);
   position: relative;

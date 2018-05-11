@@ -1,0 +1,16 @@
+.table--condensed {
+  width: auto;
+
+  caption {
+    text-align: left;
+  }
+
+  tr {
+    border: 0;
+  }
+
+  th,
+  td {
+    padding: 0 $base-spacing 0 0;
+  }
+}

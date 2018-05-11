@@ -1,0 +1,7 @@
+.game-grid {
+  display: grid;
+  grid-gap: $base-spacing;
+  grid-template-areas: "board moves";
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: var(--board-size);
+}

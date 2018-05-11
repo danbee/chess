@@ -1,0 +1,16 @@
+.move-list {
+  grid-area: moves;
+  overflow-y: auto;
+}
+
+.move-list__line-number {
+  color: mix($background-color, $foreground-color);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.move-list__header--white,
+.move-list__move--white,
+.move-list__line-number {
+  text-align: right;
+}

@@ -1,5 +1,3 @@
-<p><%= link gettext("Back to games"), to: game_path(@conn, :index) %></p>
-
 <h2><%= gettext "Game with %{name}", name: opponent(@conn, @game).name %></h2>
 
 <div id="app" data-game-id="<%= @game.id %>">

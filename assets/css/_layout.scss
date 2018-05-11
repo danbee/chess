@@ -1,6 +1,7 @@
 html {
   background: $background-color;
   color: mix($background-color, $foreground-color, 20%);
+  font-weight: 300;
 }
 
 a {
@@ -11,7 +12,6 @@ h1,
 h2,
 h3,
 h4 {
-  font-variant: small-caps;
   font-weight: 300;
 }
 

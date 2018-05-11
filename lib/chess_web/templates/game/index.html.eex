@@ -1,6 +1,6 @@
 <h2><%= gettext "Listing games" %></h2>
 
-<table class="table">
+<table class="table table--games-list">
   <tbody>
     <%= for game <- @games do %>
       <tr class="<%= turn_class(@conn, game) %>">
