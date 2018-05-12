@@ -3,7 +3,7 @@
   grid-gap: $base-spacing;
 }
 
-@media (min-aspect-ratio: 10/11) {
+@media (min-aspect-ratio: 9/11) {
   .game-grid {
     grid-template-areas:
       "board game-info"
@@ -11,14 +11,30 @@
     grid-template-columns: min-content 1fr;
     grid-template-rows: min-content 1fr;
   }
+
+  .container {
+    max-width: 120vmin;
+  }
 }
 
-@media (max-aspect-ratio: 10/11) {
+@media (max-aspect-ratio: 9/11) {
   .game-grid {
     grid-template-areas:
       "game-info"
       "board"
       "move-list";
     grid-template-rows: min-content min-content min-content;
+  }
+}
+
+@media (max-height: 960px), (max-width: 768px) {
+  html {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-height: 480px), (max-width: 400px) {
+  html {
+    font-size: 0.8em;
   }
 }

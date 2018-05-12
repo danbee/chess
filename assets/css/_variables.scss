@@ -30,12 +30,17 @@ $colours: "black" "white";
 $pieces: king queen bishop knight rook pawn;
 
 :root {
-  --board-size: 90vmin;
+  --board-size: 64vw;
 }
 
-@media (min-aspect-ratio: 10/11) {
+@media (min-aspect-ratio: 14/11) {
   :root {
     --board-size: 80vmin;
   }
 }
 
+@media (max-aspect-ratio: 9/11) {
+  :root {
+    --board-size: 90vmin;
+  }
+}
