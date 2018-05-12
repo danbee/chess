@@ -29,7 +29,7 @@ defmodule Chess.Features.GamesTest do
     |> click(button("Create game"))
 
     session
-    |> assert_has(css("h2", text: "Game with Zelda"))
+    |> assert_has(css("p", text: "Playing Zelda"))
     |> assert_has(css(".board"))
   end
 
@@ -65,7 +65,7 @@ defmodule Chess.Features.GamesTest do
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "Urbosa")
     |> click(button("Create game"))
-    |> click(link("Back to games"))
+    |> click(link("Chess"))
 
     session
     |> assert_has(css(".table tr", count: 1))
@@ -96,6 +96,6 @@ defmodule Chess.Features.GamesTest do
     |> click(link("Game with Zelda"))
 
     session
-    |> assert_has(css("h2", text: "Game with Zelda"))
+    |> assert_has(css("p", text: "Playing Zelda"))
   end
 end

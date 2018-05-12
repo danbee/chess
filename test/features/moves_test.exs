@@ -130,6 +130,7 @@ defmodule Chess.Features.MovesTest do
       board: %{
         "4,0" => %{"type" => "king",   "colour" => "white"},
         "3,7" => %{"type" => "queen",  "colour" => "black"},
+        "7,7" => %{"type" => "king",  "colour" => "black"},
       },
       user_id: user.id,
       opponent_id: opponent.id,
@@ -165,6 +166,7 @@ defmodule Chess.Features.MovesTest do
         "4,0" => %{"type" => "king", "colour" => "white"},
         "4,1" => %{"type" => "rook", "colour" => "white"},
         "4,7" => %{"type" => "queen", "colour" => "black"},
+        "7,7" => %{"type" => "king",  "colour" => "black"},
       },
       user_id: user.id,
       opponent_id: opponent.id,

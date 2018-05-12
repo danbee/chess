@@ -38,6 +38,10 @@ defmodule Chess.GameState do
       |> Board.search(%{"type" => "king", "colour" => colour})
       |> List.first
 
+    if king == nil do
+      raise "There is no #{colour} king!"
+    end
+
     board
     |> Piece.attacked?(king)
   end
