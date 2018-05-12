@@ -114,6 +114,7 @@
   &.check,
   &.checkmate,
   &.stalemate {
+    display: block; // So PhantomJS will display it.
     display: flex;
   }
 

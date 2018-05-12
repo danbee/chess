@@ -184,6 +184,41 @@ defmodule Chess.MovesTest do
     |> assert_has(square_containing("f4-r1", "white.rook"))
   end
 
+  test "user is informed when the game is in check", %{session: session} do
+    user = insert(:user, %{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
+    })
+    opponent = insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
+    insert(:game, %{
+      board: %{
+        "4,0" => %{"type" => "king",   "colour" => "white"},
+        "3,7" => %{"type" => "queen",  "colour" => "black"},
+        "7,7" => %{"type" => "king",  "colour" => "black"},
+      },
+      user_id: user.id,
+      opponent_id: opponent.id,
+      turn: "black",
+    })
+
+    session
+    |> login("zelda@hyrule.com", "ganonsucks")
+    |> visit("/games")
+    |> click(link("Game with Link"))
+
+    session
+    |> click(css("#f3-r7"))
+    |> click(css("#f4-r7"))
+    |> assert_has(square_containing("f4-r7", "black.queen"))
+
+    assert session |> has_text?("Check")
+  end
+
   defp square_selected(square) do
     css("##{square}.selected")
   end

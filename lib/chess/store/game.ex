@@ -35,8 +35,8 @@ defmodule Chess.Store.Game do
     struct
     |> cast(params, required_attrs())
     |> validate_king_in_check(struct, params)
-    |> check_game_state(struct, params)
     |> change_turn(struct.turn)
+    |> check_game_state
   end
 
   def change_turn(changeset, turn) do
@@ -57,9 +57,11 @@ defmodule Chess.Store.Game do
       or_where: game.opponent_id == ^user_id
   end
 
-  def check_game_state(changeset, struct, params) do
+  def check_game_state(changeset) do
     changeset
-    |> put_change(:state, GameState.state(params.board, struct.turn))
+    |> put_change(
+      :state, GameState.state(changeset.changes.board, changeset.changes.turn)
+    )
   end
 
   def validate_king_in_check(changeset, %Game{turn: turn}, %{board: board}) do
