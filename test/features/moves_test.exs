@@ -26,7 +26,6 @@ defmodule Chess.Features.MovesTest do
     |> assert_has(square_selected("f4-r1"))
     |> assert_has(square_containing("f4-r1", "white.pawn"))
 
-    # TODO: Random failure, Investigate!
     |> click(css("#f4-r3"))
     |> assert_has(square_containing("f4-r3", "white.pawn"))
     |> refute_has(square_containing("f4-r1", "white.pawn"))

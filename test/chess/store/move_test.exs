@@ -78,7 +78,6 @@ defmodule Chess.Store.MoveTest do
       refute changeset.valid?
     end
 
-
     test "translates a move" do
       move = %Move{
         piece: %{"type" => "pawn", "colour" => "white"},

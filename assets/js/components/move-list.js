@@ -18,7 +18,7 @@ const pieceToNotation = (piece) => {
 
 const moveClass = (move) => {
   return classNames("move-list__move", "move-list__move--" + move.piece.colour);
-}
+};
 
 const renderMove = (move) => {
   if (move != undefined) {
