@@ -5,7 +5,6 @@ defmodule Chess.Store.Move do
   use Timex.Ecto.Timestamps
 
   import Ecto.Changeset
-  # import Ecto.Query
 
   alias Chess.Store.Game
 

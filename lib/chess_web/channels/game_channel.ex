@@ -3,8 +3,6 @@ defmodule ChessWeb.GameChannel do
 
   use ChessWeb, :channel
 
-  alias Ecto.Multi
-
   alias Chess.Store.Game
   alias Chess.Board
   alias Chess.Moves
@@ -43,18 +41,11 @@ defmodule ChessWeb.GameChannel do
   def handle_in("game:move", params, socket) do
     move_params = convert_params(params)
 
-    game =
-      socket.assigns.current_user_id
-      |> Game.for_user_id()
-      |> preload(:moves)
-      |> Repo.get!(socket.assigns.game_id)
-
-    params = Board.move_piece(game.board, move_params)
-
-    Multi.new
-    |> Multi.update(:game, Game.move_changeset(game, params))
-    |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
-    |> Repo.transaction
+    socket.assigns.current_user_id
+    |> Game.for_user_id()
+    |> preload(:moves)
+    |> Repo.get!(socket.assigns.game_id)
+    |> Moves.make_move(move_params)
     |> case do
       {:ok, _} ->
         send_update(socket)
@@ -91,8 +82,8 @@ defmodule ChessWeb.GameChannel do
 
   def convert_params(%{"from" => from, "to" => to}) do
     %{
-      "from" => Enum.map(from, fn(s) -> String.to_integer(s) end),
-      "to" => Enum.map(to, fn(s) -> String.to_integer(s) end),
+      "from" => Enum.map(from, &(String.to_integer(&1))),
+      "to" => Enum.map(to, &(String.to_integer(&1))),
     }
   end
 

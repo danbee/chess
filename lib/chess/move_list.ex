@@ -5,7 +5,7 @@ defmodule Chess.MoveList do
 
   def transform(moves) do
     moves
-    |> Enum.map(fn(move) -> Move.transform(move) end)
+    |> Enum.map(&(Move.transform(&1)))
     |> Enum.chunk_every(2)
   end
 end

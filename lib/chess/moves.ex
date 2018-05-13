@@ -1,8 +1,11 @@
 defmodule Chess.Moves do
   @moduledoc false
 
+  alias Ecto.Multi
+
+  alias Chess.Repo
   alias Chess.Board
-  alias Chess.Store.Move
+  alias Chess.Store.Game
 
   alias Chess.Moves.Pieces.Pawn
   alias Chess.Moves.Pieces.Bishop
@@ -10,6 +13,15 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.Rook
   alias Chess.Moves.Pieces.Queen
   alias Chess.Moves.Pieces.King
+
+  def make_move(game, move_params) do
+    params = Board.move_piece(game.board, move_params)
+
+    Multi.new
+    |> Multi.update(:game, Game.move_changeset(game, params))
+    |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
+    |> Repo.transaction
+  end
 
   def available(board, {file, rank}) do
     piece =
