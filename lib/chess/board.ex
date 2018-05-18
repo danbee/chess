@@ -30,20 +30,51 @@ defmodule Chess.Board do
     board["#{file},#{rank}"]
   end
 
-  def move_piece(board, %{"from" => from, "to" => to}) do
-    [from_file, from_rank] = from
-    [to_file, to_rank] = to
+  def move_piece(board, %{
+    "from" => [from_file, from_rank],
+    "to" => [to_file, to_rank]
+  }) do
+    {piece, board} = Map.pop(board, to_index({from_file, from_rank}))
+    {piece_captured, board} = Map.pop(board, to_index({to_file, to_rank}))
+    board = Map.put(board, to_index({to_file, to_rank}), piece)
 
-    {piece, board} = Map.pop(board, "#{from_file},#{from_rank}")
-    {piece_captured, board} = Map.pop(board, "#{to_file},#{to_rank}")
+    board =
+      if castling_move?(piece, from_file, to_file) do
+        board
+        |> castling_move(%{
+          "from" => [from_file, from_rank],
+          "to" => [to_file, to_rank]
+        })
+        |> Map.get(:board)
+      else
+        board
+      end
 
     %{
       from: %{"file" => from_file, "rank" => from_rank},
       to: %{"file" => to_file, "rank" => to_rank},
-      board: Map.put(board, "#{to_file},#{to_rank}", piece),
+      board: board,
       piece: piece,
       piece_captured: piece_captured,
     }
+  end
+
+  def castling_move?(%{"type" => "king"}, 4, to_file) do
+    to_file == 2 || to_file == 6
+  end
+  def castling_move?(_, _, _), do: false
+
+  def castling_move(board, %{"from" => [4, rank], "to" => [2, _rank]}) do
+    move_piece(board, %{
+      "from" => [0, rank],
+      "to" => [3, rank],
+    })
+  end
+  def castling_move(board, %{"from" => [4, rank], "to" => [6, _rank]}) do
+    move_piece(board, %{
+      "from" => [7, rank],
+      "to" => [5, rank],
+    })
   end
 
   def default do
@@ -84,6 +115,10 @@ defmodule Chess.Board do
       "6,0" => %{"type" => "knight", "colour" => "white"},
       "7,0" => %{"type" => "rook",   "colour" => "white"}
     }
+  end
+
+  defp to_index({file, rank}) do
+    "#{file},#{rank}"
   end
 
   defp indexes_to_tuples(list) do

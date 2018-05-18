@@ -15,7 +15,9 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.King
 
   def make_move(game, move_params) do
-    params = Board.move_piece(game.board, move_params)
+    params =
+      game.board
+      |> Board.move_piece(move_params)
 
     Multi.new
     |> Multi.update(:game, Game.move_changeset(game, params))
@@ -23,7 +25,7 @@ defmodule Chess.Moves do
     |> Repo.transaction
   end
 
-  def available(board, {file, rank}) do
+  def available(board, {file, rank}, move_list \\ []) do
     piece =
       board
       |> Board.piece({file, rank})
@@ -38,7 +40,7 @@ defmodule Chess.Moves do
       %{"type" => "knight"} ->
         Knight.moves(board, {file, rank})
       %{"type" => "king"} ->
-        King.moves(board, {file, rank})
+        King.moves(board, {file, rank}, move_list)
       %{"type" => "queen"} ->
         Queen.moves(board, {file, rank})
     end

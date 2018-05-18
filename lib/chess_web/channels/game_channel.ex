@@ -61,12 +61,12 @@ defmodule ChessWeb.GameChannel do
   ) do
     game =
       socket.assigns.current_user_id
-      |> Queries.game_for_user(socket.assigns.game_id)
+      |> Queries.game_with_moves(socket.assigns.game_id)
 
     moves = Moves.available(game.board, {
       String.to_integer(file),
       String.to_integer(rank)
-    })
+    }, game.moves)
 
     reply = %{
       moves: Enum.map(moves, &(Tuple.to_list(&1)))

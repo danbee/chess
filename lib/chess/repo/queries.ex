@@ -19,10 +19,4 @@ defmodule Chess.Repo.Queries do
     |> preload(:moves)
     |> Repo.get!(game_id)
   end
-
-  def game_for_user(user_id, game_id) do
-    user_id
-    |> Game.for_user_id()
-    |> Repo.get!(game_id)
-  end
 end

@@ -46,10 +46,40 @@ defmodule Chess.BoardTest do
     }
 
     %{board: new_board} =
-      Board.move_piece(board, %{"from" => ["3", "0"], "to" => ["5", "2"]})
+      Board.move_piece(board, %{"from" => [3, 0], "to" => [5, 2]})
 
     assert new_board == %{
       "5,2" => %{"type" => "queen", "colour" => "white"},
+    }
+  end
+
+  test "can perform a castling move on the kings side" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "7,0" => %{"type" => "rook", "colour" => "white"},
+    }
+
+    %{board: new_board} =
+      Board.move_piece(board, %{"from" => [4, 0], "to" => [6, 0]})
+
+    assert new_board == %{
+      "6,0" => %{"type" => "king", "colour" => "white"},
+      "5,0" => %{"type" => "rook", "colour" => "white"},
+    }
+  end
+
+  test "can perform a castling move on the queens side" do
+    board = %{
+      "4,0" => %{"type" => "king", "colour" => "white"},
+      "0,0" => %{"type" => "rook", "colour" => "white"},
+    }
+
+    %{board: new_board} =
+      Board.move_piece(board, %{"from" => [4, 0], "to" => [2, 0]})
+
+    assert new_board == %{
+      "2,0" => %{"type" => "king", "colour" => "white"},
+      "3,0" => %{"type" => "rook", "colour" => "white"},
     }
   end
 end
