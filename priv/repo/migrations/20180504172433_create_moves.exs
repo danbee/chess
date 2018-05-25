@@ -4,9 +4,9 @@ defmodule Chess.Repo.Migrations.CreateMoves do
   def change do
     create table(:moves) do
       add :game_id, references(:games, on_delete: :delete_all)
-      add :from, :map
-      add :to, :map
-      add :piece, :map
+      add :from, :map, null: false
+      add :to, :map, null: false
+      add :piece, :map, null: false
       add :piece_captured, :map
 
       timestamps()
