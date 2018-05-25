@@ -3,12 +3,13 @@ defmodule Chess.Store.MoveTest do
 
   use Chess.DataCase
 
-  describe "move" do
-    alias Chess.Repo
-    alias Chess.Board
-    alias Chess.Store.Move
+  import Chess.Factory
 
-    import Chess.Factory
+  alias Chess.Board
+  alias Chess.Repo
+  alias Chess.Store.Move
+
+  describe "move" do
 
     test "move is valid with a game, a from, and a to" do
       user = insert(:user, %{email: "link@hyrule.com"})
