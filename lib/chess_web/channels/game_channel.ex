@@ -3,10 +3,11 @@ defmodule ChessWeb.GameChannel do
 
   use ChessWeb, :channel
 
-  alias Chess.Store.Game
   alias Chess.Board
-  alias Chess.Moves
   alias Chess.MoveList
+  alias Chess.Moves
+  alias Chess.Repo.Queries
+  alias Chess.Store.Game
 
   def join("game:" <> game_id, _params, socket) do
     send(self(), {:after_join, game_id})
@@ -17,11 +18,7 @@ defmodule ChessWeb.GameChannel do
   def handle_info({:after_join, game_id}, socket) do
     game =
       socket.assigns.current_user_id
-      |> Game.for_user_id()
-      |> preload(:moves)
-      |> preload(:user)
-      |> preload(:opponent)
-      |> Repo.get!(game_id)
+      |> Queries.game_for_info(game_id)
 
     payload = %{
       player: player(socket, game),
@@ -42,9 +39,7 @@ defmodule ChessWeb.GameChannel do
     move_params = convert_params(params)
 
     socket.assigns.current_user_id
-    |> Game.for_user_id()
-    |> preload(:moves)
-    |> Repo.get!(socket.assigns.game_id)
+    |> Queries.game_with_moves(socket.assigns.game_id)
     |> Moves.make_move(move_params)
     |> case do
       {:ok, _} ->
@@ -65,8 +60,7 @@ defmodule ChessWeb.GameChannel do
   ) do
     game =
       socket.assigns.current_user_id
-      |> Game.for_user_id()
-      |> Repo.get!(socket.assigns.game_id)
+      |> Queries.game_for_user(socket.assigns.game_id)
 
     moves = Moves.available(game.board, {
       String.to_integer(file),
@@ -90,9 +84,7 @@ defmodule ChessWeb.GameChannel do
   def send_update(socket) do
     game =
       socket.assigns.current_user_id
-      |> Game.for_user_id()
-      |> preload(:moves)
-      |> Repo.get!(socket.assigns.game_id)
+      |> Queries.game_with_moves(socket.assigns.game_id)
 
     payload = %{
       board: Board.transform(game.board),
@@ -100,6 +92,7 @@ defmodule ChessWeb.GameChannel do
       state: game.state,
       moves: MoveList.transform(game.moves),
     }
+
     ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
   end
 
