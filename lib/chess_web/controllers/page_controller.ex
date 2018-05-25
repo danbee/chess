@@ -9,7 +9,7 @@ defmodule ChessWeb.PageController do
     if current_user(conn) != nil do
       conn |> redirect(to: game_path(conn, :index)) |> halt()
     else
-      render(conn, "index.html")
+      render(conn, :index)
     end
   end
 end
