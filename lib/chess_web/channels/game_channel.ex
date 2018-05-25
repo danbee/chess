@@ -3,11 +3,12 @@ defmodule ChessWeb.GameChannel do
 
   use ChessWeb, :channel
 
+  import ChessWeb.GameView, only: [player: 2, opponent: 2]
+
   alias Chess.Board
   alias Chess.MoveList
   alias Chess.Moves
   alias Chess.Repo.Queries
-  alias Chess.Store.Game
 
   def join("game:" <> game_id, _params, socket) do
     send(self(), {:after_join, game_id})
@@ -21,8 +22,8 @@ defmodule ChessWeb.GameChannel do
       |> Queries.game_for_info(game_id)
 
     payload = %{
-      player: player(socket, game),
-      opponent: opponent(socket, game),
+      player: player(game, socket.assigns.current_user_id),
+      opponent: opponent(game, socket.assigns.current_user_id).name,
       board: Board.transform(game.board),
       turn: game.turn,
       state: game.state,
@@ -94,21 +95,5 @@ defmodule ChessWeb.GameChannel do
     }
 
     ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
-  end
-
-  defp player(socket, game) do
-    if game.user_id == socket.assigns.current_user_id do
-      "white"
-    else
-      "black"
-    end
-  end
-
-  defp opponent(socket, game) do
-    if game.user_id == socket.assigns.current_user_id do
-      game.opponent.name
-    else
-      game.user.name
-    end
   end
 end

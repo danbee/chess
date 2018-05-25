@@ -41,8 +41,16 @@ defmodule ChessWeb.GameView do
     current_user(conn).id == game.user_id && "white" || "black"
   end
 
-  def opponent(conn, game) do
-    if current_user(conn).id == game.user_id do
+  def player(game, user_id) do
+    if game.user_id == user_id do
+      "white"
+    else
+      "black"
+    end
+  end
+
+  def opponent(game, user_id) do
+    if game.user_id == user_id do
       game.opponent
     else
       game.user

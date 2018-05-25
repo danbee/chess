@@ -10,7 +10,7 @@
           </span>
           <%= link gettext(
                 "Game with %{name}",
-                name: opponent(@conn, game).name
+                name: opponent(game, current_user(@conn).id).name
               ),
                 to: game_path(@conn, :show, game),
                 class: "btn btn-default btn-xs" %>
