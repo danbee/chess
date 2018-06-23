@@ -17,7 +17,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-watch": "^1.1.1"
   },
   "devDependencies": {
     "babel-brunch": "^6.1.1",
