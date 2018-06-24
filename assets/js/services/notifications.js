@@ -4,11 +4,15 @@ class Notifications {
   }
 
   notifyTurn(player) {
+    this.notify({
+      body: "Your opponent has moved.",
+      icon: `/images/king_${player}.svg`,
+    });
+  }
+
+  notify(options) {
     if (!document.hasFocus()) {
-      new Notification("Chess", {
-        body: "Your opponent has moved.",
-        icon: `/images/king_${player}.svg`
-      });
+      new Notification("Chess", options);
     }
   }
 }

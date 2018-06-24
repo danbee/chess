@@ -5,7 +5,6 @@ import "phoenix_html";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import watch from "redux-watch";
 import { createStore } from "redux";
 
 import Channel from "./services/channel";
@@ -13,6 +12,7 @@ import Notifications from "./services/notifications";
 
 import chessBoardReducer from "./reducers/chess-board";
 import { setGameId } from "./store/actions";
+import Listeners from "./store/listeners";
 
 import ChessBoard from "./components/chess-board";
 import MoveList from "./components/move-list";
@@ -27,14 +27,8 @@ class App extends React.Component {
 
     store.dispatch(setGameId(gameId));
 
-    let w = watch(store.getState, "turn");
-    store.subscribe(w((newVal, oldVal, objectPath) => {
-      const player = store.getState().player;
-
-      if (oldVal != null && newVal == player) {
-        notifications.notifyTurn(player);
-      }
-    }));
+    this.listeners = new Listeners(store);
+    this.listeners.setListeners(notifications);
 
     this.channel = new Channel(store, gameId);
   }
