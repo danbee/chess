@@ -2,5 +2,6 @@
 
 ESCAPED_EMAIL="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' $GIGALIXIR_EMAIL)"
 
+git fetch --unshallow origin
 git remote add gigalixir https://$ESCAPED_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
 git push -f gigalixir HEAD:refs/heads/master
