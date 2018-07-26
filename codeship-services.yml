@@ -1,0 +1,17 @@
+app:
+  build:
+    image: danbee/chess
+    dockerfile: Dockerfile
+  depends_on:
+    - db
+  environment:
+    MIX_ENV: test
+    POSTGRES_HOST: db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
+
+db:
+  image: healthcheck/postgres:alpine
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password

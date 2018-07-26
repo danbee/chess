@@ -1,0 +1,7 @@
+- name: create_db
+  command: mix ecto.create ecto.migrate
+  service: app
+
+- name: mix_test
+  command: mix test
+  service: app
