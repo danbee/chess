@@ -2,7 +2,6 @@ defmodule Chess.Features.GamesTest do
   use ChessWeb.FeatureCase
 
   import Wallaby.Query
-
   import Chess.Factory
 
   import Chess.AuthenticationHelpers
@@ -11,7 +10,7 @@ defmodule Chess.Features.GamesTest do
   test "visit homepage", %{session: session} do
     session
     |> visit("/")
-    |> assert_has(css("header h1", text: "Chess"))
+    |> assert_has(css("header h1", text: "64squares"))
   end
 
   test "can create a new game", %{session: session} do
@@ -65,7 +64,7 @@ defmodule Chess.Features.GamesTest do
     |> click(link("New game"))
     |> select("game[opponent_id]", option: "Urbosa")
     |> click(button("Create game"))
-    |> click(link("Chess"))
+    |> click(link("64squares"))
 
     session
     |> assert_has(css(".table tr", count: 1))
