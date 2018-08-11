@@ -14,7 +14,7 @@
   <body>
     <header role="banner">
       <div class="container">
-        <h1><%= link gettext("Chess"), to: page_path(@conn, :index) %></h1>
+        <h1><%= link gettext("64squares"), to: page_path(@conn, :index) %></h1>
 
         <nav class="user-nav" role="user">
           <%= if current_user(@conn) do %>
