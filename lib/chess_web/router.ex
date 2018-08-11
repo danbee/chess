@@ -40,6 +40,10 @@ defmodule ChessWeb.Router do
 
     resources "/games", GameController,
       only: [:index, :new, :create, :show, :delete]
+    resources "/profile", ProfileController,
+      only: [:edit, :update], singleton: true
+    resources "/password", PasswordController,
+      only: [:edit, :update], singleton: true
   end
 
   # Other scopes may use custom stacks.

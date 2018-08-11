@@ -18,7 +18,8 @@
 
         <nav class="user-nav" role="user">
           <%= if current_user(@conn) do %>
-            <%= current_user(@conn).name %> (<%= current_user(@conn).email %>)
+            <%= link(current_user(@conn).name, to: profile_path(@conn, :edit)) %>
+            (<%= current_user(@conn).email %>)
             |
             <%= link gettext("Log out"),
                   to: session_path(@conn, :delete),

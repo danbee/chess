@@ -23,9 +23,23 @@ defmodule Chess.Store.User do
   @doc false
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, required_attrs())
-    |> validate_required(required_attrs())
+    |> cast(params, registration_attrs())
+    |> validate_required(registration_attrs())
     |> unique_constraint(:email)
+    |> hash_password()
+  end
+
+  def profile_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, profile_attrs())
+    |> validate_required(profile_attrs())
+    |> unique_constraint(:email)
+  end
+
+  def password_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:password])
+    |> validate_required([:password])
     |> hash_password()
   end
 
@@ -45,5 +59,6 @@ defmodule Chess.Store.User do
     end
   end
 
-  defp required_attrs, do: ~w[name email password]a
+  defp registration_attrs, do: ~w[name email password]a
+  defp profile_attrs, do: ~w{name email}a
 end
