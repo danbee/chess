@@ -1,3 +1,15 @@
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 1.6em;
+  margin: 0;
+}
+
 .heading {
   font-family: $heading-font-family;
   font-size: modular-scale(1);
