@@ -1,7 +1,8 @@
 .form {
   background-color: $form-background-color;
   border-radius: $base-border-radius;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   margin: 0 auto;
   max-width: 40rem;
-  padding: $small-spacing;
+  padding: $base-spacing;
 }
