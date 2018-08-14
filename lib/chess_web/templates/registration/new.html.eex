@@ -17,6 +17,7 @@
       <div class="form-field">
         <%= input f, :email, as: :email %>
       </div>
+      <p><%= gettext("Your email address will only ever be used to send you notifications of new games and moves.") %></p>
       <div class="form-field">
         <%= input f, :password, as: :password %>
       </div>
