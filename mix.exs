@@ -35,6 +35,7 @@ defmodule Chess.Mixfile do
   defp deps do
     [
       {:argon2_elixir, "~> 1.2"},
+      {:bamboo, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.8", only: [:dev, :test]},
