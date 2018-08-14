@@ -1,6 +1,8 @@
 class Notifications {
   constructor() {
-    Notification.requestPermission();
+    if (this.notifications_available) {
+      Notification.requestPermission();
+    }
   }
 
   notifyTurn(player) {
@@ -11,9 +13,13 @@ class Notifications {
   }
 
   notify(options) {
-    if (!document.hasFocus()) {
+    if (this.notifications_available && !document.hasFocus()) {
       new Notification("Chess", options);
     }
+  }
+
+  get notifications_available() {
+    window.Notification != undefined;
   }
 }
 
