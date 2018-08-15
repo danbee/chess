@@ -11,7 +11,17 @@ defmodule Chess.Factory do
     %User{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ilovelink"
+      password: "ganonsucks"
+    }
+    |> User.changeset(params)
+    |> Repo.insert!
+  end
+
+  def insert(:opponent, params) do
+    %User{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
     }
     |> User.changeset(params)
     |> Repo.insert!
