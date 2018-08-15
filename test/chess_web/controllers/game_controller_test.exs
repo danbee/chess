@@ -45,7 +45,8 @@ defmodule ChessWeb.GameControllerTest do
     |> post(game_path(conn, :create), game: attrs)
 
     assert_email_delivered_with(
-      to: [{opponent.name, opponent.email}]
+      to: [{opponent.name, opponent.email}],
+      subject: "[64squares] #{user.name} has invited you to play a game of chess."
     )
   end
 
