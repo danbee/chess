@@ -3,6 +3,7 @@ defmodule ChessWeb.GameController do
 
   alias Chess.Store.Game
   alias Chess.Store.User
+  alias Chess.Mailer
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -40,6 +41,14 @@ defmodule ChessWeb.GameController do
     |> Repo.insert()
     |> case do
       {:ok, game} ->
+        conn
+        |> Chess.Emails.new_game_email(
+          game
+          |> Repo.preload(:user)
+          |> Repo.preload(:opponent)
+        )
+        |> Mailer.deliver_later
+
         conn
         |> put_flash(:info, "Game created successfully.")
         |> redirect(to: game_path(conn, :show, game))

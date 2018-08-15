@@ -53,6 +53,10 @@ defmodule ChessWeb.Router do
     resources "/games", ChessWeb.Api.GameController, only: [:show, :update]
   end
 
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   defp put_user_token(conn, _) do
     if current_user = Guardian.Plug.current_resource(conn) do
       token = Token.sign(conn, "game socket", current_user.id)

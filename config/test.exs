@@ -11,6 +11,9 @@ config :chess, :sql_sandbox, true
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :chess, Chess.Mailer,
+  adapter: Bamboo.TestAdapter
+
 # Configure your database
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,

@@ -1,12 +1,13 @@
 defmodule ChessWeb.GameControllerTest do
   use ChessWeb.ConnCase
+  use Bamboo.Test
 
   alias Chess.Store.Game
   alias Chess.Auth.Guardian
 
   import Chess.Factory
 
-  test "lists all entries on index", %{conn: conn} do
+  test "lists all games on index", %{conn: conn} do
     user = insert(:user)
 
     conn =
@@ -17,7 +18,7 @@ defmodule ChessWeb.GameControllerTest do
     assert html_response(conn, 200) =~ "Listing games"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates game and redirects when data is valid", %{conn: conn} do
     opponent = insert(:user, %{email: "daruk@goron.city"})
     attrs = %{"opponent_id" => opponent.id}
 
@@ -31,6 +32,21 @@ defmodule ChessWeb.GameControllerTest do
     game = Repo.one(Game)
 
     assert redirected_to(conn) == game_path(conn, :show, game)
+  end
+
+  test "sends and email when game is created", %{conn: conn} do
+    opponent = insert(:user, %{name: "Daruk", email: "daruk@goron.city"})
+    attrs = %{"opponent_id" => opponent.id}
+
+    user = insert(:user)
+
+    conn
+    |> login(user)
+    |> post(game_path(conn, :create), game: attrs)
+
+    assert_email_delivered_with(
+      to: [{opponent.name, opponent.email}]
+    )
   end
 
   test "shows chosen game", %{conn: conn} do
@@ -71,7 +87,7 @@ defmodule ChessWeb.GameControllerTest do
     end
   end
 
-  test "deletes chosen resource", %{conn: conn} do
+  test "deletes game", %{conn: conn} do
     game = Repo.insert! %Game{}
     user = insert(:user)
     conn = login(conn, user)
