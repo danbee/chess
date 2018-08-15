@@ -38,7 +38,7 @@ defmodule Chess.Mixfile do
       {:comeonin, "~> 4.0"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.8", only: [:dev, :test]},
-      {:distillery, "~> 1.5", runtime: false},
+      {:distillery, "~> 2.0", runtime: false},
       {:formulator, "~> 0.1.6"},
       {:gettext, "~> 0.15.0"},
       {:guardian, "~> 1.0"},
