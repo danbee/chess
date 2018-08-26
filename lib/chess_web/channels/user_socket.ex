@@ -24,7 +24,7 @@ defmodule ChessWeb.UserSocket do
   def connect(%{"token" => token}, socket) do
     case Token.verify(socket, "game socket", token, max_age: 1_209_600) do
       {:ok, user_id} ->
-        {:ok, assign(socket, :current_user_id, user_id)}
+        {:ok, assign(socket, :user_id, user_id)}
       {:error, _reason} ->
         :error
     end

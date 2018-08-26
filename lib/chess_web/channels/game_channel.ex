@@ -9,6 +9,7 @@ defmodule ChessWeb.GameChannel do
   alias Chess.MoveList
   alias Chess.Moves
   alias Chess.Repo.Queries
+  alias ChessWeb.Presence
 
   def join("game:" <> game_id, _params, socket) do
     send(self(), {:after_join, game_id})
@@ -18,12 +19,14 @@ defmodule ChessWeb.GameChannel do
 
   def handle_info({:after_join, game_id}, socket) do
     game =
-      socket.assigns.current_user_id
+      socket.assigns.user_id
       |> Queries.game_for_info(game_id)
 
     payload = %{
-      player: player(game, socket.assigns.current_user_id),
-      opponent: opponent(game, socket.assigns.current_user_id).name,
+      player_id: socket.assigns.user_id,
+      opponent_id: opponent(game, socket.assigns.user_id).id,
+      player: player(game, socket.assigns.user_id),
+      opponent: opponent(game, socket.assigns.user_id).name,
       board: Board.transform(game.board),
       turn: game.turn,
       state: game.state,
@@ -33,13 +36,15 @@ defmodule ChessWeb.GameChannel do
     socket
     |> push("game:update", payload)
 
+    track_presence(socket)
+
     {:noreply, socket}
   end
 
   def handle_in("game:move", params, socket) do
     move_params = convert_params(params)
 
-    socket.assigns.current_user_id
+    socket.assigns.user_id
     |> Queries.game_with_moves(socket.assigns.game_id)
     |> Moves.make_move(move_params)
     |> case do
@@ -60,7 +65,7 @@ defmodule ChessWeb.GameChannel do
     socket
   ) do
     game =
-      socket.assigns.current_user_id
+      socket.assigns.user_id
       |> Queries.game_with_moves(socket.assigns.game_id)
 
     moves = Moves.available(game.board, {
@@ -75,6 +80,16 @@ defmodule ChessWeb.GameChannel do
     {:reply, {:ok, reply}, socket}
   end
 
+  def track_presence(socket) do
+    {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+      user_id: socket.assigns.user_id,
+      online_at: inspect(System.system_time(:seconds))
+    })
+
+    socket
+    |> push("presence_state", Presence.list(socket))
+  end
+
   def convert_params(%{"from" => from, "to" => to}) do
     %{
       "from" => Enum.map(from, &(String.to_integer(&1))),
@@ -84,7 +99,7 @@ defmodule ChessWeb.GameChannel do
 
   def send_update(socket) do
     game =
-      socket.assigns.current_user_id
+      socket.assigns.user_id
       |> Queries.game_with_moves(socket.assigns.game_id)
 
     payload = %{

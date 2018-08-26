@@ -33,6 +33,10 @@ class App extends React.Component {
     this.channel = new Channel(store, gameId);
   }
 
+  componentWillUnmount() {
+    this.channel.leave();
+  }
+
   get moves() {
     const { store } = this.props;
     return store.getState().moves;

@@ -1,10 +1,15 @@
 const defaultState = {
   selectedSquare: null,
 
+  playerId: null,
+  opponentId: null,
+
   player: null,
   opponent: null,
   turn: null,
   state: null,
+
+  opponentStatus: "offline",
 
   availableMoves: [],
 

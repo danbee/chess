@@ -7,7 +7,7 @@ defmodule ChessWeb.UserSocketTest do
     token = Phoenix.Token.sign(@endpoint, "game socket", 42)
 
     assert {:ok, socket} = connect(UserSocket, %{"token" => token})
-    assert socket.assigns.current_user_id == 42
+    assert socket.assigns.user_id == 42
   end
 
   test "cannot authenticate with invalid token" do

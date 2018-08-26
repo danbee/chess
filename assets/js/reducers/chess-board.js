@@ -4,14 +4,17 @@ import defaultState from "../store/default-state";
 
 const chessBoardReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case "SET_PLAYER":
+    case "SET_USER_ID":
       return Immutable.fromJS(state)
-        .set("player", action.player)
+        .set("userId", action.user_id)
         .toJS();
 
-    case "SET_OPPONENT":
+    case "SET_PLAYERS":
       return Immutable.fromJS(state)
+        .set("player", action.player)
+        .set("playerId", action.player_id)
         .set("opponent", action.opponent)
+        .set("opponentId", action.opponent_id)
         .toJS();
 
     case "SET_GAME":
@@ -38,6 +41,11 @@ const chessBoardReducer = (state = defaultState, action) => {
       return Immutable.fromJS(state)
         .set("selectedSquare", action.coords)
         .set("availableMoves", [])
+        .toJS();
+
+    case "SET_OPPONENT_STATUS":
+      return Immutable.fromJS(state)
+        .set("opponentStatus", action.opponentStatus)
         .toJS();
 
     default:

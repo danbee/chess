@@ -21,7 +21,7 @@ defmodule Chess.Mixfile do
   def application do
     [
       mod: {Chess, []},
-      extra_applications: [:logger]
+      extra_applications: [:logger],
     ]
   end
 

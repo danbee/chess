@@ -14,7 +14,7 @@ config :chess, ChessWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "iiTDTKorCWTFoeBgAkr35XZp22cNIM2RsmnHiHdzKAuSHXUGXx42z7lawAwiu1B1",
   render_errors: [view: ChessWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: ChessWeb.PubSub,
+  pubsub: [name: Chess.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

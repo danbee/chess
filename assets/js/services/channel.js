@@ -1,10 +1,19 @@
-import socket from "../socket";
-import { setPlayer, setOpponent, setGame, setAvailableMoves } from "../store/actions";
+import _ from "lodash";
+import socket from "./socket";
+import { Presence } from "phoenix";
+import {
+  setUserId,
+  setPlayers,
+  setGame,
+  setAvailableMoves,
+  setOpponentStatus,
+} from "../store/actions";
 
 class Channel {
   constructor(store, gameId) {
     this.store = store;
     this.channel = socket.channel(`game:${gameId}`, {});
+    this.presences = {};
 
     this.join();
     this.subscribe();
@@ -17,13 +26,41 @@ class Channel {
       });
   }
 
+  leave() {
+    this.channel.leave();
+  }
+
   subscribe() {
-    this.channel.on("game:update", data => {
-      if (data.player != undefined) {
-        this.store.dispatch(setPlayer(data.player));
-        this.store.dispatch(setOpponent(data.opponent));
-      }
-      this.store.dispatch(setGame(data));
+    this.channel.on("game:update", this.updateGame.bind(this));
+
+    this.channel.on("presence_state", data => {
+      this.presences = Presence.syncState(this.presences, data);
+      this.setOpponentStatus();
+    });
+
+    this.channel.on("presence_diff", data => {
+      this.presences = Presence.syncDiff(this.presences, data);
+      this.setOpponentStatus();
+    });
+  }
+
+  updateGame(data) {
+    if (data.player != undefined) {
+      this.store.dispatch(setUserId(data.user_id));
+      this.store.dispatch(setPlayers(data));
+    }
+    this.store.dispatch(setGame(data));
+  }
+
+  setOpponentStatus() {
+    this.store.dispatch(setOpponentStatus(
+      this.opponentOnline() ? "viewing" : "offline"
+    ));
+  }
+
+  opponentOnline() {
+    return _.find(this.presences, (value, id) => {
+      return parseInt(id) == this.store.getState().opponentId;
     });
   }
 

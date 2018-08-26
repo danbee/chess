@@ -1,21 +1,25 @@
-const SET_PLAYER = "SET_PLAYER";
-const SET_OPPONENT = "SET_OPPONENT";
+const SET_USER_ID = "SET_USER_ID";
+const SET_PLAYERS = "SET_PLAYERS";
 const SET_GAME = "SET_GAME";
 const SET_AVAILABLE_MOVES = "SET_AVAILABLE_MOVES";
 const SET_GAME_ID = "SET_GAME_ID";
 const SELECT_PIECE = "SELECT_PIECE";
+const SET_OPPONENT_STATUS = "SET_OPPONENT_STATUS";
 
-export const setPlayer = (player) => {
+export const setUserId = (user_id) => {
   return {
-    type: SET_PLAYER,
-    player,
+    type: SET_USER_ID,
+    user_id,
   };
 };
 
-export const setOpponent = (opponent) => {
+export const setPlayers = (data) => {
   return {
-    type: SET_OPPONENT,
-    opponent,
+    type: SET_PLAYERS,
+    player: data.player,
+    player_id: data.player_id,
+    opponent: data.opponent,
+    opponent_id: data.opponent_id,
   };
 };
 
@@ -47,5 +51,12 @@ export const selectPiece = (coords) => {
   return {
     type: SELECT_PIECE,
     coords,
+  };
+};
+
+export const setOpponentStatus = (opponentStatus) => {
+  return {
+    type: SET_OPPONENT_STATUS,
+    opponentStatus,
   };
 };
