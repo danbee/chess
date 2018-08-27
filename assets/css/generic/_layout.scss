@@ -1,0 +1,21 @@
+html {
+  background: $background-color;
+  box-sizing: border-box;
+  color: $foreground-color;
+  font-weight: $base-font-weight;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}

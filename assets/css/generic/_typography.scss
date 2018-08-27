@@ -1,0 +1,18 @@
+html {
+  color: $base-font-color;
+  font-family: $base-font-family;
+  font-size: $large-font-size;
+  line-height: $base-line-height;
+}
+
+@media (max-height: 960px), (max-width: 1024px) {
+  html {
+    font-size: $base-font-size;
+  }
+}
+
+@media (max-height: 480px), (max-width: 768px) {
+  html {
+    font-size: $small-font-size;
+  }
+}

@@ -26,15 +26,3 @@
     grid-template-rows: min-content min-content min-content;
   }
 }
-
-@media (max-height: 960px), (max-width: 768px) {
-  html {
-    font-size: 0.9em;
-  }
-}
-
-@media (max-height: 480px), (max-width: 400px) {
-  html {
-    font-size: 0.8em;
-  }
-}

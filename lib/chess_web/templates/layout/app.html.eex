@@ -1,46 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title><%= gettext "Shall We Play a Game?" %></title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
+  <%= render "_head.html", conn: @conn %>
 
   <body>
-    <header role="banner">
-      <div class="container">
-        <h1><%= link gettext("64squares"), to: page_path(@conn, :index) %></h1>
-
-        <nav class="user-nav" role="user">
-          <%= if current_user(@conn) do %>
-            <%= link(current_user(@conn).name, to: profile_path(@conn, :edit)) %>
-            (<%= current_user(@conn).email %>)
-            |
-            <%= link gettext("Log out"),
-                  to: session_path(@conn, :delete),
-                  method: :delete %>
-          <% else %>
-            <%= link gettext("Register"), to: registration_path(@conn, :new) %>
-            |
-            <%= link gettext("Log in"), to: session_path(@conn, :new) %>
-          <% end %>
-        </nav>
-      </div>
-    </header>
-
-    <div class="container alerts">
-      <p class="alert alert-info" role="alert">
-        <%= get_flash(@conn, :info) %>
-      </p>
-      <p class="alert alert-danger" role="alert">
-        <%= get_flash(@conn, :error) %>
-      </p>
-    </div>
+    <%= render "_header.html", conn: @conn %>
+    <%= render "_alerts.html", conn: @conn %>
 
     <main role="main">
       <div class="container">
@@ -48,8 +12,6 @@
       </div>
     </main>
 
-    <script>window.userToken = "<%= assigns[:user_token] %>";</script>
-    <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <%= render "_scripts.html", conn: @conn, token: assigns[:user_token] %>
   </body>
 </html>

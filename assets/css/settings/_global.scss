@@ -1,0 +1,16 @@
+$base-border-radius: 0.5rem;
+$base-spacing: 2rem;
+$small-spacing: $base-spacing / 2;
+$x-small-spacing: $small-spacing / 2;
+$base-z-index: 0;
+
+$container-width: 90%;
+
+// Border
+$base-border-color: $black;
+$base-border: 1px dashed $base-border-color;
+$base-solid-border: 0.25rem solid $base-border-color;
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;

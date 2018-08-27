@@ -9,7 +9,7 @@ defmodule Chess.Features.SessionTest do
 
     session
     |> visit("/")
-    |> click(css(".user-nav a", text: "Log in"))
+    |> click(css(".header__user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@example.com")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
@@ -22,7 +22,7 @@ defmodule Chess.Features.SessionTest do
 
     session
     |> visit("/")
-    |> click(css(".user-nav a", text: "Log in"))
+    |> click(css(".header__user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "calamityganon")
     |> click(button("Log in"))
@@ -35,7 +35,7 @@ defmodule Chess.Features.SessionTest do
 
     session
     |> visit("/")
-    |> click(css(".user-nav a", text: "Log in"))
+    |> click(css(".header__user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))
@@ -50,7 +50,7 @@ defmodule Chess.Features.SessionTest do
 
     session
     |> visit("/")
-    |> click(css(".user-nav a", text: "Log in"))
+    |> click(css(".header__user-nav a", text: "Log in"))
     |> fill_in(text_field("Email"), with: "link@hyrule.kingdom")
     |> fill_in(text_field("Password"), with: "ilovezelda")
     |> click(button("Log in"))

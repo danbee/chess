@@ -1,0 +1,22 @@
+<header class="header" role="banner">
+  <div class="container">
+    <h1 class="header__title">
+      <%= link gettext("64squares"), to: page_path(@conn, :index) %>
+    </h1>
+
+    <nav class="header__user-nav" role="user">
+      <%= if current_user(@conn) do %>
+        <%= link(current_user(@conn).name, to: profile_path(@conn, :edit)) %>
+        (<%= current_user(@conn).email %>)
+        |
+        <%= link gettext("Log out"),
+                 to: session_path(@conn, :delete),
+                 method: :delete %>
+      <% else %>
+        <%= link gettext("Register"), to: registration_path(@conn, :new) %>
+        |
+        <%= link gettext("Log in"), to: session_path(@conn, :new) %>
+      <% end %>
+    </nav>
+  </div>
+</header>

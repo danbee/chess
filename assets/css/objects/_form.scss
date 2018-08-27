@@ -1,0 +1,15 @@
+.form {
+  h2 {
+    margin: 0 auto;
+    max-width: $base-form-width;
+    padding: $base-spacing;
+  }
+
+  form {
+    border: $base-solid-border;
+    border-radius: $base-border-radius;
+    margin: 0 auto;
+    max-width: $base-form-width;
+    padding: 0 $base-spacing $base-spacing;
+  }
+}

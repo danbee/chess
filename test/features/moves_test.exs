@@ -25,11 +25,11 @@ defmodule Chess.Features.MovesTest do
 
     |> click(css("#f4-r1"))
     |> assert_has(square_selected("f4-r1"))
-    |> assert_has(square_containing("f4-r1", "white.pawn"))
+    |> assert_has(square_containing("f4-r1", %{type: "pawn", colour: "white"}))
 
     |> click(css("#f4-r3"))
-    |> assert_has(square_containing("f4-r3", "white.pawn"))
-    |> refute_has(square_containing("f4-r1", "white.pawn"))
+    |> assert_has(square_containing("f4-r3", %{type: "pawn", colour: "white"}))
+    |> refute_has(square_containing("f4-r1", %{type: "pawn", colour: "white"}))
   end
 
   test "opponents recieves an email on move", %{session: session} do
@@ -140,9 +140,9 @@ defmodule Chess.Features.MovesTest do
     |> click(css("#f4-r3"))
 
     session2
-    |> assert_has(css(".board.black-to-move"))
-    |> refute_has(square_containing("f4-r1", "white.pawn"))
-    |> assert_has(square_containing("f4-r3", "white.pawn"))
+    |> assert_has(css(".board--black-to-move"))
+    |> refute_has(square_containing("f4-r1", %{type: "pawn", colour: "white"}))
+    |> assert_has(square_containing("f4-r3", %{type: "pawn", colour: "white"}))
   end
 
   test "cannot move the king into a position that would result in check",
@@ -176,8 +176,8 @@ defmodule Chess.Features.MovesTest do
     session
     |> click(css("#f4-r0"))
     |> click(css("#f3-r0"))
-    |> refute_has(square_containing("f3-r0", "white.king"))
-    |> assert_has(square_containing("f4-r0", "white.king"))
+    |> refute_has(square_containing("f3-r0", %{type: "king", colour: "white"}))
+    |> assert_has(square_containing("f4-r0", %{type: "king", colour: "white"}))
   end
 
   test "cannot make a move that would place the king in check",
@@ -212,8 +212,8 @@ defmodule Chess.Features.MovesTest do
     session
     |> click(css("#f4-r1"))
     |> click(css("#f2-r1"))
-    |> refute_has(square_containing("f2-r1", "white.rook"))
-    |> assert_has(square_containing("f4-r1", "white.rook"))
+    |> refute_has(square_containing("f2-r1", %{type: "rook", colour: "white"}))
+    |> assert_has(square_containing("f4-r1", %{type: "rook", colour: "white"}))
   end
 
   test "user is informed when the game is in check", %{session: session} do
@@ -246,16 +246,16 @@ defmodule Chess.Features.MovesTest do
     session
     |> click(css("#f3-r7"))
     |> click(css("#f4-r7"))
-    |> assert_has(square_containing("f4-r7", "black.queen"))
+    |> assert_has(square_containing("f4-r7", %{type: "queen", colour: "black"}))
 
     assert session |> has_text?("Check")
   end
 
   defp square_selected(square) do
-    css("##{square}.selected")
+    css("##{square}.square--selected")
   end
 
   defp square_containing(square, piece) do
-    css("##{square}.#{piece}")
+    css("##{square}.square--#{piece.type}.square--#{piece.colour}")
   end
 end

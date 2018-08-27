@@ -1,0 +1,19 @@
+$base-font-family: "Enriqueta", serif;
+$base-font-size: 1em;
+$heading-font-family: $base-font-family;
+
+$small-font-size: 0.8em;
+$large-font-size: 1.2em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Font weights
+$base-font-weight: 400;
+$heavy-font-weight: 700;
+
+// Modular scale
+$bourbon: (
+  "modular-scale-ratio": $major-third,
+);
