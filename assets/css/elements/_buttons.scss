@@ -1,6 +1,6 @@
-$_button-border-color: $action-color;
-$_button-background-color: rgba(0, 0, 0, 0);
-$_button-background-color-hover: $action-color;
+$_button-border-color: $foreground-color;
+$_button-background-color: $foreground-color;
+$_button-background-color-hover: $background-color;
 
 #{$all-buttons} {
   appearance: none;
@@ -11,9 +11,8 @@ $_button-background-color-hover: $action-color;
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 600;
+  font-size: inherit;
+  font-weight: $base-font-weight;
   line-height: 1;
   padding: $small-spacing $base-spacing;
   text-align: center;
@@ -29,8 +28,8 @@ $_button-background-color-hover: $action-color;
   }
 
   &:focus {
-    outline: $focus-outline;
-    outline-offset: $focus-outline-offset;
+    background-color: $_button-background-color-hover;
+    color: contrast-switch($_button-background-color-hover);
   }
 
   &:disabled {

@@ -1,0 +1,38 @@
+.header {
+  background: $nav-background-color;
+  color: $nav-foreground-color;
+  margin-bottom: $small-spacing;
+  padding: $x-small-spacing 0;
+
+  .container {
+    align-items: flex-end;
+    display: flex;
+  }
+
+  a {
+    color: $nav-foreground-color;
+    text-decoration: underline dashed;
+
+    &:hover {
+      color: $nav-foreground-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+.header__title {
+  flex: 0;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline dashed;
+    }
+  }
+}
+
+.header__user-nav {
+  flex: 1;
+  text-align: right;
+}

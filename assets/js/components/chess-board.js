@@ -81,7 +81,11 @@ class ChessBoard extends React.Component {
     const turn = this.turn;
     const player = this.player;
 
-    return classNames("board", turn + "-to-move", "player-is-" + player);
+    return classNames(
+      "board",
+      `board--${turn}-to-move`,
+      `board--player-is-${player}`
+    );
   }
 
   render() {
@@ -90,7 +94,7 @@ class ChessBoard extends React.Component {
         <RankLabels />
         <FileLabels />
 
-        <div className="board-body">
+        <div className="board__body">
           {this.renderSquares()}
         </div>
 

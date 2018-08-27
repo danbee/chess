@@ -50,8 +50,6 @@ const MoveList = (props) => {
   return (
     <div className="move-list">
       <table className="table table--condensed">
-        <caption className="heading">Moves</caption>
-
         <thead>
           <tr>
             <th className="move-list__line-number">

@@ -4,7 +4,7 @@
 }
 
 .move-list__line-number {
-  color: mix($background-color, $foreground-color);
+  color: $foreground-color;
   font-feature-settings: "tnum";
   font-variant-numeric: tabular-nums;
 }

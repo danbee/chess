@@ -1,0 +1,17 @@
+:root {
+  --board-size: 64vw;
+}
+
+@media (min-aspect-ratio: 14/11) {
+  :root {
+    --board-size: 80vmin;
+  }
+}
+
+@media (max-aspect-ratio: 9/11) {
+  :root {
+    --board-size: 90vmin;
+  }
+}
+
+$diagonal-pixel: 0.7071067812px;

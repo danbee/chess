@@ -22,16 +22,16 @@ class ChessBoardSquare extends React.Component {
   get squareClass() {
     if (this.props.piece == undefined) {
       return classNames(
-        "board-square",
-        { "available": this.isAvailableSquare() }
+        "square",
+        { "square--available": this.isAvailableSquare() }
       );
     } else {
       return classNames(
-        "board-square",
-        this.props.piece.type,
-        this.props.piece.colour,
-        { "selected": this.isSelectedSquare() },
-        { "available": this.isAvailableSquare() }
+        "square",
+        `square--${this.props.piece.type}`,
+        `square--${this.props.piece.colour}`,
+        { "square--selected": this.isSelectedSquare() },
+        { "square--available": this.isAvailableSquare() }
       );
     }
   }

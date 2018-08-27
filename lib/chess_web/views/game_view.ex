@@ -29,7 +29,7 @@ defmodule ChessWeb.GameView do
 
   def turn_class(conn, game) do
     if your_turn?(conn, game) && !GameState.game_over?(game) do
-      "your-turn"
+      "games-list__your-turn"
     end
   end
 

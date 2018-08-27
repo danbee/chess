@@ -67,7 +67,7 @@ defmodule Chess.Features.GamesTest do
     |> click(link("64squares"))
 
     session
-    |> assert_has(css(".table tr", count: 1))
+    |> assert_has(css(".games-list tr", count: 1))
     |> assert_has(link("Game with Urbosa"))
   end
 
@@ -88,7 +88,7 @@ defmodule Chess.Features.GamesTest do
     |> login("urbosa@gerudo.town", "gerudoqueen")
 
     session
-    |> assert_has(css(".table tr", count: 1))
+    |> assert_has(css(".games-list tr", count: 1))
     |> assert_has(link("Game with Zelda"))
 
     session

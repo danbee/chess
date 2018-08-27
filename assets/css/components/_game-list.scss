@@ -1,0 +1,11 @@
+.games-list__player-indicator {
+  img {
+    height: 1.5em;
+    vertical-align: middle;
+  }
+}
+
+.games-list__your-turn {
+  background-color: $background-color;
+  font-weight: $heavy-font-weight;
+}

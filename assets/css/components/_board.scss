@@ -1,0 +1,139 @@
+@mixin move-indicator {
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 1.5%;
+  position: absolute;
+  right: 3%;
+  width: 1.5%;
+}
+
+.board {
+  background: $background-color;
+  border-collapse: unset;
+  border-radius: 2.8%;
+  border-spacing: 1px;
+  color: $foreground-color;
+  grid-area: board;
+  height: var(--board-size);
+  padding: calc(var(--board-size) / 20);
+  position: relative;
+  width: var(--board-size);
+}
+
+.board--white-to-move,
+.board--black-to-move {
+  &::before {
+    @include move-indicator;
+    background: $foreground-color;
+  }
+}
+
+.board--player-is-white.board--white-to-move,
+.board--player-is-black.board--black-to-move {
+  &::before {
+    bottom: 3%;
+  }
+}
+
+.board--player-is-white.board--black-to-move,
+.board--player-is-black.board--white-to-move {
+  &::before {
+    top: 3%;
+  }
+}
+
+.board__rank-labels,
+.board__file-labels {
+  display: none;
+}
+
+.board--player-is-white {
+  .board__rank-labels {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .board__file-labels {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.board--player-is-black {
+  .board__rank-labels {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .board__file-labels {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.board__body {
+  background: $background-color;
+  border: 0.25rem solid $foreground-color;
+  border-radius: calc(var(--board-size) / 100);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  height: 100%;
+  padding: 1%;
+  width: 100%;
+}
+
+.board__rank-labels {
+  display: flex;
+  height: 90%;
+  left: 0;
+  position: absolute;
+  width: 5%;
+}
+
+.board__file-labels {
+  display: flex;
+  height: 5%;
+  position: absolute;
+  top: 0;
+  width: 90%;
+}
+
+.board__label {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  font-size: calc(0.25rem + (var(--board-size) / 50));
+  justify-content: center;
+}
+
+@media (max-aspect-ratio: 9/11) and (max-width: 640px),
+       (max-aspect-ratio: 9/11) and (max-height: 640px),
+       (min-aspect-ratio: 9/11) and (max-width: 720px),
+       (min-aspect-ratio: 9/11) and (max-height: 720px) {
+  .board__body {
+    border-width: 0.1875rem;
+  }
+}
+
+@media (max-aspect-ratio: 9/11) and (max-width: 480px),
+       (max-aspect-ratio: 9/11) and (max-height: 480px),
+       (min-aspect-ratio: 9/11) and (max-width: 560px),
+       (min-aspect-ratio: 9/11) and (max-height: 560px) {
+  .board__body {
+    border-width: 0.125rem;
+  }
+}
+
+@media (min-width: 480px) {
+  .board__body {
+    grid-gap: 1px;
+  }
+}
+
+@media (min-width: 768px) {
+  .board__body {
+    grid-gap: 2px;
+  }
+}

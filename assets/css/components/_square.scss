@@ -1,0 +1,178 @@
+%square--black {
+  background: repeating-linear-gradient(
+    45deg,
+    $background-color,
+    $background-color ($diagonal-pixel * 5),
+    $foreground-color ($diagonal-pixel * 5),
+    $foreground-color ($diagonal-pixel * 8)
+  );
+
+  &.square--selected {
+    box-shadow: inset 0 0 0 0.2rem $foreground-color,
+                inset 0 0 0 0.4rem $background-color;
+  }
+
+  &.square--available {
+    &::after {
+      border-radius: 50%;
+      bottom: 20%;
+      box-shadow: 0 0 0 0.2rem $foreground-color,
+                  0 0 0 0.4rem $background-color,
+                  inset 0 0 0 0.2rem $background-color;
+      content: "";
+      display: block;
+      left: 20%;
+      position: absolute;
+      right: 20%;
+      top: 20%;
+    }
+  }
+}
+
+%square--white {
+  background-color: $background-color;
+
+  &.square--selected {
+    box-shadow: inset 0 0 0 0.2rem $foreground-color;
+  }
+
+  &.square--available {
+    &::after {
+      border-radius: 50%;
+      bottom: 20%;
+      box-shadow: 0 0 0 0.2rem $foreground-color,
+                  0 0 0 0.4rem $background-color,
+                  inset 0 0 0 0.2rem $background-color;
+      content: "";
+      display: block;
+      left: 20%;
+      position: absolute;
+      right: 20%;
+      top: 20%;
+    }
+  }
+}
+
+.square {
+  border-radius: 4%;
+  margin: 0.5px;
+  position: relative;
+
+  // This is to ensure the squares can be clicked on in PhantomJS
+  // TODO: Figure out why we need this
+  min-height: 20px;
+  min-width: 20px;
+
+  @include odd-between(1, 8) { @extend %square--white; }
+  @include even-between(1, 8) { @extend %square--black; }
+
+  @include odd-between(9, 16) { @extend %square--black; }
+  @include even-between(9, 16) { @extend %square--white; }
+
+  @include odd-between(17, 24) { @extend %square--white; }
+  @include even-between(17, 24) { @extend %square--black; }
+
+  @include odd-between(25, 32) { @extend %square--black; }
+  @include even-between(25, 32) { @extend %square--white; }
+
+  @include odd-between(33, 40) { @extend %square--white; }
+  @include even-between(33, 40) { @extend %square--black; }
+
+  @include odd-between(41, 48) { @extend %square--black; }
+  @include even-between(41, 48) { @extend %square--white; }
+
+  @include odd-between(49, 56) { @extend %square--white; }
+  @include even-between(49, 56) { @extend %square--black; }
+
+  @include odd-between(57, 64) { @extend %square--black; }
+  @include even-between(57, 64) { @extend %square--white; }
+
+  &::before {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  @each $colour in $colours {
+    @each $piece in $pieces {
+      &.square--#{$colour}.square--#{$piece}::before {
+        background-image: url("/images/#{$piece}_#{$colour}.svg");
+      }
+    }
+  }
+}
+
+@media (max-aspect-ratio: 9/11) and (max-width: 640px),
+       (max-aspect-ratio: 9/11) and (max-height: 640px),
+       (min-aspect-ratio: 9/11) and (max-width: 720px),
+       (min-aspect-ratio: 9/11) and (max-height: 720px) {
+  %square--black {
+    background: repeating-linear-gradient(
+      45deg,
+      $background-color,
+      $background-color ($diagonal-pixel * 3),
+      $foreground-color ($diagonal-pixel * 3),
+      $foreground-color ($diagonal-pixel * 5)
+    );
+
+    &.square--selected {
+      box-shadow: inset 0 0 0 0.15rem $foreground-color,
+                  inset 0 0 0 0.3rem $background-color;
+    }
+
+    &.square--available::after {
+      box-shadow: 0 0 0 0.15rem $foreground-color,
+                  0 0 0 0.3rem $background-color,
+                  inset 0 0 0 0.15rem $background-color;
+    }
+  }
+
+  %square--white {
+    &.square--selected {
+      box-shadow: inset 0 0 0 0.15rem $foreground-color;
+    }
+
+    &.square--available::after {
+      box-shadow: 0 0 0 0.15rem $foreground-color,
+                  0 0 0 0.3rem $background-color,
+                  inset 0 0 0 0.15rem $background-color;
+    }
+  }
+}
+
+@media (max-aspect-ratio: 9/11) and (max-width: 480px),
+       (max-aspect-ratio: 9/11) and (max-height: 480px),
+       (min-aspect-ratio: 9/11) and (max-width: 560px),
+       (min-aspect-ratio: 9/11) and (max-height: 560px) {
+  %square--black {
+    &.square--selected {
+      box-shadow: inset 0 0 0 0.1rem $foreground-color,
+                  inset 0 0 0 0.2rem $background-color;
+    }
+
+    &.square--available::after {
+      box-shadow: 0 0 0 0.1rem $foreground-color,
+                  0 0 0 0.2rem $background-color,
+                  inset 0 0 0 0.1rem $background-color;
+    }
+  }
+
+  %square--white {
+    &.square--selected {
+      box-shadow: inset 0 0 0 0.1rem $foreground-color;
+    }
+
+    &.available::after {
+      box-shadow: 0 0 0 0.1rem $foreground-color,
+                  0 0 0 0.2rem $background-color,
+                  inset 0 0 0 0.1rem $background-color;
+    }
+  }
+}

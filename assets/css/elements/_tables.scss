@@ -19,10 +19,11 @@ tr {
 }
 
 th {
-  font-weight: 600;
+  font-weight: $heavy-font-weight;
 }
 
 th,
 td {
   padding: $x-small-spacing;
 }
+

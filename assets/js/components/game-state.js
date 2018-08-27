@@ -15,7 +15,7 @@ const friendlyGameState = (state) => {
 };
 
 const gameStateClass = (state) => {
-  return classNames("board-game-state", state);
+  return classNames("game-state", `game-state--${state}`);
 };
 
 const GameState = (props) => {

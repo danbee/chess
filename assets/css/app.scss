@@ -1,20 +1,56 @@
-@import "bourbon/bourbon";
+// 0. Vendor - Imported from other source
+@import "vendor/bourbon/bourbon";
 @import "vendor/family";
-@import "base/base";
 
-@import "variables";
+// 1. Settings – used with preprocessors and contain font,
+//    colors definitions, etc.
+@import "settings/colors";
+@import "settings/typography";
+@import "settings/forms";
+@import "settings/global";
+@import "settings/chess";
+@import "settings/board";
 
-@import "utilities";
+// 2. Tools – globally used mixins and functions.
+//    It’s important not to output any CSS in the first 2 layers.
 
-@import "tables";
-@import "headings";
-@import "forms";
+// 3. Generic – reset and/or normalize styles, box-sizing definition, etc.
+//    This is the first layer which generates actual CSS.
+@import "generic/typography";
+@import "generic/layout";
 
-@import "layout";
-@import "nav";
+// 4. Elements – styling for bare HTML elements (like H1, A, etc.).
+//    These come with default styling from the browser so we can redefine
+//    them here.
+@import "elements/main";
+@import "elements/headings";
+@import "elements/paragraphs";
+@import "elements/links";
+@import "elements/lists";
+@import "elements/tables";
+@import "elements/forms";
+@import "elements/buttons";
 
-@import "game_list";
-@import "board";
-@import "move_list";
-@import "game_info";
-@import "game_grid";
+// 5. Objects – class-based selectors which define undecorated design patterns,
+//    for example media object known from OOCSS
+@import "objects/container";
+@import "objects/form";
+@import "objects/form-group";
+@import "objects/tables";
+
+// 6. Components – specific UI components.
+//    This is where majority of our work takes place and our UI components
+//    are often composed of Objects and Components
+@import "components/nav";
+@import "components/board";
+@import "components/square";
+@import "components/game-list";
+@import "components/game-grid";
+@import "components/game-info";
+@import "components/move-list";
+@import "components/game-state";
+
+// 7. Utilities – utilities and helper classes with ability to override
+//    anything which goes before in the triangle, eg. hide helper class
+@import "utilities/visually-hidden";
+@import "utilities/text-right";

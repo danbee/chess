@@ -1,0 +1,31 @@
+.game-state {
+  align-items: center;
+  background-color: $foreground-color;
+  border-radius: calc(var(--board-size) / 100);
+  bottom: -2.5%;
+  box-shadow: 0 0 0 0.2rem $background-color;
+  color: $background-color;
+  display: none;
+  font-size: calc(var(--board-size) / 40);
+  height: 6%;
+  justify-content: center;
+  left: 5%;
+  position: absolute;
+  width: 15%;
+}
+
+&.game-state--check,
+&.game-state--checkmate,
+&.game-state--stalemate {
+  display: block; // So PhantomJS will display it.
+  display: flex;
+}
+
+&.game-state--checkmate,
+&.game-state--stalemate {
+  font-size: calc(var(--board-size) / 30);
+  height: 7.5%;
+  left: calc(50% - 15%);
+  top: calc(50% - 3.5%);
+  width: 30%;
+}

@@ -1,11 +1,11 @@
 <h2><%= gettext "Listing games" %></h2>
 
-<table class="table table--games-list">
+<table class="games-list">
   <tbody>
     <%= for game <- @games do %>
       <tr class="<%= turn_class(@conn, game) %>">
         <td>
-          <span class="player-indicator">
+          <span class="games-list__player-indicator">
             <img src="images/pawn_<%= player_colour(@conn, game) %>.svg">
           </span>
           <%= link gettext(
@@ -25,8 +25,7 @@
           <%= link gettext("Delete"),
                 to: game_path(@conn, :delete, game),
                 method: :delete,
-                data: [confirm: gettext("Are you sure?")],
-                class: "btn btn-danger btn-xs" %>
+                data: [confirm: gettext("Are you sure?")] %>
         </td>
       </tr>
     <% end %>
