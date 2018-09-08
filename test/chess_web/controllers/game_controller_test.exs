@@ -34,7 +34,7 @@ defmodule ChessWeb.GameControllerTest do
     assert redirected_to(conn) == game_path(conn, :show, game)
   end
 
-  test "sends and email when game is created", %{conn: conn} do
+  test "sends an email when game is created", %{conn: conn} do
     opponent = insert(:user, %{name: "Daruk", email: "daruk@goron.city"})
     attrs = %{"opponent_id" => opponent.id}
 
