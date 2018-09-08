@@ -13,7 +13,7 @@ defmodule Chess.Features.MovesTest do
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
 
     session
@@ -41,7 +41,7 @@ defmodule Chess.Features.MovesTest do
     opponent = insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
 
     session
@@ -67,7 +67,7 @@ defmodule Chess.Features.MovesTest do
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
 
     session
@@ -91,7 +91,7 @@ defmodule Chess.Features.MovesTest do
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
 
     session
@@ -103,7 +103,7 @@ defmodule Chess.Features.MovesTest do
 
     {:ok, session2} = Wallaby.start_session
     session2
-    |> login("zelda@hyrule.com", "ganonsucks")
+    |> login("zelda@hyrule.com", "ganondorfsucks")
     |> click(link("Game with Link"))
 
     session2
@@ -120,7 +120,7 @@ defmodule Chess.Features.MovesTest do
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
 
     session
@@ -132,7 +132,7 @@ defmodule Chess.Features.MovesTest do
 
     {:ok, session2} = Wallaby.start_session
     session2
-    |> login("zelda@hyrule.com", "ganonsucks")
+    |> login("zelda@hyrule.com", "ganondorfsucks")
     |> click(link("Game with Link"))
 
     session
@@ -155,7 +155,7 @@ defmodule Chess.Features.MovesTest do
     opponent = insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
     insert(:game, %{
       board: %{
@@ -190,7 +190,7 @@ defmodule Chess.Features.MovesTest do
     opponent = insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
     insert(:game, %{
       board: %{
@@ -225,7 +225,7 @@ defmodule Chess.Features.MovesTest do
     opponent = insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
-      password: "ganonsucks"
+      password: "ganondorfsucks"
     })
     insert(:game, %{
       board: %{
@@ -239,7 +239,7 @@ defmodule Chess.Features.MovesTest do
     })
 
     session
-    |> login("zelda@hyrule.com", "ganonsucks")
+    |> login("zelda@hyrule.com", "ganondorfsucks")
     |> visit("/games")
     |> click(link("Game with Link"))
 
