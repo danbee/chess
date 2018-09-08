@@ -1,9 +1,10 @@
 defmodule ChessWeb.GameController do
   use ChessWeb, :controller
 
+  alias Chess.Emails
+  alias Chess.Mailer
   alias Chess.Store.Game
   alias Chess.Store.User
-  alias Chess.Mailer
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -42,7 +43,7 @@ defmodule ChessWeb.GameController do
     |> case do
       {:ok, game} ->
         conn
-        |> Chess.Emails.new_game_email(
+        |> Emails.new_game_email(
           game
           |> Repo.preload(:user)
           |> Repo.preload(:opponent)

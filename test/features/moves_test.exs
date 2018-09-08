@@ -1,5 +1,6 @@
 defmodule Chess.Features.MovesTest do
   use ChessWeb.FeatureCase
+  use Bamboo.Test, shared: true
 
   import Wallaby.Query
 
@@ -29,6 +30,37 @@ defmodule Chess.Features.MovesTest do
     |> click(css("#f4-r3"))
     |> assert_has(square_containing("f4-r3", "white.pawn"))
     |> refute_has(square_containing("f4-r1", "white.pawn"))
+  end
+
+  test "opponents recieves an email on move", %{session: session} do
+    user = insert(:user, %{
+      name: "Link",
+      email: "link@hyrule.com",
+      password: "ilovezelda"
+    })
+    opponent = insert(:user, %{
+      name: "Zelda",
+      email: "zelda@hyrule.com",
+      password: "ganonsucks"
+    })
+
+    session
+    |> login("link@hyrule.com", "ilovezelda")
+    |> visit("/games")
+    |> click(link("New game"))
+    |> select("game[opponent_id]", option: "Zelda")
+    |> click(button("Create game"))
+
+    assert_email_delivered_with(to: [{opponent.name, opponent.email}])
+
+    session
+    |> click(css("#f4-r1"))
+    |> click(css("#f4-r3"))
+
+    assert_email_delivered_with(
+      to: [{opponent.name, opponent.email}],
+      subject: "[64squares] #{user.name} has moved."
+    )
   end
 
   test "cannot move the opponents pieces", %{session: session} do

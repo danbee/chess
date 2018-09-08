@@ -10,7 +10,6 @@ defmodule Chess.Store.MoveTest do
   alias Chess.Store.Move
 
   describe "move" do
-
     test "move is valid with a game, a from, and a to" do
       user = insert(:user, %{email: "link@hyrule.com"})
       opponent = insert(:user, %{email: "zelda@hyrule.com"})

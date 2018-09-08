@@ -29,7 +29,7 @@ defmodule ChessWeb.UserSocket do
         :error
     end
   end
-  def connect(%{}, socket), do: :error
+  def connect(%{}, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
