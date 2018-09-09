@@ -3,7 +3,7 @@
 
   .offline,
   .viewing {
-    &:before {
+    &::before {
       border-radius: 50%;
       content: "";
       display: inline-block;
@@ -16,14 +16,14 @@
   .offline {
     opacity: 0.4;
 
-    &:before {
-      background-color: #cc3333;
+    &::before {
+      background-color: $offline-opponent-color;
     }
   }
 
   .viewing {
-    &:before {
-      background-color: #66cc33;
+    &::before {
+      background-color: $viewing-opponent-color;
     }
   }
 }

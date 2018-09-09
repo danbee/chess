@@ -6,6 +6,7 @@ defmodule Chess.Emails do
 
   alias Chess.Repo
   alias Chess.Store.User
+  alias ChessWeb.Router.Helpers
 
   def new_game_email(conn, game) do
     new_email()
@@ -15,7 +16,7 @@ defmodule Chess.Emails do
       "[64squares] #{game.user.name} has invited you to play a game of chess."
     )
     |> text_body("""
-      Game link: #{ChessWeb.Router.Helpers.game_url(conn, :show, game)}
+      Game link: #{Helpers.game_url(conn, :show, game)}
     """)
   end
 
@@ -30,7 +31,7 @@ defmodule Chess.Emails do
       "[64squares] #{user.name} has moved."
     )
     |> text_body("""
-      Game link: #{ChessWeb.Router.Helpers.game_url(socket, :show, game)}
+      Game link: #{Helpers.game_url(socket, :show, game)}
     """)
   end
 end

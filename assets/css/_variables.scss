@@ -24,6 +24,9 @@ $your-turn-background-color: rgba($white, 0.1);
 
 $game-state-background-color: rgba(darken($black-square-color, 10%), 0.9);
 
+$offline-opponent-color: #cc3333;
+$viewing-opponent-color: #66cc33;
+
 $square-outline-color: darken($black-square-color, 20%);
 $selected-outline-color: lighten($selected-square-color, 20%);
 $available-outline-color: rgba(lighten($available-square-color, 20%), 0.5);
