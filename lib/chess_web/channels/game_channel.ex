@@ -90,13 +90,14 @@ defmodule ChessWeb.GameChannel do
       opponent(game, socket.assigns.user_id).id
       |> Integer.to_string
 
+    send_update(socket)
+
     "game:#{game.id}"
     |> Presence.list
     |> case do
       %{^opponent_id => _} ->
-        send_update(socket)
+        nil
       _ ->
-        send_update(socket)
         socket
         |> Emails.opponent_moved_email(game)
         |> Mailer.deliver_later

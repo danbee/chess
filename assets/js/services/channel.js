@@ -24,7 +24,8 @@ class Channel {
   }
 
   join() {
-    this.channel.join()
+    this.channel
+      .join()
       .receive("error", resp => {
         console.log("Unable to join", resp);
       });
@@ -57,20 +58,24 @@ class Channel {
   }
 
   setOpponentStatus() {
-    this.store.dispatch(setOpponentStatus(
-      this.presences.opponentOnline(this.opponentId) ? "viewing" : "offline"
-    ));
+    this.store.dispatch(
+      setOpponentStatus(
+        this.presences.opponentOnline(this.opponentId) ? "viewing" : "offline"
+      )
+    );
   }
 
   getAvailableMoves(square) {
-    this.channel.push("game:get_available_moves", { square })
-      .receive("ok", (data) => {
+    this.channel
+      .push("game:get_available_moves", { square })
+      .receive("ok", data => {
         this.store.dispatch(setAvailableMoves(data.moves));
       });
   }
 
   sendMove(move) {
-    this.channel.push("game:move", move)
+    this.channel
+      .push("game:move", move)
       .receive("error", resp => {
         alert(resp.message);
       });
