@@ -10,6 +10,9 @@ config :chess, ChessWeb.Endpoint,
   url: [host: "localhost", port: {:system, "PORT"}],
   version: Application.spec(:chess, :vsn)
 
+config :chess, Chess.Mailer,
+  adapter: Bamboo.MailgunAdapter
+
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: "${DATABASE_URL}",
