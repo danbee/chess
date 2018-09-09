@@ -11,7 +11,9 @@ config :chess, ChessWeb.Endpoint,
   version: Application.spec(:chess, :vsn)
 
 config :chess, Chess.Mailer,
-  adapter: Bamboo.MailgunAdapter
+  adapter: Bamboo.MailgunAdapter,
+  api_key: "${MAILGUN_API_KEY}",
+  domain: "${MAILGUN_DOMAIN}"
 
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
