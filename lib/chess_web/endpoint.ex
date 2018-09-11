@@ -23,6 +23,10 @@ defmodule ChessWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  if Mix.env == :prod do
+    plug ChessWeb.Plugs.CanonicalDomain
+  end
+
   plug Plug.RequestId
   plug Plug.Logger
 
