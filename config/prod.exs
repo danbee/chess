@@ -7,7 +7,7 @@ config :chess, ChessWeb.Endpoint,
   root: "./assets",
   secret_key_base: "${SECRET_KEY_BASE}",
   server: true,
-  url: [host: "${HOST}", port: {:system, "PORT"}],
+  url: [scheme: "https", host: "${HOST}", port: "${URL_PORT}"],
   version: Application.spec(:chess, :vsn)
 
 config :chess, Chess.Mailer,
