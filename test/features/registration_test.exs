@@ -13,6 +13,7 @@ defmodule Chess.Features.RegistrationTest do
     |> click(button("Register"))
 
     assert session |> has_text?("Registered successfully")
+    assert session |> has_text?("link@example.com")
   end
 
   test "user cannot register without a name", %{session: session} do
