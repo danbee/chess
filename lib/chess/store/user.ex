@@ -20,20 +20,23 @@ defmodule Chess.Store.User do
     timestamps()
   end
 
+  @profile_attrs ~w[name email]a
+  @registration_attrs ~w[name email password]a
+
   @doc false
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, registration_attrs())
-    |> validate_required(registration_attrs())
-    |> unique_constraint(:email)
+    |> cast(params, @registration_attrs)
+    |> validate_required(@registration_attrs)
+    |> unique_validations()
     |> hash_password()
   end
 
   def profile_changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, profile_attrs())
-    |> validate_required(profile_attrs())
-    |> unique_constraint(:email)
+    |> cast(params, @profile_attrs)
+    |> validate_required(@profile_attrs)
+    |> unique_validations()
   end
 
   def password_changeset(struct, params \\ %{}) do
@@ -41,6 +44,12 @@ defmodule Chess.Store.User do
     |> cast(params, [:password])
     |> validate_required([:password])
     |> hash_password()
+  end
+
+  def unique_validations(struct, params \\ %{}) do
+    struct
+    |> unique_constraint(:name)
+    |> unique_constraint(:email)
   end
 
   def opponents(user) do
@@ -58,7 +67,4 @@ defmodule Chess.Store.User do
       changeset
     end
   end
-
-  defp registration_attrs, do: ~w[name email password]a
-  defp profile_attrs, do: ~w{name email}a
 end
