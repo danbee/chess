@@ -46,16 +46,21 @@ defmodule Chess.Store.User do
     |> hash_password()
   end
 
-  def unique_validations(struct, params \\ %{}) do
+  def unique_validations(struct) do
     struct
     |> unique_constraint(:name)
     |> unique_constraint(:email)
   end
 
   def opponents(user) do
-    from user in "users",
-      where: user.id != ^user.id,
-      select: {user.name, user.id}
+    from user in __MODULE__,
+      where: user.id != ^user.id
+  end
+
+  def matches(query, query_string) do
+    from user in query,
+      where: ilike(user.name, ^"%#{query_string}%")
+             or user.email == ^query_string
   end
 
   defp hash_password(changeset) do
