@@ -52,6 +52,11 @@ defmodule Chess.Store.User do
     |> unique_constraint(:email)
   end
 
+  def find_by_name(name) do
+    from user in __MODULE__,
+      where: user.name == ^name
+  end
+
   def opponents(user) do
     from user in __MODULE__,
       where: user.id != ^user.id

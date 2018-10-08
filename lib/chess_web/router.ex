@@ -50,7 +50,7 @@ defmodule ChessWeb.Router do
   scope "/api", as: :api do
     pipe_through [:api, :auth, :ensure_auth]
 
-    resources "/games", ChessWeb.Api.GameController, only: [:show, :update]
+    resources "/opponents", ChessWeb.Api.OpponentsController, only: [:index]
   end
 
   if Mix.env == :dev do

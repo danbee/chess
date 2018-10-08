@@ -1,7 +1,7 @@
 <div class="form">
   <h2><%= gettext "Register" %></h2>
 
-  <%= form_for @changeset, registration_path(@conn, :create), [class: "create-registration"], fn f -> %>
+  <%= form_for @changeset, registration_path(@conn, :create), [class: "create-registration", novalidate: "novalidate"], fn f -> %>
     <%= if @changeset.action do %>
       <div class="alert alert-danger">
         <p>

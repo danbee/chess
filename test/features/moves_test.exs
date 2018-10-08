@@ -20,7 +20,7 @@ defmodule Chess.Features.MovesTest do
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     |> click(css("#f4-r1"))
@@ -48,7 +48,7 @@ defmodule Chess.Features.MovesTest do
     |> login("link@hyrule.com", "ilovezelda")
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     assert_email_delivered_with(to: [{opponent.name, opponent.email}])
@@ -74,7 +74,7 @@ defmodule Chess.Features.MovesTest do
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     session
@@ -98,7 +98,7 @@ defmodule Chess.Features.MovesTest do
     |> login("link@hyrule.com", "ilovezelda")
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     {:ok, session2} = Wallaby.start_session
@@ -127,7 +127,7 @@ defmodule Chess.Features.MovesTest do
     |> login("link@hyrule.com", "ilovezelda")
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     {:ok, session2} = Wallaby.start_session

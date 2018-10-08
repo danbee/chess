@@ -26,14 +26,8 @@ defmodule ChessWeb.GameController do
   def new(conn, _params) do
     changeset = Game.changeset(%Game{})
 
-    opponents =
-      conn
-      |> current_user()
-      |> User.opponents()
-      |> Repo.all
-
     conn
-    |> render("new.html", changeset: changeset, opponents: opponents)
+    |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"game" => game}) do

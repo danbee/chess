@@ -11,8 +11,8 @@ defmodule Chess.Store.GameTest do
     import Chess.Factory
 
     test "game is valid with a board and user" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       attrs = %{
         board: %{},
@@ -40,8 +40,8 @@ defmodule Chess.Store.GameTest do
     end
 
     test "game is invalid without a board" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       attrs = %{board: nil, user_id: user.id, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -51,7 +51,7 @@ defmodule Chess.Store.GameTest do
     end
 
     test "game is invalid without a user" do
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      opponent = insert(:user)
 
       attrs = %{board: %{}, opponent_id: opponent.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -61,7 +61,7 @@ defmodule Chess.Store.GameTest do
     end
 
     test "game is invalid without an opponent" do
-      user = insert(:user, %{email: "link@hyrule.com"})
+      user = insert(:user)
 
       attrs = %{board: %{}, user_id: user.id}
       changeset = Game.changeset(%Game{}, attrs)
@@ -78,8 +78,8 @@ defmodule Chess.Store.GameTest do
     end
 
     test "moving a piece changes the turn" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       game = insert(:game, %{
         board: Board.default,

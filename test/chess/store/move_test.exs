@@ -11,8 +11,8 @@ defmodule Chess.Store.MoveTest do
 
   describe "move" do
     test "move is valid with a game, a from, and a to" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       game = insert(:game, %{
         board: Board.default,
@@ -42,8 +42,8 @@ defmodule Chess.Store.MoveTest do
     end
 
     test "move is invalid without a from or to" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       game = insert(:game, %{
         board: Board.default,
@@ -60,8 +60,8 @@ defmodule Chess.Store.MoveTest do
     end
 
     test "move is invalid without a piece" do
-      user = insert(:user, %{email: "link@hyrule.com"})
-      opponent = insert(:user, %{email: "zelda@hyrule.com"})
+      user = insert(:user)
+      opponent = insert(:opponent)
 
       game = insert(:game, %{
         board: Board.default,

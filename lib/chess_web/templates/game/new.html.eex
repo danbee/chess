@@ -4,11 +4,7 @@
   <%= form_for @changeset, game_path(@conn, :create), [class: "create-game"],
       fn form -> %>
     <div class="form-group">
-      <%= label form, :opponent_id %>
-      <%= select form,
-            :opponent_id,
-            @opponents,
-            prompt: gettext("Choose an opponent") %>
+      <div id="opponent-finder"></div>
       <%= error_tag form, :opponent_id %>
     </div>
 

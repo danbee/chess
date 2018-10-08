@@ -19,7 +19,7 @@ defmodule ChessWeb.GameControllerTest do
   end
 
   test "creates game and redirects when data is valid", %{conn: conn} do
-    opponent = insert(:user, %{email: "daruk@goron.city"})
+    opponent = insert(:user, %{email: "daruk@goron.city", name: "Daruk"})
     attrs = %{"opponent_id" => opponent.id}
 
     user = insert(:user)
@@ -35,7 +35,7 @@ defmodule ChessWeb.GameControllerTest do
   end
 
   test "sends an email when game is created", %{conn: conn} do
-    opponent = insert(:user, %{name: "Daruk", email: "daruk@goron.city"})
+    opponent = insert(:user, %{email: "daruk@goron.city", name: "Daruk"})
     attrs = %{"opponent_id" => opponent.id}
 
     user = insert(:user)
@@ -52,7 +52,7 @@ defmodule ChessWeb.GameControllerTest do
 
   test "shows chosen game", %{conn: conn} do
     user = insert(:user)
-    opponent = insert(:user, %{email: "revali@rito.village"})
+    opponent = insert(:user, %{email: "revali@rito.village", name: "Revali"})
     game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     conn =
@@ -60,15 +60,15 @@ defmodule ChessWeb.GameControllerTest do
       |> login(user)
       |> get(game_path(conn, :show, game))
 
-    assert html_response(conn, 200) =~ "<div id=\"app\" data-game-id=\"#{game.id}\">"
+    assert html_response(conn, 200) =~ "<div id=\"game\" data-game-id=\"#{game.id}\">"
   end
 
   test "does not show a game if the user is not a player", %{conn: conn} do
     user = insert(:user)
-    opponent = insert(:user, %{email: "revali@rito.village"})
+    opponent = insert(:user, %{email: "revali@rito.village", name: "Revali"})
     game = insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
-    other_user = insert(:user, %{email: "mipha@zora.domain"})
+    other_user = insert(:user, %{email: "mipha@zora.domain", name: "Mipha"})
 
     conn =
       conn

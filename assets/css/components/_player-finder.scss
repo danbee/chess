@@ -1,0 +1,22 @@
+.opponent-finder__result {
+  border-bottom: 1px dotted $black;
+  border-bottom-left-radius: $base-border-radius;
+  border-bottom-right-radius: $base-border-radius;
+  border-left: 1px dotted $black;
+  border-right: 1px dotted $black;
+  margin-top: -$small-spacing;
+  padding: $small-spacing / 3;
+}
+
+.opponent-finder__result-item {
+  border-radius: $base-border-radius / 2;
+  cursor: pointer;
+  display: block;
+  padding: $small-spacing / 3 $base-spacing / 2;
+
+  &:hover,
+  &:focus {
+    background: $black;
+    color: $white;
+  }
+}

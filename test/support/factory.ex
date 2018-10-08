@@ -7,22 +7,30 @@ defmodule Chess.Factory do
 
   def insert(_resource, _params \\ %{})
 
-  def insert(:user, params) do
-    %User{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganonsucks"
-    }
+  def insert(:user, new_params) do
+    params =
+      %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      }
+      |> Map.merge(new_params)
+
+    %User{}
     |> User.changeset(params)
     |> Repo.insert!
   end
 
-  def insert(:opponent, params) do
-    %User{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    }
+  def insert(:opponent, new_params) do
+    params =
+      %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganonsucks"
+      }
+      |> Map.merge(new_params)
+
+    %User{}
     |> User.changeset(params)
     |> Repo.insert!
   end

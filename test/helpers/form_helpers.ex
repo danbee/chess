@@ -12,4 +12,10 @@ defmodule Chess.FormHelpers do
 
     session
   end
+
+  def select_opponent(session, name) do
+    session
+    |> fill_in(text_field("Find opponent"), with: name)
+    |> click(link(name))
+  end
 end

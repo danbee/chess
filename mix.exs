@@ -34,7 +34,7 @@ defmodule Chess.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:argon2_elixir, "~> 1.2"},
+      {:argon2_elixir, "~> 1.3"},
       {:bamboo, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:cowboy, "~> 1.0"},
@@ -49,6 +49,7 @@ defmodule Chess.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:secure_random, "~> 0.5"},
       {:timex_ecto, "~> 3.2"},
       {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
     ]

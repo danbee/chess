@@ -24,7 +24,7 @@ defmodule Chess.Features.GamesTest do
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Zelda")
+    |> select_opponent("Zelda")
     |> click(button("Create game"))
 
     session
@@ -62,7 +62,7 @@ defmodule Chess.Features.GamesTest do
     |> create_user_and_login()
     |> visit("/games")
     |> click(link("New game"))
-    |> select("game[opponent_id]", option: "Urbosa")
+    |> select_opponent("Urbosa")
     |> click(button("Create game"))
     |> click(link("64squares"))
 

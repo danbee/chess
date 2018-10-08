@@ -3,6 +3,7 @@ use Mix.Config
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :chess, ChessWeb.Endpoint,
+  check_origin: false,
   http: [port: 4001],
   server: true
 

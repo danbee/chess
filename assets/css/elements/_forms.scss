@@ -51,6 +51,10 @@ textarea {
       border: $base-border;
     }
   }
+
+  &::placeholder {
+    opacity: 1;
+  }
 }
 
 textarea {

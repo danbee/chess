@@ -7,6 +7,7 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "gettext.js": "^0.5.3",
@@ -21,11 +22,9 @@
     "redux-watch": "^1.1.1"
   },
   "devDependencies": {
-    "babel-brunch": "^6.1.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-react": "^6.24.1",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-brunch": "^7.0.0",
     "brunch": "~2.10.0",
     "clean-css-brunch": "~2.10.0",
     "core-js": "~2.5.3",

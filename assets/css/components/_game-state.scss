@@ -14,15 +14,15 @@
   width: 15%;
 }
 
-&.game-state--check,
-&.game-state--checkmate,
-&.game-state--stalemate {
+.game-state--check,
+.game-state--checkmate,
+.game-state--stalemate {
   display: block; // So PhantomJS will display it.
   display: flex;
 }
 
-&.game-state--checkmate,
-&.game-state--stalemate {
+.game-state--checkmate,
+.game-state--stalemate {
   font-size: calc(var(--board-size) / 30);
   height: 7.5%;
   left: calc(50% - 15%);

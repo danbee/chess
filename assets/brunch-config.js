@@ -40,19 +40,20 @@ exports.config = {
       mode: "native",
     },
     babel: {
-      plugins: [
-        "transform-object-rest-spread",
-        "transform-class-properties",
-      ],
       presets: [
         [
-          "env", {
-            "browsers": ["> 5% in US"],
-            "useBuiltIns": true,
+          "@babel/preset-env", {
+            useBuiltIns: "entry",
+            targets: {
+              firefox: "60",
+              chrome: "67",
+              safari: "11",
+              edge: "17",
+              phantomjs: "2.1.1",
+            },
           },
         ],
-        "es2015",
-        "react",
+        "@babel/preset-react",
       ],
       ignore: [/vendor/],
     },

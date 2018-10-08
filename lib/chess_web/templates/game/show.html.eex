@@ -1,2 +1,2 @@
-<div id="app" data-game-id="<%= @game.id %>">
+<div id="game" data-game-id="<%= @game.id %>">
 </div>
