@@ -145,6 +145,7 @@ class OpponentFinder extends React.Component {
         <input
           id="query-string"
           ref={(input) => { this.queryStringInput = input; }}
+          className="search-input"
           name="q"
           value={this.state.queryString}
           onChange={this.handleChange.bind(this)}
