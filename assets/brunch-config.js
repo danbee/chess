@@ -59,6 +59,35 @@ exports.config = {
     },
   },
 
+  overrides: {
+    production: {
+      optimize: true,
+      sourceMaps: false,
+      plugins: {
+        sass: {
+          mode: "native",
+        },
+        babel: {
+          presets: [
+            [
+              "@babel/preset-env", {
+                useBuiltIns: "entry",
+                targets: {
+                  firefox: "49",
+                  chrome: "53",
+                  safari: "10",
+                  edge: "14",
+                },
+              },
+            ],
+            "@babel/preset-react",
+          ],
+          ignore: [/vendor/],
+        },
+      },
+    },
+  },
+
   modules: {
     autoRequire: {
       "js/app.js": ["js/app"],
