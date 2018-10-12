@@ -17,9 +17,18 @@ class OpponentFinder extends React.Component {
       foundOpponents: [],
       selectedOpponent: "",
       selectedOpponentId: "",
+      focusedOpponent: null,
     };
 
+    this.opponentResults = [];
+
     this.debouncedSearch = _.debounce(this.search.bind(this), 250);
+  }
+
+  componentDidUpdate() {
+    if (this.state.focusedOpponent !== null) {
+      this.opponentResults[this.state.focusedOpponent].focus();
+    }
   }
 
   search() {
@@ -50,6 +59,37 @@ class OpponentFinder extends React.Component {
     }
   }
 
+  handleKeyPress(event) {
+    if (this.isKeyingDown(event)) { this.focusNextOpponent(); }
+
+    if (this.isKeyingUp(event)) { this.focusPreviousOpponent(); }
+  }
+
+  isKeyingDown(event) {
+    return event.key === "ArrowDown" || (event.key === "Tab" && !event.shiftKey);
+  }
+
+  isKeyingUp(event) {
+    return event.key === "ArrowUp" || (event.key === "Tab" && event.shiftKey);
+  }
+
+  focusNextOpponent() {
+    if (this.state.focusedOpponent === null) {
+      this.setState({ focusedOpponent: 0 });
+    } else if (this.state.focusedOpponent < this.state.foundOpponents.length - 1) {
+      this.setState({ focusedOpponent: this.state.focusedOpponent + 1 });
+    }
+  }
+
+  focusPreviousOpponent() {
+    if (this.state.focusedOpponent > 0) {
+      this.setState({ focusedOpponent: this.state.focusedOpponent - 1 });
+    } else {
+      this.setState({ focusedOpponent: null });
+      this.queryStringInput.select();
+    }
+  }
+
   selectOpponent(event) {
     event.preventDefault();
 
@@ -63,15 +103,17 @@ class OpponentFinder extends React.Component {
       selectedOpponent,
       foundOpponents: [],
       queryString: selectedOpponent.name,
+      focusedOpponent: null,
     });
   }
 
   renderOpponents() {
-    return _.map(this.state.foundOpponents, (opponent) => {
+    return _.map(this.state.foundOpponents, (opponent, index) => {
       return (
         <li key={opponent.id}>
           <a
             className="opponent-finder__result-item"
+            ref={(link) => { this.opponentResults[index] = link; }}
             data-id={opponent.id}
             href="#"
             onClick={this.selectOpponent.bind(this)}
@@ -95,10 +137,14 @@ class OpponentFinder extends React.Component {
     const { store, gameId } = this.props;
 
     return (
-      <div className="form-field opponent-finder">
+      <div
+        className="form-field opponent-finder"
+        onKeyUp={this.handleKeyPress.bind(this)}
+      >
         <label htmlFor="query-string">Find opponent</label>
         <input
           id="query-string"
+          ref={(input) => { this.queryStringInput = input; }}
           name="q"
           value={this.state.queryString}
           onChange={this.handleChange.bind(this)}
