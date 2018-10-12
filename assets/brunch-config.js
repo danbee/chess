@@ -69,10 +69,10 @@ exports.config = {
               "@babel/preset-env", {
                 useBuiltIns: "entry",
                 targets: {
-                  firefox: "49",
-                  chrome: "53",
-                  safari: "10",
-                  edge: "14",
+                  firefox: "52",
+                  chrome: "57",
+                  safari: "10.3",
+                  edge: "16",
                 },
               },
             ],
