@@ -61,7 +61,6 @@ class OpponentFinder extends React.Component {
 
   handleKeyPress(event) {
     if (this.isKeyingDown(event)) { this.focusNextOpponent(); }
-
     if (this.isKeyingUp(event)) { this.focusPreviousOpponent(); }
   }
 
