@@ -38,9 +38,7 @@ class Channel {
   subscribe() {
     this.channel.on("game:update", this.updateGame.bind(this));
 
-    this.presence.onSync(() => {
-      this.setOpponentStatus();
-    })
+    this.presence.onSync(() => { this.setOpponentStatus(); });
   }
 
   updateGame(data) {
