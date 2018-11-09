@@ -1,6 +1,6 @@
 import _ from "lodash";
 import socket from "./socket";
-import Presences from "./presences";
+import { Presence } from "phoenix";
 import {
   setUserId,
   setPlayers,
@@ -13,7 +13,7 @@ class Channel {
   constructor(store, gameId) {
     this.store = store;
     this.channel = socket.channel(`game:${gameId}`, {});
-    this.presences = new Presences();
+    this.presence = new Presence(this.channel);
 
     this.join();
     this.subscribe();
@@ -38,15 +38,9 @@ class Channel {
   subscribe() {
     this.channel.on("game:update", this.updateGame.bind(this));
 
-    this.channel.on("presence_state", data => {
-      this.presences.syncState(data);
+    this.presence.onSync(() => {
       this.setOpponentStatus();
-    });
-
-    this.channel.on("presence_diff", data => {
-      this.presences.syncDiff(data);
-      this.setOpponentStatus();
-    });
+    })
   }
 
   updateGame(data) {
@@ -60,8 +54,17 @@ class Channel {
   setOpponentStatus() {
     this.store.dispatch(
       setOpponentStatus(
-        this.presences.opponentOnline(this.opponentId) ? "viewing" : "offline"
+        this.opponentOnline(this.opponentId) ? "viewing" : "offline"
       )
+    );
+  }
+
+  opponentOnline(opponentId) {
+    return _.find(
+      this.presence.list(),
+      ({ metas: [user, ...rest] }, id) => {
+        return parseInt(user.id) == opponentId;
+      }
     );
   }
 

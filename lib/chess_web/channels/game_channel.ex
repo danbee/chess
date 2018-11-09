@@ -106,7 +106,7 @@ defmodule ChessWeb.GameChannel do
 
   def track_presence(socket) do
     {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
-      user_id: socket.assigns.user_id,
+      id: socket.assigns.user_id,
       online_at: inspect(System.system_time(:seconds))
     })
 
