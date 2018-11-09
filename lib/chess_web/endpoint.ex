@@ -5,7 +5,8 @@ defmodule ChessWeb.Endpoint do
     plug Phoenix.Ecto.SQL.Sandbox
   end
 
-  socket "/socket", ChessWeb.UserSocket
+  socket "/socket", ChessWeb.UserSocket,
+    websocket: true
 
   # Serve at "/" the static files from "priv/static" directory.
   #
