@@ -5,6 +5,7 @@ defmodule Chess.Store.Move do
   use Timex.Ecto.Timestamps
 
   import Ecto.Changeset
+  import Ecto.Query
 
   alias Chess.Store.Game
 
@@ -26,11 +27,20 @@ defmodule Chess.Store.Move do
     |> validate_required(required_attrs())
   end
 
+  def for_game_id(query, game_id) do
+    from move in query,
+      where: move.game_id == ^game_id
+  end
+
+  def with_captures(query) do
+    from move in query,
+      where: not is_nil(move.piece_captured)
+  end
+
   def transform(move) do
     %{
       id: move.id,
       piece: move.piece,
-      piece_captured: move.piece_captured,
       from: <<97 + move.from["file"], 49 + move.from["rank"]>>,
       to: <<97 + move.to["file"], 49 + move.to["rank"]>>,
     }

@@ -4,7 +4,7 @@ defmodule ChessWeb.GameController do
   alias Chess.Emails
   alias Chess.Mailer
   alias Chess.Store.Game
-  alias Chess.Store.User
+  alias Chess.Repo.Queries
 
   import Chess.Auth, only: [current_user: 1]
 
@@ -14,10 +14,7 @@ defmodule ChessWeb.GameController do
     games =
       conn
       |> current_user()
-      |> Game.for_user()
-      |> Game.ordered
-      |> preload([:user, :opponent])
-      |> Repo.all
+      |> Queries.games_for_index
 
     conn
     |> render("index.html", games: games, changeset: changeset)
@@ -49,27 +46,16 @@ defmodule ChessWeb.GameController do
         |> redirect(to: game_path(conn, :show, game))
 
       {:error, changeset} ->
-        opponents =
-          conn
-          |> current_user()
-          |> User.opponents()
-          |> Repo.all
-
         conn
-        |> render("new.html", changeset: changeset, opponents: opponents)
+        |> render("new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    query =
-      conn
-      |> current_user()
-      |> Game.for_user()
-      |> preload([:user, :opponent])
-
     game =
-      query
-      |> Repo.get!(id)
+      conn
+      |> current_user
+      |> Queries.game_for_show(id)
 
     conn
     |> render("show.html", game: game)

@@ -3,12 +3,12 @@ defmodule ChessWeb.GameChannel do
 
   use ChessWeb, :channel
 
-  import ChessWeb.GameView, only: [player: 2, opponent: 2]
+  import ChessWeb.GameView, only: [opponent: 2]
+  import ChessWeb.GameChannelView,
+    only: [after_join_payload: 2, update_payload: 1]
 
-  alias Chess.Board
   alias Chess.Emails
   alias Chess.Mailer
-  alias Chess.MoveList
   alias Chess.Moves
   alias Chess.Repo.Queries
   alias ChessWeb.Presence
@@ -24,19 +24,8 @@ defmodule ChessWeb.GameChannel do
       socket.assigns.user_id
       |> Queries.game_for_info(game_id)
 
-    payload = %{
-      player_id: socket.assigns.user_id,
-      opponent_id: opponent(game, socket.assigns.user_id).id,
-      player: player(game, socket.assigns.user_id),
-      opponent: opponent(game, socket.assigns.user_id).name,
-      board: Board.transform(game.board),
-      turn: game.turn,
-      state: game.state,
-      moves: MoveList.transform(game.moves),
-    }
-
     socket
-    |> push("game:update", payload)
+    |> push("game:update", after_join_payload(socket, game))
 
     track_presence(socket)
 
@@ -126,13 +115,6 @@ defmodule ChessWeb.GameChannel do
       socket.assigns.user_id
       |> Queries.game_with_moves(socket.assigns.game_id)
 
-    payload = %{
-      board: Board.transform(game.board),
-      turn: game.turn,
-      state: game.state,
-      moves: MoveList.transform(game.moves),
-    }
-
-    ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", payload)
+    ChessWeb.Endpoint.broadcast("game:#{game.id}", "game:update", update_payload(game))
   end
 end

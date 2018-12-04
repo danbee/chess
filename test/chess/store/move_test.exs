@@ -89,7 +89,6 @@ defmodule Chess.Store.MoveTest do
       assert Move.transform(move) == %{
         id: nil,
         piece: %{"type" => "pawn", "colour" => "white"},
-        piece_captured: %{"type" => "pawn", "colour" => "black"},
         from: "e2",
         to: "e4"
       }
