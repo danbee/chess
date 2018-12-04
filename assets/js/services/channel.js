@@ -50,7 +50,7 @@ class Channel {
   }
 
   updateGame(data) {
-    if (data.player != undefined) {
+    if (data.player !== undefined) {
       this.store.dispatch(setUserId(data.user_id));
       this.store.dispatch(setPlayers(data));
     }
