@@ -6,6 +6,7 @@ defmodule Chess.Moves do
   alias Chess.Repo
   alias Chess.Board
   alias Chess.Store.Game
+  alias Chess.Store.Move
 
   alias Chess.Moves.Pieces.Pawn
   alias Chess.Moves.Pieces.Bishop
@@ -21,7 +22,7 @@ defmodule Chess.Moves do
 
     Multi.new
     |> Multi.update(:game, Game.move_changeset(game, params))
-    |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
+    |> Multi.insert(:move, Move.changeset(%Move{game_id: game.id}, params))
     |> Repo.transaction
   end
 

@@ -22,7 +22,7 @@ defmodule Chess.Store.Move do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, required_attrs())
+    |> cast(params, permitted_attrs())
     |> validate_required(required_attrs())
   end
 
@@ -35,6 +35,8 @@ defmodule Chess.Store.Move do
       to: <<97 + move.to["file"], 49 + move.to["rank"]>>,
     }
   end
+
+  defp permitted_attrs, do: ~w[game_id from to piece piece_captured]a
 
   defp required_attrs, do: ~w[game_id from to piece]a
 end
