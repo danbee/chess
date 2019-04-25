@@ -37,6 +37,11 @@ defmodule Chess.Store.Move do
       where: not is_nil(move.piece_captured)
   end
 
+  def captures_for_colour(query, colour) do
+    from move in query,
+      where: fragment("(piece_captured -> 'colour')::jsonb = ?", ^colour)
+  end
+
   def transform(move) do
     %{
       id: move.id,

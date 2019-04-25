@@ -145,6 +145,37 @@ defmodule Chess.Features.MovesTest do
     |> assert_has(square_containing("f4-r3", %{type: "pawn", colour: "white"}))
   end
 
+  test "captured pieces are displayed on the page", %{session: session} do
+    user = insert(:user, %{password: "mypassword"})
+    opponent = insert(:opponent)
+
+    insert(:game, %{
+      board: %{
+        "4,0" => %{"type" => "queen", "colour" => "white"},
+        "0,2" => %{"type" => "king", "colour" => "white"},
+        "4,7" => %{"type" => "pawn", "colour" => "black"},
+        "0,7" => %{"type" => "king", "colour" => "black"},
+      },
+      user_id: user.id,
+      opponent_id: opponent.id,
+      turn: "white",
+    })
+
+    session
+    |> login(user.email, "mypassword")
+    |> visit("/games")
+    |> click(link("Game with #{opponent.name}"))
+
+    refute_has(session, css("li", text: "Black Pawn"))
+
+    session
+    |> click(css("#f4-r0"))
+    |> click(css("#f4-r7"))
+    |> assert_has(square_containing("f4-r7", %{type: "queen", colour: "white"}))
+    |> refute_has(square_containing("f4-r0", %{type: "queen", colour: "white"}))
+    |> assert_has(css("li", text: "Black Pawn"))
+  end
+
   test "cannot move the king into a position that would result in check",
        %{session: session} do
     user = insert(:user, %{

@@ -6,8 +6,8 @@ defmodule ChessWeb.GameChannelView do
   import ChessWeb.GameView, only: [player: 2, opponent: 2]
 
   alias Chess.Board
-
   alias Chess.MoveList
+  alias Chess.Repo.Queries
 
   def after_join_payload(socket, game) do
     %{
@@ -19,6 +19,10 @@ defmodule ChessWeb.GameChannelView do
       turn: game.turn,
       state: game.state,
       moves: MoveList.transform(game.moves),
+      graveyard: %{
+        white: Queries.captures_for_colour(game, "white"),
+        black: Queries.captures_for_colour(game, "black"),
+      },
     }
   end
 
@@ -28,6 +32,10 @@ defmodule ChessWeb.GameChannelView do
       turn: game.turn,
       state: game.state,
       moves: MoveList.transform(game.moves),
+      graveyard: %{
+        white: Queries.captures_for_colour(game, "white"),
+        black: Queries.captures_for_colour(game, "black"),
+      },
     }
   end
 end

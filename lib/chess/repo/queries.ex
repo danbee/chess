@@ -36,10 +36,11 @@ defmodule Chess.Repo.Queries do
     |> Repo.get!(game_id)
   end
 
-  def moves_with_captures(game_id) do
+  def captures_for_colour(game, colour) do
     Move
-    |> Move.for_game_id(game_id)
+    |> Move.for_game_id(game.id)
     |> Move.with_captures
+    |> Move.captures_for_colour(colour)
     |> Repo.all
   end
 
