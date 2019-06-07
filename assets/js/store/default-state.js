@@ -25,6 +25,7 @@ const defaultState = {
     2: { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
     1: { a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null },
   },
+  graveyard: { "white": [], "black": [] }
 };
 
 export default defaultState;

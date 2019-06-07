@@ -8,6 +8,7 @@ defmodule Chess.Store.Move do
   import Ecto.Query
 
   alias Chess.Store.Game
+  alias Chess.Store.Move
 
   schema "moves" do
     field :from, :map
@@ -39,6 +40,7 @@ defmodule Chess.Store.Move do
 
   def captures_for_colour(query, colour) do
     from move in query,
+      select: move.piece_captured,
       where: fragment("(piece_captured -> 'colour')::jsonb = ?", ^colour)
   end
 

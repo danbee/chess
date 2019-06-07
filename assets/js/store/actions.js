@@ -5,6 +5,7 @@ const SET_AVAILABLE_MOVES = "SET_AVAILABLE_MOVES";
 const SET_GAME_ID = "SET_GAME_ID";
 const SELECT_PIECE = "SELECT_PIECE";
 const SET_OPPONENT_STATUS = "SET_OPPONENT_STATUS";
+const SET_GRAVEYARD = "SET_GRAVEYARD";
 
 export const setUserId = (user_id) => {
   return {
@@ -29,6 +30,7 @@ export const setGame = (data) => {
     board: data.board,
     turn: data.turn,
     moves: data.moves,
+    graveyard: data.graveyard,
     state: data.state,
   };
 };
@@ -58,5 +60,12 @@ export const setOpponentStatus = (opponentStatus) => {
   return {
     type: SET_OPPONENT_STATUS,
     opponentStatus,
+  };
+};
+
+export const setGraveyard = (graveyard) => {
+  return {
+    type: SET_GRAVEYARD,
+    graveyard,
   };
 };

@@ -25,6 +25,7 @@ const chessBoardReducer = (state = defaultState, action) => {
         .set("selectedSquare", null)
         .set("availableMoves", [])
         .set("moves", action.moves)
+        .set("graveyard", action.graveyard)
         .toJS();
 
     case "SET_AVAILABLE_MOVES":

@@ -14,6 +14,7 @@ import Listeners from "../store/listeners";
 import ChessBoard from "./chess-board";
 import MoveList from "./move-list";
 import GameInfo from "./game-info";
+import Graveyard from "./graveyard";
 
 const notifications = new Notifications();
 
@@ -57,6 +58,7 @@ class Game extends React.Component {
         <GameInfo store={store} />
 
         <MoveList store={store} />
+        <Graveyard store={store} />
       </div>
     );
   }
