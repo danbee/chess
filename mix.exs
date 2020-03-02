@@ -51,7 +51,7 @@ defmodule Chess.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:secure_random, "~> 0.5"},
       {:timex_ecto, "~> 3.2"},
-      {:wallaby, "~> 0.22.0", [runtime: false, only: :test]},
+      {:wallaby, "~> 0.23.0", [runtime: false, only: :test]},
     ]
   end
 
