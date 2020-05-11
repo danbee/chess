@@ -41,7 +41,7 @@ defmodule Chess.Mixfile do
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:distillery, "~> 2.0", runtime: false},
       {:formulator, "~> 0.1.6"},
-      {:gettext, "~> 0.16.0"},
+      {:gettext, "~> 0.18.0"},
       {:guardian, "~> 1.0"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.0"},
