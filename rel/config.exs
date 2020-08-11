@@ -39,12 +39,6 @@ environment :prod do
   set include_src: false
   set cookie: :"lhX:Fbp>xJ&V;50V~CY<vA7Wtf!T)N_A:O!9s$.G@jOAL=hxYF*qL;ksj|m^Y!e^"
   set vm_args: "rel/vm.args"
-  set config_providers: [
-    {Distillery.Releases.Config.Providers.Elixir, ["${RELEASE_ROOT_DIR}/etc/config.exs"]}
-  ]
-  set overlays: [
-    {:copy, "rel/config/config.exs", "etc/config.exs"}
-  ]
 end
 
 # You may define one or more releases in this file.
