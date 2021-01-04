@@ -6,17 +6,12 @@ defmodule Chess do
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
-    import Supervisor.Spec
-
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the Ecto repository
-      supervisor(Chess.Repo, []),
-      # Start the endpoint when the application starts
-      supervisor(ChessWeb.Endpoint, []),
-      # Start your own worker by calling: Chess.Worker.start_link(arg1, arg2, arg3)
-      # worker(Chess.Worker, [arg1, arg2, arg3]),
-      supervisor(ChessWeb.Presence, []),
+      {Phoenix.PubSub, [name: Chess.PubSub, adapter: Phoenix.PubSub.PG2]},
+      {Chess.Repo, []},
+      {ChessWeb.Endpoint, []},
+      {ChessWeb.Presence, []},
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

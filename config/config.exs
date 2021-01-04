@@ -5,6 +5,8 @@
 # is restricted to this project.
 use Mix.Config
 
+config :phoenix, :json_library, Jason
+
 # General application configuration
 config :chess,
   ecto_repos: [Chess.Repo]
@@ -14,8 +16,7 @@ config :chess, ChessWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "iiTDTKorCWTFoeBgAkr35XZp22cNIM2RsmnHiHdzKAuSHXUGXx42z7lawAwiu1B1",
   render_errors: [view: ChessWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Chess.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Chess.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
