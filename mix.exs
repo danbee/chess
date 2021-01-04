@@ -5,7 +5,7 @@ defmodule Chess.Mixfile do
     [
       app: :chess,
       version: "0.2.0",
-      elixir: "~> 1.6.6",
+      elixir: "~> 1.11.3",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       build_embedded: Mix.env == :prod,
@@ -65,7 +65,7 @@ defmodule Chess.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
     ]
   end
 end
