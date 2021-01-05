@@ -58,6 +58,14 @@
     display: flex;
     flex-direction: row;
   }
+
+  .board__body {
+    flex-direction: column-reverse;
+  }
+
+  .board__row {
+    flex-direction: row;
+  }
 }
 
 .board--player-is-black {
@@ -70,18 +78,43 @@
     display: flex;
     flex-direction: row-reverse;
   }
+
+  .board__body {
+    flex-direction: column;
+  }
+
+  .board__row {
+    flex-direction: row-reverse;
+  }
 }
 
 .board__body {
   background: $background-color;
   border: 0.25rem solid $foreground-color;
   border-radius: calc(var(--board-size) / 100);
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  display: flex;
+  flex-direction: column;
   height: 100%;
   padding: 1%;
   width: 100%;
+}
+
+.board__row {
+  display: flex;
+  flex-grow: 1;
+
+  @include odd-between(1, 8) {
+    .square {
+      @include odd-between(1, 8) { @extend %square--black; }
+      @include even-between(1, 8) { @extend %square--white; }
+    }
+  }
+  @include even-between(1, 8) {
+    .square {
+      @include odd-between(1, 8) { @extend %square--white; }
+      @include even-between(1, 8) { @extend %square--black; }
+    }
+  }
 }
 
 .board__rank-labels {
