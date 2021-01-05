@@ -44,6 +44,19 @@ defmodule ChessWeb.GameView do
     (current_user(conn).id == game.user_id && "white") || "black"
   end
 
+  def files(conn, game) do
+    ranks(conn, game)
+    |> Enum.reverse
+  end
+
+  def ranks(conn, game) do
+    if game.user_id == current_user(conn).id do
+      7..0
+    else
+      0..7
+    end
+  end
+
   def player(game, user_id) do
     if game.user_id == user_id do
       "white"

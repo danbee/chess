@@ -1,0 +1,35 @@
+<div class="board board--black-to-move board--player-is-white">
+  <div class="board__rank-labels">
+    <div class="board__label">1</div>
+    <div class="board__label">2</div>
+    <div class="board__label">3</div>
+    <div class="board__label">4</div>
+    <div class="board__label">5</div>
+    <div class="board__label">6</div>
+    <div class="board__label">7</div>
+    <div class="board__label">8</div>
+  </div>
+  <div class="board__file-labels">
+    <div class="board__label">a</div>
+    <div class="board__label">b</div>
+    <div class="board__label">c</div>
+    <div class="board__label">d</div>
+    <div class="board__label">e</div>
+    <div class="board__label">f</div>
+    <div class="board__label">g</div>
+    <div class="board__label">h</div>
+  </div>
+  <div class="board__body">
+    <%= for rank <- 0..7 do %>
+      <div class="board__row">
+        <%= for file <- 0..7 do %>
+          <%= render "_square.html",
+              rank: rank,
+              file: file,
+              piece: @game.board["#{file},#{rank}"] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="game-state game-state--null"></div>
+</div>
