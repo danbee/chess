@@ -2,7 +2,6 @@ defmodule Chess.Store.Game do
   @moduledoc false
 
   use Ecto.Schema
-  use Timex.Ecto.Timestamps
 
   import Ecto.Changeset
   import Ecto.Query
