@@ -2,7 +2,10 @@
   <div class="game-grid">
     <%= render "_board.html", conn: @conn, game: @game %>
     <div class="game-info">
-      <p>Playing Zaphod Beeblebrox <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline"></p>
+      <p>
+        Playing <%= opponent(@game, current_user(@conn).id).name %>
+        <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline">
+      </p>
     </div>
     <div class="move-list">
       <table class="table table--condensed">
