@@ -1,4 +1,4 @@
-<div class="board board--black-to-move board--player-is-white">
+<div class="board board--black-to-move board--player-is-<%= player_colour(@conn, @game) %>">
   <div class="board__rank-labels">
     <div class="board__label">1</div>
     <div class="board__label">2</div>
@@ -24,9 +24,9 @@
       <div class="board__row">
         <%= for file <- 0..7 do %>
           <%= render "_square.html",
-              rank: rank,
-              file: file,
-              piece: @game.board["#{file},#{rank}"] %>
+            rank: rank,
+            file: file,
+            piece: @game.board["#{file},#{rank}"] %>
         <% end %>
       </div>
     <% end %>
