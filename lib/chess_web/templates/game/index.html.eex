@@ -6,7 +6,7 @@
       <tr class="<%= turn_class(@conn, game) %>">
         <td>
           <span class="games-list__player-indicator">
-            <img src="images/pawn_<%= player_colour(@conn, game) %>.svg">
+            <img src="images/pawn_<%= player_colour(current_user(@conn), game) %>.svg">
           </span>
           <%= link gettext(
                 "Game with %{name}",

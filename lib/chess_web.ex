@@ -40,7 +40,6 @@ defmodule ChessWeb do
       import Phoenix.Controller,
         only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
       import Phoenix.LiveView.Helpers
-      import ChessWeb.LiveHelpers
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -78,7 +77,6 @@ defmodule ChessWeb do
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
       import Phoenix.LiveView.Helpers
-      import ChessWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

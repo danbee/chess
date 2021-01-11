@@ -46,7 +46,7 @@ defmodule ChessWeb.GameView do
 
   def files(conn, game) do
     ranks(conn, game)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
 
   def ranks(conn, game) do

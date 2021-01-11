@@ -1,6 +1,11 @@
 <div data-game-id="<%= @game.id %>">
   <div class="game-grid">
-    <%= render "_board.html", conn: @conn, game: @game %>
+    <%= live_render(
+      @conn,
+      ChessWeb.BoardLive,
+      session: %{"user_id" => current_user(@conn).id, "game_id" => @game.id}
+    ) %>
+
     <div class="game-info">
       <p>
         Playing <%= opponent(@game, current_user(@conn).id).name %>
