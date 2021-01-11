@@ -52,7 +52,7 @@ defmodule Chess.Mixfile do
       {:phoenix_pubsub, "~> 2.0"},
       {:postgrex, ">= 0.15.0"},
       {:secure_random, "~> 0.5"},
-      {:wallaby, "~> 0.22.0", [runtime: false, only: :test]},
+      {:wallaby, "~> 0.28.0", [runtime: false, only: :test]},
     ]
   end
 
