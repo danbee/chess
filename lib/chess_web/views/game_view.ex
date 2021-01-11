@@ -37,8 +37,8 @@ defmodule ChessWeb.GameView do
     player_colour(conn, game) == game.turn
   end
 
-  def player_colour(conn, game) do
-    current_user(conn).id == game.user_id && "white" || "black"
+  def player_colour(user, game) do
+    user.id == game.user_id && "white" || "black"
   end
 
   def files(conn, game) do

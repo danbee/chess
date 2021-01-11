@@ -11,6 +11,10 @@ let liveSocket = new LiveSocket(
   {params: {_csrf_token: csrfToken}}
 );
 
+liveSocket.connect()
+
+window.liveSocket = liveSocket
+
 import "@babel/polyfill";
 import "phoenix_html";
 

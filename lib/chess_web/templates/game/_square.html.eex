@@ -1,5 +1,0 @@
-<%= if @piece == nil do %>
-  <div id="f<%= @file %>-r<%= @rank %>" class="square"></div>
-<% else %>
-  <div id="f<%= @file %>-r<%= @rank %>" class="square square--<%= @piece["type"] %> square--<%= @piece["colour"] %>"></div>
-<% end %>
