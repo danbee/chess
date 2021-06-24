@@ -36,7 +36,7 @@ defmodule Chess.Mixfile do
     [
       {:argon2_elixir, "~> 1.3"},
       {:bamboo, "~> 1.0"},
-      {:comeonin, "~> 4.0"},
+      {:comeonin, "~> 5.3"},
       {:cowboy, "~> 2.1"},
       {:plug_cowboy, "~> 2.1"},
       {:credo, "~> 1.0", only: [:dev, :test]},
