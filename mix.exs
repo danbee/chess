@@ -42,7 +42,7 @@ defmodule Chess.Mixfile do
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:ecto_sql, "~> 3.0"},
       {:formulator, "~> 0.1.6"},
-      {:gettext, "~> 0.16.0"},
+      {:gettext, "~> 0.18.2"},
       {:guardian, "~> 1.0"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.5.7"},
