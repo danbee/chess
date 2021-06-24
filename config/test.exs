@@ -7,13 +7,12 @@ config :chess, ChessWeb.Endpoint,
   http: [port: 4001],
   server: true
 
-config :chess, :sql_sandbox, true
+config :chess, :sandbox, Ecto.Adapters.SQL.Sandbox
 
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :chess, Chess.Mailer,
-  adapter: Bamboo.TestAdapter
+config :chess, Chess.Mailer, adapter: Bamboo.TestAdapter
 
 # Configure your database
 config :chess, Chess.Repo,
@@ -22,3 +21,5 @@ config :chess, Chess.Repo,
   hostname: "localhost",
   port: System.get_env("POSTGRES_PORT") || "5432",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :wallaby, driver: Wallaby.Chrome

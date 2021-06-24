@@ -18,17 +18,11 @@ const gameContainer = document.getElementById("game");
 if (gameContainer != undefined) {
   const gameId = gameContainer.getAttribute("data-game-id");
 
-  ReactDOM.render(
-    <Game store={store} gameId={gameId} />,
-    gameContainer
-  );
+  ReactDOM.render(<Game store={store} gameId={gameId} />, gameContainer);
 }
 
 const opponentFinderContainer = document.getElementById("opponent-finder");
 
 if (opponentFinderContainer != undefined) {
-  ReactDOM.render(
-    <OpponentFinder store={store} />,
-    opponentFinderContainer
-  );
+  ReactDOM.render(<OpponentFinder store={store} />, opponentFinderContainer);
 }

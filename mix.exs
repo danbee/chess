@@ -6,12 +6,12 @@ defmodule Chess.Mixfile do
       app: :chess,
       version: "0.2.0",
       elixir: "~> 1.11.3",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
+      deps: deps()
     ]
   end
 
@@ -21,13 +21,13 @@ defmodule Chess.Mixfile do
   def application do
     [
       mod: {Chess, []},
-      extra_applications: [:logger],
+      extra_applications: [:logger]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support", "test/helpers"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -52,7 +52,7 @@ defmodule Chess.Mixfile do
       {:phoenix_pubsub, "~> 2.0"},
       {:postgrex, ">= 0.15.0"},
       {:secure_random, "~> 0.5"},
-      {:wallaby, "~> 0.22.0", [runtime: false, only: :test]},
+      {:wallaby, "~> 0.28.0", [runtime: false, only: :test]}
     ]
   end
 
@@ -66,7 +66,7 @@ defmodule Chess.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

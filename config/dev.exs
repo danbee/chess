@@ -11,9 +11,15 @@ config :chess, ChessWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
-
+  watchers: [
+    node: [
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # Watch static and templates for browser reloading.
 config :chess, ChessWeb.Endpoint,
@@ -33,8 +39,7 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
-config :chess, Chess.Mailer,
-  adapter: Bamboo.LocalAdapter
+config :chess, Chess.Mailer, adapter: Bamboo.LocalAdapter
 
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,

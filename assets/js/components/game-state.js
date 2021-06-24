@@ -1,13 +1,10 @@
 import React from "react";
 import classNames from "classnames";
-import i18n from "gettext.js";
-
-const i = i18n();
 
 const GAME_STATES = {
-  "checkmate": i.gettext("Checkmate!"),
-  "stalemate": i.gettext("Stalemate"),
-  "check": i.gettext("Check"),
+  checkmate: "Checkmate!",
+  stalemate: "Stalemate",
+  check: "Check",
 };
 
 const friendlyGameState = (state) => {
