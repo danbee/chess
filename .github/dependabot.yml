@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: mix
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: ecto_sql
+    versions:
+    - 3.5.4
+    - 3.6.0
+  - dependency-name: bamboo
+    versions:
+    - 1.7.0
+    - 1.7.1
+    - 2.0.0
+    - 2.0.1
+    - 2.0.2
+  - dependency-name: postgrex
+    versions:
+    - 0.15.8
