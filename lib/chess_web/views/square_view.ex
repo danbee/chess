@@ -1,7 +1,7 @@
 defmodule ChessWeb.SquareView do
   use ChessWeb, :view
 
-  def classes(file, rank, piece, selected, available) do
+  def classes(_file, _rank, piece, selected, available) do
     square_class()
     |> add_piece_classes(piece)
     |> add_selected_class(selected)
