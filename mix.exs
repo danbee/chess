@@ -41,7 +41,7 @@ defmodule Chess.Mixfile do
       {:plug_cowboy, "~> 2.1"},
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:ecto_sql, "~> 3.0"},
-      {:formulator, "~> 0.1.6"},
+      {:formulator, "~> 0.3.0"},
       {:gettext, "~> 0.16.0"},
       {:guardian, "~> 1.0"},
       {:jason, "~> 1.0"},
