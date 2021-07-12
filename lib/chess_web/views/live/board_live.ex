@@ -6,12 +6,15 @@ defmodule ChessWeb.BoardLive do
   alias Chess.Repo
   alias Chess.Board
 
+  import Chess.Auth, only: [get_user!: 1]
+
   def render(assigns) do
     Phoenix.View.render(ChessWeb.GameView, "board.html", assigns)
   end
 
   def mount(_params, %{"user_id" => user_id, "game_id" => game_id}, socket) do
     user = Repo.get!(User, user_id)
+
     game =
       Game.for_user(user)
       |> Repo.get!(game_id)
@@ -24,19 +27,25 @@ defmodule ChessWeb.BoardLive do
   end
 
   defp handle_click(socket, file, rank) do
-    board = socket.assigns[:game].board
+    game = socket.assigns[:game]
+    board = game.board
+    user = socket.assigns[:user]
+
+    colour = ChessWeb.GameView.player_colour(user, game)
 
     assigns =
       case socket.assigns do
         %{:selected => nil} ->
           case Board.piece(board, {file, rank}) do
-            %{"colour" => "white"} ->
+            %{"colour" => ^colour} ->
               [{:selected, selected(file, rank)}]
+
             _ ->
               []
           end
+
         _ ->
-          []
+          [{:selected, nil}]
       end
 
     assign(socket, assigns)
@@ -45,7 +54,7 @@ defmodule ChessWeb.BoardLive do
   defp selected(file, rank) do
     {
       String.to_integer(file),
-      String.to_integer(rank),
+      String.to_integer(rank)
     }
   end
 end
