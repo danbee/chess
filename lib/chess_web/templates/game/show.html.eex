@@ -12,6 +12,7 @@
         <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline">
       </p>
     </div>
+
     <div class="move-list">
       <table class="table table--condensed">
         <thead>
