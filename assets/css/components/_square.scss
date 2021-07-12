@@ -103,7 +103,7 @@
   @each $colour in $colours {
     @each $piece in $pieces {
       &.square--#{$colour}.square--#{$piece}::before {
-        background-image: url("/images/#{$piece}_#{$colour}.svg");
+        background-image: url("../static/images/#{$piece}_#{$colour}.svg");
       }
     }
   }

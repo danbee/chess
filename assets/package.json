@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "webpack --mode production",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --mode development --watch-stdin"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -19,7 +19,8 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
-    "redux-watch": "^1.2.0"
+    "redux-watch": "^1.2.0",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

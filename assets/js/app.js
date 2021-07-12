@@ -7,6 +7,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore } from "redux";
 
+import css from "../css/app.scss";
+
 import Game from "./components/game";
 import OpponentFinder from "./components/opponent-finder";
 import chessBoardReducer from "./reducers/chess-board";
