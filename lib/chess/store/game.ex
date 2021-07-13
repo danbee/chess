@@ -14,14 +14,14 @@ defmodule Chess.Store.Game do
   alias Chess.Store.User
 
   schema "games" do
-    field :board, :map, default: Board.default()
-    field :turn, :string, default: "white"
-    field :state, :string
+    field(:board, :map, default: Board.default())
+    field(:turn, :string, default: "white")
+    field(:state, :string)
 
-    belongs_to :user, User
-    belongs_to :opponent, User, references: :id
+    belongs_to(:user, User)
+    belongs_to(:opponent, User, references: :id)
 
-    has_many :moves, Move
+    has_many(:moves, Move)
 
     timestamps()
   end
@@ -55,15 +55,17 @@ defmodule Chess.Store.Game do
   end
 
   def for_user_id(user_id) do
-    from game in Game,
+    from(game in Game,
       where: game.user_id == ^user_id,
       or_where: game.opponent_id == ^user_id
+    )
   end
 
   def check_game_state(changeset) do
     changeset
     |> put_change(
-      :state, GameState.state(changeset.changes.board, changeset.changes.turn)
+      :state,
+      GameState.state(changeset.changes.board, changeset.changes.turn)
     )
   end
 
@@ -78,6 +80,7 @@ defmodule Chess.Store.Game do
       changeset
     end
   end
+
   def validate_king_in_check(changeset, _, _), do: changeset
 
   def ordered(query) do

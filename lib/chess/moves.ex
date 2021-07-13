@@ -19,10 +19,10 @@ defmodule Chess.Moves do
       game.board
       |> Board.move_piece(move_params)
 
-    Multi.new
+    Multi.new()
     |> Multi.update(:game, Game.move_changeset(game, params))
     |> Multi.insert(:move, Ecto.build_assoc(game, :moves, params))
-    |> Repo.transaction
+    |> Repo.transaction()
   end
 
   def available(board, {file, rank}, move_list \\ []) do
@@ -33,14 +33,19 @@ defmodule Chess.Moves do
     case piece do
       %{"type" => "pawn"} ->
         Pawn.moves(board, {file, rank})
+
       %{"type" => "rook"} ->
         Rook.moves(board, {file, rank})
+
       %{"type" => "bishop"} ->
         Bishop.moves(board, {file, rank})
+
       %{"type" => "knight"} ->
         Knight.moves(board, {file, rank})
+
       %{"type" => "king"} ->
         King.moves(board, {file, rank}, move_list)
+
       %{"type" => "queen"} ->
         Queen.moves(board, {file, rank})
     end

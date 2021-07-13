@@ -1,4 +1,4 @@
-<div class="board board--black-to-move board--player-is-<%= player_colour(@user, @game) %>">
+<div class="board board--<%= @game.turn %>-to-move board--player-is-<%= player_colour(@user, @game) %>">
   <div class="board__rank-labels">
     <div class="board__label">1</div>
     <div class="board__label">2</div>
@@ -22,14 +22,14 @@
   </div>
 
   <div class="board__body">
-    <%= for rank <- 0..7 do %>
+    <%= for {rank, row} <- @board do %>
       <div class="board__row">
-        <%= for file <- 0..7 do %>
+        <%= for {file, piece} <- row do %>
           <%= render ChessWeb.SquareView,
             "square.html",
             rank: rank,
             file: file,
-            piece: @game.board["#{file},#{rank}"],
+            piece: piece,
             selected: {file, rank} == @selected,
             available: {file, rank} in @available %>
         <% end %>
