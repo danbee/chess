@@ -68,7 +68,7 @@ defmodule Chess.GameState do
     |> Moves.available({file, rank})
     |> Enum.all?(fn {to_file, to_rank} ->
       board
-      |> Board.move_piece(%{"from" => [file, rank], "to" => [to_file, to_rank]})
+      |> Board.move_piece(%{from: {file, rank}, to: {to_file, to_rank}})
       |> Map.get(:board)
       |> king_in_check?(piece["colour"])
     end)

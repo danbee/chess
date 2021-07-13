@@ -42,8 +42,8 @@ defmodule Chess.Board do
       if castling_move?(piece, from_file, to_file) do
         board
         |> castling_move(%{
-          "from" => [from_file, from_rank],
-          "to" => [to_file, to_rank]
+          from: {from_file, from_rank},
+          to: {to_file, to_rank}
         })
         |> Map.get(:board)
       else
@@ -65,7 +65,7 @@ defmodule Chess.Board do
 
   def castling_move?(_, _, _), do: false
 
-  def castling_move(board, %{"from" => [4, rank], "to" => [2, _rank]}) do
+  def castling_move(board, %{from: {4, rank}, to: {2, _rank}}) do
     move_piece(board, %{
       "from" => [0, rank],
       "to" => [3, rank]
