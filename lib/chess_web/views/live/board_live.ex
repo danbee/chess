@@ -84,18 +84,16 @@ defmodule ChessWeb.BoardLive do
         game
         |> Moves.make_move(%{from: selected, to: {file, rank}})
         |> case do
-          {:ok, %{game: new_game}} ->
-            new_game
+          {:ok, %{game: game}} ->
+            board = Board.transform(game.board)
+
+            [
+              {:selected, nil},
+              {:available, []},
+              {:board, board},
+              {:game, game}
+            ]
         end
-
-      new_board = Board.transform(new_game.board)
-
-      [
-        {:selected, nil},
-        {:available, []},
-        {:board, new_board},
-        {:game, new_game}
-      ]
     else
       [{:selected, nil}, {:available, []}]
     end
