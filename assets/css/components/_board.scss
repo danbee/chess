@@ -8,13 +8,16 @@
   width: 1.5%;
 }
 
+.board__container {
+  grid-area: board;
+}
+
 .board {
   background: $background-color;
   border-collapse: unset;
   border-radius: 2.8%;
   border-spacing: 1px;
   color: $foreground-color;
-  grid-area: board;
   height: var(--board-size);
   padding: calc(var(--board-size) / 20);
   position: relative;
