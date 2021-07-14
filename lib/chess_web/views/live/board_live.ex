@@ -14,6 +14,8 @@ defmodule ChessWeb.BoardLive do
   end
 
   def mount(_params, %{"user_id" => user_id, "game_id" => game_id}, socket) do
+    ChessWeb.Endpoint.subscribe("game:#{game_id}")
+
     user = Repo.get!(User, user_id)
 
     game =
@@ -38,6 +40,10 @@ defmodule ChessWeb.BoardLive do
       selected: nil,
       available: []
     }
+  end
+
+  def handle_info(%{event: "move", payload: state}, socket) do
+    {:noreply, assign(socket, state)}
   end
 
   defp handle_click(socket, file, rank) do
@@ -87,6 +93,8 @@ defmodule ChessWeb.BoardLive do
           {:ok, %{game: game}} ->
             board = Board.transform(game.board)
 
+            broadcast_move(game, board)
+
             [
               {:selected, nil},
               {:available, []},
@@ -97,5 +105,14 @@ defmodule ChessWeb.BoardLive do
     else
       [{:selected, nil}, {:available, []}]
     end
+  end
+
+  defp broadcast_move(game, board) do
+    ChessWeb.Endpoint.broadcast_from(
+      self(),
+      "game:#{game.id}",
+      "move",
+      %{game: game, board: board}
+    )
   end
 end
