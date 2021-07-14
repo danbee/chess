@@ -37,7 +37,9 @@ defmodule ChessWeb.GameView do
   end
 
   def your_turn?(conn, game) do
-    player_colour(conn, game) == game.turn
+    conn
+    |> current_user()
+    |> player_colour(game) == game.turn
   end
 
   def player_colour(conn, game) do

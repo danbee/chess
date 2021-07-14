@@ -1,7 +1,7 @@
 <div class="form">
   <h2><%= gettext "Profile" %></h2>
 
-  <%= form_for @changeset, profile_path(@conn, :update), [class: "update-profile"], fn f -> %>
+  <%= form_for @changeset, profile_path(@conn, :update), [class: "update-profile", novalidate: true], fn f -> %>
     <%= if @changeset.action do %>
       <div class="alert alert-danger">
         <p>

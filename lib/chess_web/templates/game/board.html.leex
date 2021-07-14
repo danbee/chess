@@ -37,5 +37,7 @@
     <% end %>
   </div>
 
-  <div class="game-state game-state--null"></div>
+  <div class="game-state game-state--<%= @game.state %>">
+    <%= states[@game.state] %>
+  </div>
 </div>
