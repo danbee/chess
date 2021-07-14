@@ -1,5 +1,5 @@
 defmodule ChessWeb.BoardLive do
-  use Phoenix.LiveView
+  use Phoenix.LiveView, container: {:div, class: "board__container"}
 
   alias Chess.Store.User
   alias Chess.Store.Game
