@@ -1,7 +1,7 @@
 <div class="form">
   <h2><%= gettext "Password" %></h2>
 
-  <%= form_for @changeset, password_path(@conn, :update), [class: "update-password"], fn f -> %>
+  <%= form_for @changeset, password_path(@conn, :update), [class: "update-password", novalidate: true], fn f -> %>
     <%= if @changeset.action do %>
       <div class="alert alert-danger">
         <p>

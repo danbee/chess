@@ -15,9 +15,9 @@ defmodule ChessWeb.GameController do
       conn
       |> current_user()
       |> Game.for_user()
-      |> Game.ordered
+      |> Game.ordered()
       |> preload([:user, :opponent])
-      |> Repo.all
+      |> Repo.all()
 
     conn
     |> render("index.html", games: games, changeset: changeset)
@@ -42,7 +42,7 @@ defmodule ChessWeb.GameController do
           |> Repo.preload(:user)
           |> Repo.preload(:opponent)
         )
-        |> Mailer.deliver_later
+        |> Mailer.deliver_later()
 
         conn
         |> put_flash(:info, "Game created successfully.")
@@ -53,7 +53,7 @@ defmodule ChessWeb.GameController do
           conn
           |> current_user()
           |> User.opponents()
-          |> Repo.all
+          |> Repo.all()
 
         conn
         |> render("new.html", changeset: changeset, opponents: opponents)

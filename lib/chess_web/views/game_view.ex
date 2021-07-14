@@ -7,8 +7,8 @@ defmodule ChessWeb.GameView do
 
   def won_lost(conn, game) do
     if game_over?(game) && game.state == "checkmate" do
-      your_turn?(conn, game) &&
-        gettext("You lost") ||
+      (your_turn?(conn, game) &&
+         gettext("You lost")) ||
         gettext("You won")
     end
   end
@@ -21,9 +21,12 @@ defmodule ChessWeb.GameView do
     cond do
       GameState.game_over?(game) ->
         states()[game.state]
+
       your_turn?(conn, game) ->
         gettext("Your turn")
-      true -> nil
+
+      true ->
+        nil
     end
   end
 
@@ -34,16 +37,18 @@ defmodule ChessWeb.GameView do
   end
 
   def your_turn?(conn, game) do
-    player_colour(conn, game) == game.turn
+    conn
+    |> current_user()
+    |> player_colour(game) == game.turn
   end
 
   def player_colour(user, game) do
-    user.id == game.user_id && "white" || "black"
+    (user.id == game.user_id && "white") || "black"
   end
 
   def files(conn, game) do
     ranks(conn, game)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
 
   def ranks(conn, game) do
@@ -74,7 +79,7 @@ defmodule ChessWeb.GameView do
     %{
       "checkmate" => gettext("Checkmate!"),
       "stalemate" => gettext("Stalemate"),
-      "check" => gettext("Check"),
+      "check" => gettext("Check")
     }
   end
 end

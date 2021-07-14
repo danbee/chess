@@ -7,11 +7,12 @@ defmodule Chess.Features.ProfileTest do
   import Chess.AuthenticationHelpers
 
   test "user can update their details", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
 
     session
     |> login(user.email, "ilovezelda")
@@ -25,11 +26,12 @@ defmodule Chess.Features.ProfileTest do
   end
 
   test "name cannot be blank", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
 
     session
     |> login(user.email, "ilovezelda")
@@ -40,17 +42,16 @@ defmodule Chess.Features.ProfileTest do
     |> click(button("Update Profile"))
 
     session
-    |> assert_has(
-      css("[data-role='name-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='name-error']", text: "can't be blank"))
   end
 
   test "email cannot be blank", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
 
     session
     |> login(user.email, "ilovezelda")
@@ -61,8 +62,6 @@ defmodule Chess.Features.ProfileTest do
     |> click(button("Update Profile"))
 
     session
-    |> assert_has(
-      css("[data-role='email-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='email-error']", text: "can't be blank"))
   end
 end
