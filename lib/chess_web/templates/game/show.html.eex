@@ -6,12 +6,11 @@
       session: %{"user_id" => current_user(@conn).id, "game_id" => @game.id}
     ) %>
 
-    <div class="game-info">
-      <p>
-        Playing <%= opponent(@game, current_user(@conn).id).name %>
-        <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline">
-      </p>
-    </div>
+    <%= live_render(
+      @conn,
+      ChessWeb.GameInfoLive,
+      session: %{"user_id" => current_user(@conn).id, "game_id" => @game.id}
+    ) %>
 
     <div class="move-list">
       <table class="table table--condensed">
