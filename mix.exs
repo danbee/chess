@@ -43,7 +43,7 @@ defmodule Chess.Mixfile do
       {:ecto_sql, "~> 3.0"},
       {:formulator, "~> 0.1.6"},
       {:gettext, "~> 0.16.0"},
-      {:guardian, "~> 1.0"},
+      {:guardian, "~> 2.2"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.5.7"},
       {:phoenix_ecto, "~> 4.0"},
