@@ -1,7 +1,7 @@
 $base-border-radius: 0.5rem;
 $base-spacing: 2rem;
-$small-spacing: $base-spacing / 2;
-$x-small-spacing: $small-spacing / 2;
+$small-spacing: $base-spacing * 0.5;
+$x-small-spacing: $small-spacing * 0.5;
 $base-z-index: 0;
 
 $container-width: 90%;

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .opponent-finder__result {
   border-bottom: 1px dotted $black;
   border-bottom-left-radius: $base-border-radius;
@@ -5,14 +7,14 @@
   border-left: 1px dotted $black;
   border-right: 1px dotted $black;
   margin-top: -$small-spacing;
-  padding: $small-spacing / 3;
+  padding: math.div($small-spacing, 3);
 }
 
 .opponent-finder__result-item {
-  border-radius: $base-border-radius / 2;
+  border-radius: $base-border-radius * 0.5;
   cursor: pointer;
   display: block;
-  padding: $small-spacing / 3 $base-spacing / 2;
+  padding: math.div($small-spacing, 3) $base-spacing * 0.5;
   text-decoration: none;
 
   &:hover,

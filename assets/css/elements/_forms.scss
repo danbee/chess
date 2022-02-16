@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $_form-background-color: $background-color;
 
 fieldset {
@@ -9,14 +11,14 @@ fieldset {
 
 legend {
   font-weight: $heavy-font-weight;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $small-spacing * 0.5;
   padding: 0;
 }
 
 label {
   display: block;
   font-weight: $heavy-font-weight;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $small-spacing * 0.5;
 }
 
 input,
@@ -35,7 +37,7 @@ textarea {
   box-sizing: border-box;
   color: $foreground-color;
   margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
+  padding: math.div($base-spacing, 3);
   transition: border-color $base-duration $base-timing;
   width: 100%;
 
