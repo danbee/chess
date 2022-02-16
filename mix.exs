@@ -38,18 +38,20 @@ defmodule Chess.Mixfile do
       {:bamboo, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:cowboy, "~> 2.1"},
-      {:plug_cowboy, "~> 2.1"},
       {:credo, "~> 1.0", only: [:dev, :test]},
+      {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.0"},
-      {:formulator, "~> 0.1.6"},
+      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:formulator, "~> 0.4.0"},
       {:gettext, "~> 0.16.0"},
       {:guardian, "~> 1.0"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 2.0"},
+      {:phoenix_html, "~> 3.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 2.0"},
+      {:plug_cowboy, "~> 2.1"},
       {:postgrex, ">= 0.15.0"},
       {:secure_random, "~> 0.5"},
       {:wallaby, "~> 0.28.0", [runtime: false, only: :test]}
@@ -66,7 +68,12 @@ defmodule Chess.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "assets.deploy": [
+        "esbuild default --minify",
+        "sass default --no-source-map --style=compressed",
+        "phx.digest"
+      ]
     ]
   end
 end
