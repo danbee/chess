@@ -2,7 +2,9 @@
   "repository": {},
   "description": " ",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.0",
