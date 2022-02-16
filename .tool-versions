@@ -1,4 +1,4 @@
-elixir 1.11.3
+elixir 1.13.3
 python 3.9.1
 nodejs 16.14.0
-erlang 23.2.3
+erlang 24.2.1
