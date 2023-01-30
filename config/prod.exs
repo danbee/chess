@@ -2,7 +2,7 @@ import Config
 
 config :chess, ChessWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["https://chess.danbarber.me", "https://64squares.club"],
+  check_origin: ["https://chess.danbee.in", "https://64squares.club"],
   http: [port: {:system, "PORT"}],
   root: "./assets",
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
