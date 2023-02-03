@@ -4,7 +4,6 @@ defmodule Chess.Auth do
   """
 
   import Ecto.Query, warn: false
-  alias Comeonin.Argon2
   alias Chess.Repo
 
   alias Chess.Store.User
@@ -41,11 +40,13 @@ defmodule Chess.Auth do
 
   @doc false
   def authenticate_user(email, password) do
-    query = from u in User,
-            where: u.email == ^email
+    query =
+      from(u in User,
+        where: u.email == ^email
+      )
 
     query
-    |> Repo.one
+    |> Repo.one()
     |> Argon2.check_pass(password)
   end
 end

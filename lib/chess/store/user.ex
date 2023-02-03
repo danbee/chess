@@ -6,16 +6,14 @@ defmodule Chess.Store.User do
   import Ecto.Changeset
   import Ecto.Query
 
-  alias Comeonin.Argon2
-
   schema "users" do
-    field :name, :string
-    field :email, :string
-    field :password, :string, virtual: true
-    field :password_hash, :string
+    field(:name, :string)
+    field(:email, :string)
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
 
-    has_many :games, Chess.Store.Game
-    has_many :games_as_opponent, Chess.Store.Game, foreign_key: :opponent_id
+    has_many(:games, Chess.Store.Game)
+    has_many(:games_as_opponent, Chess.Store.Game, foreign_key: :opponent_id)
 
     timestamps()
   end
@@ -53,23 +51,28 @@ defmodule Chess.Store.User do
   end
 
   def find_by_name(name) do
-    from user in __MODULE__,
+    from(user in __MODULE__,
       where: user.name == ^name
+    )
   end
 
   def opponents(user) do
-    from user in __MODULE__,
+    from(user in __MODULE__,
       where: user.id != ^user.id
+    )
   end
 
   def matches(query, query_string) do
-    from user in query,
-      where: ilike(user.name, ^"%#{query_string}%")
-             or user.email == ^query_string
+    from(user in query,
+      where:
+        ilike(user.name, ^"%#{query_string}%") or
+          user.email == ^query_string
+    )
   end
 
   defp hash_password(changeset) do
     password = get_change(changeset, :password)
+
     if password do
       changeset
       |> change(Argon2.add_hash(password))

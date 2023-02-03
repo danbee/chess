@@ -7,7 +7,7 @@ defmodule Chess.Mixfile do
       version: "0.2.0",
       elixir: "~> 1.14.1",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -34,27 +34,29 @@ defmodule Chess.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:argon2_elixir, "~> 1.3"},
-      {:bamboo, "~> 1.0"},
-      {:comeonin, "~> 4.0"},
-      {:cowboy, "~> 2.1"},
+      {:argon2_elixir, "~> 3.0"},
+      {:bamboo, "~> 2.0"},
+      {:comeonin, "~> 5.0"},
+      {:cowboy, "~> 2.0"},
       {:credo, "~> 1.0", only: [:dev, :test]},
-      {:dart_sass, "~> 0.4", runtime: Mix.env() == :dev},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.0"},
-      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
+      {:floki, "~> 0.34", only: :test},
+      {:esbuild, "~> 0.6", runtime: Mix.env() == :dev},
       {:formulator, "~> 0.4.0"},
-      {:gettext, "~> 0.16.0"},
-      {:guardian, "~> 1.0"},
+      {:gettext, "~> 0.22.0"},
+      {:guardian, "~> 2.0"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 3.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_view, "~> 0.18"},
       {:phoenix_pubsub, "~> 2.0"},
-      {:plug_cowboy, "~> 2.1"},
-      {:postgrex, ">= 0.15.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, "~> 0.16.0"},
       {:secure_random, "~> 0.5"},
-      {:wallaby, "~> 0.28.0", [runtime: false, only: :test]}
+      {:wallaby, "~> 0.30.0", [runtime: false, only: :test]}
     ]
   end
 
