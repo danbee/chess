@@ -18,7 +18,7 @@ config :chess, Chess.Mailer, adapter: Bamboo.TestAdapter
 config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "chess_test",
-  hostname: "localhost",
+  hostname: System.get_env("PGHOST") || "localhost",
   port: System.get_env("POSTGRES_PORT") || "5432",
   pool: Ecto.Adapters.SQL.Sandbox
 

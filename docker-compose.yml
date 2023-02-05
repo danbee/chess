@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: /bin/bash -c 'mix ecto.create && mix phx.server'
+    ports:
+      - "4000:4000"
+    environment:
+      MIX_ENV: dev
+      PGHOST: pg-db
+      PGUSER: postgres
+      PGPASSWORD: password
+    links:
+      - pg-db
+  pg-db:
+    image: healthcheck/postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password

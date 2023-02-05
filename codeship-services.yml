@@ -1,0 +1,18 @@
+# Docker Compose-like syntax, see here for details:
+# https://documentation.codeship.com/pro/builds-and-configuration/services/
+app:
+  build:
+    image: danbee/chess
+    dockerfile: Dockerfile
+  environment:
+    MIX_ENV: test
+    PGHOST: pg-db
+    PGUSER: postgres
+    PGPASSWORD: password
+  depends_on:
+    - pg-db
+pg-db:
+  image: healthcheck/postgres:alpine
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
