@@ -23,7 +23,7 @@ defmodule Chess.Repo.Queries do
 
   def opponents(user, query_string) do
     user
-    |> User.opponents
+    |> User.opponents()
     |> User.matches(query_string)
   end
 end

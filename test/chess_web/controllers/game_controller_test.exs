@@ -74,25 +74,25 @@ defmodule ChessWeb.GameControllerTest do
       conn
       |> login(other_user)
 
-    assert_error_sent 404, fn ->
-      get conn, game_path(conn, :show, game.id)
-    end
+    assert_error_sent(404, fn ->
+      get(conn, game_path(conn, :show, game.id))
+    end)
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
     user = insert(:user)
     conn = login(conn, user)
 
-    assert_error_sent 404, fn ->
-      get conn, game_path(conn, :show, -1)
-    end
+    assert_error_sent(404, fn ->
+      get(conn, game_path(conn, :show, -1))
+    end)
   end
 
   test "deletes game", %{conn: conn} do
-    game = Repo.insert! %Game{}
+    game = Repo.insert!(%Game{})
     user = insert(:user)
     conn = login(conn, user)
-    conn = delete conn, game_path(conn, :delete, game)
+    conn = delete(conn, game_path(conn, :delete, game))
     assert redirected_to(conn) == game_path(conn, :index)
     refute Repo.get(Game, game.id)
   end

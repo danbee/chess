@@ -40,22 +40,24 @@ defmodule Chess.Features.GamesTest do
     |> click(button("Create game"))
 
     session
-    |> assert_has(
-      css(".help-block", text: "can't be blank")
-    )
+    |> assert_has(css(".help-block", text: "can't be blank"))
   end
 
   test "can only see own games", %{session: session} do
-    opponent = insert(:user, %{
-      name: "Urbosa",
-      email: "urbosa@gerudo.town",
-      password: "gerudoqueen"
-    })
-    user = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganonsucks"
-    })
+    opponent =
+      insert(:user, %{
+        name: "Urbosa",
+        email: "urbosa@gerudo.town",
+        password: "gerudoqueen"
+      })
+
+    user =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganonsucks"
+      })
+
     insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session
@@ -72,16 +74,20 @@ defmodule Chess.Features.GamesTest do
   end
 
   test "can see games as an opponent", %{session: session} do
-    opponent = insert(:user, %{
-      name: "Urbosa",
-      email: "urbosa@gerudo.town",
-      password: "gerudoqueen"
-    })
-    user = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganonsucks"
-    })
+    opponent =
+      insert(:user, %{
+        name: "Urbosa",
+        email: "urbosa@gerudo.town",
+        password: "gerudoqueen"
+      })
+
+    user =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganonsucks"
+      })
+
     insert(:game, %{user_id: user.id, opponent_id: opponent.id})
 
     session

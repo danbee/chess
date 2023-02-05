@@ -10,8 +10,8 @@ defmodule ChessWeb.Api.OpponentsController do
       conn
       |> current_user()
       |> Queries.opponents(query_string)
-      |> Repo.all
+      |> Repo.all()
 
-    render conn, "index.json", %{opponents: opponents}
+    render(conn, "index.json", %{opponents: opponents})
   end
 end

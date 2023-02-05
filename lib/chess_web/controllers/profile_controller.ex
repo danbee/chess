@@ -22,6 +22,7 @@ defmodule ChessWeb.ProfileController do
         conn
         |> put_flash(:info, gettext("Profile updated successfully."))
         |> redirect(to: page_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end

@@ -36,8 +36,9 @@ defmodule Chess.Moves.Pieces.PawnTest do
   test "pawn is blocked from moving two squares by another piece" do
     board = %{
       "4,1" => %{"type" => "pawn", "colour" => "white"},
-      "4,3" => %{"type" => "pawn", "colour" => "black"},
+      "4,3" => %{"type" => "pawn", "colour" => "black"}
     }
+
     moves = Moves.available(board, {4, 1})
 
     expected_moves = [{4, 2}]
@@ -47,8 +48,9 @@ defmodule Chess.Moves.Pieces.PawnTest do
   test "pawn is blocked from moving one or two squares by another piece" do
     board = %{
       "4,1" => %{"type" => "pawn", "colour" => "white"},
-      "4,2" => %{"type" => "pawn", "colour" => "black"},
+      "4,2" => %{"type" => "pawn", "colour" => "black"}
     }
+
     moves = Moves.available(board, {4, 1})
 
     expected_moves = []
@@ -58,8 +60,9 @@ defmodule Chess.Moves.Pieces.PawnTest do
   test "pawn is blocked from moving one square by another piece" do
     board = %{
       "4,2" => %{"type" => "pawn", "colour" => "white"},
-      "4,3" => %{"type" => "pawn", "colour" => "black"},
+      "4,3" => %{"type" => "pawn", "colour" => "black"}
     }
+
     moves = Moves.available(board, {4, 2})
 
     expected_moves = []
@@ -69,8 +72,9 @@ defmodule Chess.Moves.Pieces.PawnTest do
   test "white pawn can take an opponents piece" do
     board = %{
       "4,2" => %{"type" => "pawn", "colour" => "white"},
-      "5,3" => %{"type" => "pawn", "colour" => "black"},
+      "5,3" => %{"type" => "pawn", "colour" => "black"}
     }
+
     moves = Moves.available(board, {4, 2})
 
     expected_moves = [{4, 3}, {5, 3}]
@@ -80,8 +84,9 @@ defmodule Chess.Moves.Pieces.PawnTest do
   test "black pawn can take an opponents piece" do
     board = %{
       "6,6" => %{"type" => "pawn", "colour" => "black"},
-      "5,5" => %{"type" => "pawn", "colour" => "white"},
+      "5,5" => %{"type" => "pawn", "colour" => "white"}
     }
+
     moves = Moves.available(board, {6, 6})
 
     expected_moves = [{6, 5}, {6, 4}, {5, 5}]
@@ -89,6 +94,6 @@ defmodule Chess.Moves.Pieces.PawnTest do
   end
 
   def default_board do
-    Chess.Board.default
+    Chess.Board.default()
   end
 end

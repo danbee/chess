@@ -11,7 +11,7 @@ defmodule Chess do
       {Phoenix.PubSub, [name: Chess.PubSub, adapter: Phoenix.PubSub.PG2]},
       {Chess.Repo, []},
       {ChessWeb.Endpoint, []},
-      {ChessWeb.Presence, []},
+      {ChessWeb.Presence, []}
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

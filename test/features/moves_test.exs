@@ -22,27 +22,28 @@ defmodule Chess.Features.MovesTest do
     |> click(link("New game"))
     |> select_opponent("Zelda")
     |> click(button("Create game"))
-
     |> click(css("#f4-r1"))
     |> assert_has(square_selected("f4-r1"))
     |> assert_has(square_containing("f4-r1", %{type: "pawn", colour: "white"}))
-
     |> click(css("#f4-r3"))
     |> assert_has(square_containing("f4-r3", %{type: "pawn", colour: "white"}))
     |> refute_has(square_containing("f4-r1", %{type: "pawn", colour: "white"}))
   end
 
   test "opponents recieves an email on move", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
-    opponent = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganondorfsucks"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
+
+    opponent =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganondorfsucks"
+      })
 
     session
     |> login("link@hyrule.com", "ilovezelda")
@@ -88,6 +89,7 @@ defmodule Chess.Features.MovesTest do
       email: "link@hyrule.com",
       password: "ilovezelda"
     })
+
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
@@ -101,7 +103,8 @@ defmodule Chess.Features.MovesTest do
     |> select_opponent("Zelda")
     |> click(button("Create game"))
 
-    {:ok, session2} = Wallaby.start_session
+    {:ok, session2} = Wallaby.start_session()
+
     session2
     |> login("zelda@hyrule.com", "ganondorfsucks")
     |> click(link("Game with Link"))
@@ -117,6 +120,7 @@ defmodule Chess.Features.MovesTest do
       email: "link@hyrule.com",
       password: "ilovezelda"
     })
+
     insert(:user, %{
       name: "Zelda",
       email: "zelda@hyrule.com",
@@ -130,7 +134,8 @@ defmodule Chess.Features.MovesTest do
     |> select_opponent("Zelda")
     |> click(button("Create game"))
 
-    {:ok, session2} = Wallaby.start_session
+    {:ok, session2} = Wallaby.start_session()
+
     session2
     |> login("zelda@hyrule.com", "ganondorfsucks")
     |> click(link("Game with Link"))
@@ -147,25 +152,29 @@ defmodule Chess.Features.MovesTest do
 
   test "cannot move the king into a position that would result in check",
        %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
-    opponent = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganondorfsucks"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
+
+    opponent =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganondorfsucks"
+      })
+
     insert(:game, %{
       board: %{
-        "4,0" => %{"type" => "king",   "colour" => "white"},
-        "3,7" => %{"type" => "queen",  "colour" => "black"},
-        "7,7" => %{"type" => "king",  "colour" => "black"},
+        "4,0" => %{"type" => "king", "colour" => "white"},
+        "3,7" => %{"type" => "queen", "colour" => "black"},
+        "7,7" => %{"type" => "king", "colour" => "black"}
       },
       user_id: user.id,
       opponent_id: opponent.id,
-      turn: "white",
+      turn: "white"
     })
 
     session
@@ -182,26 +191,30 @@ defmodule Chess.Features.MovesTest do
 
   test "cannot make a move that would place the king in check",
        %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
-    opponent = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganondorfsucks"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
+
+    opponent =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganondorfsucks"
+      })
+
     insert(:game, %{
       board: %{
         "4,0" => %{"type" => "king", "colour" => "white"},
         "4,1" => %{"type" => "rook", "colour" => "white"},
         "4,7" => %{"type" => "queen", "colour" => "black"},
-        "7,7" => %{"type" => "king",  "colour" => "black"},
+        "7,7" => %{"type" => "king", "colour" => "black"}
       },
       user_id: user.id,
       opponent_id: opponent.id,
-      turn: "white",
+      turn: "white"
     })
 
     session
@@ -217,25 +230,29 @@ defmodule Chess.Features.MovesTest do
   end
 
   test "user is informed when the game is in check", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
-    opponent = insert(:user, %{
-      name: "Zelda",
-      email: "zelda@hyrule.com",
-      password: "ganondorfsucks"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
+
+    opponent =
+      insert(:user, %{
+        name: "Zelda",
+        email: "zelda@hyrule.com",
+        password: "ganondorfsucks"
+      })
+
     insert(:game, %{
       board: %{
-        "4,0" => %{"type" => "king",   "colour" => "white"},
-        "3,7" => %{"type" => "queen",  "colour" => "black"},
-        "7,7" => %{"type" => "king",  "colour" => "black"},
+        "4,0" => %{"type" => "king", "colour" => "white"},
+        "3,7" => %{"type" => "queen", "colour" => "black"},
+        "7,7" => %{"type" => "king", "colour" => "black"}
       },
       user_id: user.id,
       opponent_id: opponent.id,
-      turn: "black",
+      turn: "black"
     })
 
     session

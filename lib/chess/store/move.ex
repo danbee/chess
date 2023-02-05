@@ -8,13 +8,13 @@ defmodule Chess.Store.Move do
   alias Chess.Store.Game
 
   schema "moves" do
-    field :from, :map
-    field :to, :map
+    field(:from, :map)
+    field(:to, :map)
 
-    field :piece, :map
-    field :piece_captured, :map
+    field(:piece, :map)
+    field(:piece_captured, :map)
 
-    belongs_to :game, Game
+    belongs_to(:game, Game)
 
     timestamps()
   end
@@ -31,7 +31,7 @@ defmodule Chess.Store.Move do
       piece: move.piece,
       piece_captured: move.piece_captured,
       from: <<97 + move.from["file"], 49 + move.from["rank"]>>,
-      to: <<97 + move.to["file"], 49 + move.to["rank"]>>,
+      to: <<97 + move.to["file"], 49 + move.to["rank"]>>
     }
   end
 

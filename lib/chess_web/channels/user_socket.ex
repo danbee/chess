@@ -4,7 +4,7 @@ defmodule ChessWeb.UserSocket do
   alias Phoenix.Token
 
   ## Channels
-  channel "game:*", ChessWeb.GameChannel
+  channel("game:*", ChessWeb.GameChannel)
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -21,10 +21,12 @@ defmodule ChessWeb.UserSocket do
     case Token.verify(socket, "game socket", token, max_age: 1_209_600) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user_id, user_id)}
+
       {:error, _reason} ->
         :error
     end
   end
+
   def connect(%{}, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

@@ -20,6 +20,7 @@ defmodule Chess.Store.GameTest do
         opponent_id: opponent.id,
         turn: "white"
       }
+
       changeset = Game.changeset(%Game{}, attrs)
 
       assert changeset.valid?
@@ -33,6 +34,7 @@ defmodule Chess.Store.GameTest do
         opponent_id: 2,
         turn: "white"
       }
+
       changeset = Game.changeset(%Game{}, attrs)
 
       assert changeset.valid?
@@ -81,18 +83,20 @@ defmodule Chess.Store.GameTest do
       user = insert(:user)
       opponent = insert(:opponent)
 
-      game = insert(:game, %{
-        board: Board.default,
-        user_id: user.id,
-        opponent_id: opponent.id,
-      })
+      game =
+        insert(:game, %{
+          board: Board.default(),
+          user_id: user.id,
+          opponent_id: opponent.id
+        })
 
       move_params = %{"from" => [4, 1], "to" => [4, 3]}
 
-      changeset = Game.move_changeset(
-        game,
-        Board.move_piece(game.board, move_params)
-      )
+      changeset =
+        Game.move_changeset(
+          game,
+          Board.move_piece(game.board, move_params)
+        )
 
       assert {:ok, new_game} = Repo.update(changeset)
       assert new_game.turn == "black"

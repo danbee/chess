@@ -31,8 +31,9 @@ defmodule ChessWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/chess_web/templates",
-                        namespace: ChessWeb
+      use Phoenix.View,
+        root: "lib/chess_web/templates",
+        namespace: ChessWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,

@@ -5,7 +5,7 @@ defmodule Chess.FormHelpers do
 
   import Wallaby.Query
 
-  def select(session, name, [option: option]) do
+  def select(session, name, option: option) do
     session
     |> find(css("[name='#{name}']"))
     |> click(option(option))

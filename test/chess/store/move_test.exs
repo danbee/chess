@@ -14,29 +14,32 @@ defmodule Chess.Store.MoveTest do
       user = insert(:user)
       opponent = insert(:opponent)
 
-      game = insert(:game, %{
-        board: Board.default,
-        user_id: user.id,
-        opponent_id: opponent.id,
-      })
+      game =
+        insert(:game, %{
+          board: Board.default(),
+          user_id: user.id,
+          opponent_id: opponent.id
+        })
 
-      changeset = Move.changeset(%Move{}, %{
-        game_id: game.id,
-        from: %{"file" => 4, "rank" => 1},
-        to: %{"file" => 4, "rank" => 3},
-        piece: %{"type" => "pawn", "colour" => "white"},
-      })
+      changeset =
+        Move.changeset(%Move{}, %{
+          game_id: game.id,
+          from: %{"file" => 4, "rank" => 1},
+          to: %{"file" => 4, "rank" => 3},
+          piece: %{"type" => "pawn", "colour" => "white"}
+        })
 
       assert changeset.valid?
       assert {:ok, _move} = Repo.insert(changeset)
     end
 
     test "move is invalid without a game" do
-      changeset = Move.changeset(%Move{}, %{
-        from: %{"file" => 4, "rank" => 1},
-        to: %{"file" => 4, "rank" => 3},
-        piece: %{"type" => "pawn", "colour" => "white"},
-      })
+      changeset =
+        Move.changeset(%Move{}, %{
+          from: %{"file" => 4, "rank" => 1},
+          to: %{"file" => 4, "rank" => 3},
+          piece: %{"type" => "pawn", "colour" => "white"}
+        })
 
       refute changeset.valid?
     end
@@ -45,16 +48,18 @@ defmodule Chess.Store.MoveTest do
       user = insert(:user)
       opponent = insert(:opponent)
 
-      game = insert(:game, %{
-        board: Board.default,
-        user_id: user.id,
-        opponent_id: opponent.id,
-      })
+      game =
+        insert(:game, %{
+          board: Board.default(),
+          user_id: user.id,
+          opponent_id: opponent.id
+        })
 
-      changeset = Move.changeset(%Move{}, %{
-        game_id: game.id,
-        piece: %{"type" => "pawn", "colour" => "white"},
-      })
+      changeset =
+        Move.changeset(%Move{}, %{
+          game_id: game.id,
+          piece: %{"type" => "pawn", "colour" => "white"}
+        })
 
       refute changeset.valid?
     end
@@ -63,17 +68,19 @@ defmodule Chess.Store.MoveTest do
       user = insert(:user)
       opponent = insert(:opponent)
 
-      game = insert(:game, %{
-        board: Board.default,
-        user_id: user.id,
-        opponent_id: opponent.id,
-      })
+      game =
+        insert(:game, %{
+          board: Board.default(),
+          user_id: user.id,
+          opponent_id: opponent.id
+        })
 
-      changeset = Move.changeset(%Move{}, %{
-        game_id: game.id,
-        from: %{"file" => 4, "rank" => 1},
-        to: %{"file" => 4, "rank" => 3},
-      })
+      changeset =
+        Move.changeset(%Move{}, %{
+          game_id: game.id,
+          from: %{"file" => 4, "rank" => 1},
+          to: %{"file" => 4, "rank" => 3}
+        })
 
       refute changeset.valid?
     end
@@ -83,16 +90,16 @@ defmodule Chess.Store.MoveTest do
         piece: %{"type" => "pawn", "colour" => "white"},
         piece_captured: %{"type" => "pawn", "colour" => "black"},
         from: %{"file" => 4, "rank" => 1},
-        to: %{"file" => 4, "rank" => 3},
+        to: %{"file" => 4, "rank" => 3}
       }
 
       assert Move.transform(move) == %{
-        id: nil,
-        piece: %{"type" => "pawn", "colour" => "white"},
-        piece_captured: %{"type" => "pawn", "colour" => "black"},
-        from: "e2",
-        to: "e4"
-      }
+               id: nil,
+               piece: %{"type" => "pawn", "colour" => "white"},
+               piece_captured: %{"type" => "pawn", "colour" => "black"},
+               from: "e2",
+               to: "e4"
+             }
     end
   end
 end

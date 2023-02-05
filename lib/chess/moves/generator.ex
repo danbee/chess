@@ -22,13 +22,17 @@ defmodule Chess.Moves.Generator do
   defp _moves(_colour, _board, {_file, 0}, {_, -1}), do: []
   defp _moves(_colour, _board, {7, _rank}, {1, _}), do: []
   defp _moves(_colour, _board, {_file, 7}, {_, 1}), do: []
+
   defp _moves(colour, board, {file, rank}, {fv, rv}) do
     next_square = {file + fv, rank + rv}
+
     cond do
       can_capture_piece?(colour, board, next_square) ->
         [next_square]
+
       obstruction?(colour, board, next_square) ->
         []
+
       true ->
         [next_square | _moves(colour, board, next_square, {fv, rv})]
     end
@@ -36,14 +40,18 @@ defmodule Chess.Moves.Generator do
 
   # Move generation for pieces that follow a pattern
   defp _moves(_colour, _board, {_file, _rank}, []), do: []
+
   defp _moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
     move_square = {file + fv, rank + rv}
+
     cond do
       outside_board?(move_square) ||
-        obstruction?(colour, board, move_square) ->
+          obstruction?(colour, board, move_square) ->
         _moves(colour, board, {file, rank}, moves)
+
       can_capture_piece?(colour, board, move_square) ->
         [move_square | _moves(colour, board, {file, rank}, moves)]
+
       true ->
         [move_square | _moves(colour, board, {file, rank}, moves)]
     end
@@ -66,6 +74,7 @@ defmodule Chess.Moves.Generator do
     piece =
       board
       |> Board.piece({file, rank})
+
     piece && piece["colour"] == colour
   end
 end

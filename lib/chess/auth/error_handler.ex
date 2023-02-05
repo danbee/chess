@@ -12,6 +12,7 @@ defmodule Chess.Auth.ErrorHandler do
         |> put_flash(:info, "You must be logged in")
         |> redirect(to: "/")
         |> halt()
+
       "json" ->
         conn
         |> put_status(403)

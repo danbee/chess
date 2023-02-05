@@ -18,7 +18,7 @@ defmodule Chess.Factory do
 
     %User{}
     |> User.changeset(params)
-    |> Repo.insert!
+    |> Repo.insert!()
   end
 
   def insert(:opponent, new_params) do
@@ -32,12 +32,12 @@ defmodule Chess.Factory do
 
     %User{}
     |> User.changeset(params)
-    |> Repo.insert!
+    |> Repo.insert!()
   end
 
   def insert(:game, params) do
     %Game{}
     |> Game.changeset(params)
-    |> Repo.insert!
+    |> Repo.insert!()
   end
 end

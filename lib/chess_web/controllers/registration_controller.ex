@@ -18,6 +18,7 @@ defmodule ChessWeb.RegistrationController do
         |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Registered successfully.")
         |> redirect(to: page_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

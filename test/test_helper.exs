@@ -4,4 +4,4 @@ ExUnit.start()
 
 Ecto.Adapters.SQL.Sandbox.mode(Chess.Repo, {:shared, self()})
 
-Application.put_env(:wallaby, :base_url, ChessWeb.Endpoint.url)
+Application.put_env(:wallaby, :base_url, ChessWeb.Endpoint.url())

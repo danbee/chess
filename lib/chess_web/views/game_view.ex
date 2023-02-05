@@ -7,8 +7,8 @@ defmodule ChessWeb.GameView do
 
   def won_lost(conn, game) do
     if game_over?(game) && game.state == "checkmate" do
-      your_turn?(conn, game) &&
-        gettext("You lost") ||
+      (your_turn?(conn, game) &&
+         gettext("You lost")) ||
         gettext("You won")
     end
   end
@@ -21,9 +21,12 @@ defmodule ChessWeb.GameView do
     cond do
       GameState.game_over?(game) ->
         states()[game.state]
+
       your_turn?(conn, game) ->
         gettext("Your turn")
-      true -> nil
+
+      true ->
+        nil
     end
   end
 
@@ -38,7 +41,7 @@ defmodule ChessWeb.GameView do
   end
 
   def player_colour(conn, game) do
-    current_user(conn).id == game.user_id && "white" || "black"
+    (current_user(conn).id == game.user_id && "white") || "black"
   end
 
   def player(game, user_id) do
@@ -61,7 +64,7 @@ defmodule ChessWeb.GameView do
     %{
       "checkmate" => gettext("Checkmate!"),
       "stalemate" => gettext("Stalemate"),
-      "check" => gettext("Check"),
+      "check" => gettext("Check")
     }
   end
 end

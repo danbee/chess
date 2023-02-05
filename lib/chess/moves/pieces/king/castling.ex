@@ -18,12 +18,13 @@ defmodule Chess.Moves.Pieces.King.Castling do
       []
     end
   end
+
   def moves(_board, _piece, _move_list), do: []
 
   def _moves(board, _rank, colour, move_list) do
     board
     |> Board.search(%{"type" => "rook", "colour" => colour})
-    |> Enum.map(fn ({file, rank}) ->
+    |> Enum.map(fn {file, rank} ->
       case file do
         0 -> queen_side_move(board, rank, colour, move_list)
         7 -> king_side_move(board, rank, colour, move_list)
@@ -35,42 +36,48 @@ defmodule Chess.Moves.Pieces.King.Castling do
 
   defp king_has_moved?(move_list, colour) do
     move_list
-    |> Enum.any?(fn (move) ->
-      match?(%Move{
-        piece: %{"type" => "king", "colour" => ^colour}
-      }, move)
+    |> Enum.any?(fn move ->
+      match?(
+        %Move{
+          piece: %{"type" => "king", "colour" => ^colour}
+        },
+        move
+      )
     end)
   end
 
   defp queen_side_move(board, rank, colour, move_list) do
     if queen_side_squares_empty?(board, rank) &&
-       !queen_side_in_check?(board, rank, colour) &&
-       !rook_has_moved?(0, move_list, colour) do
+         !queen_side_in_check?(board, rank, colour) &&
+         !rook_has_moved?(0, move_list, colour) do
       {2, rank}
     end
   end
 
   defp king_side_move(board, rank, colour, move_list) do
     if king_side_squares_empty?(board, rank) &&
-       !king_side_in_check?(board, rank, colour) &&
-       !rook_has_moved?(7, move_list, colour) do
+         !king_side_in_check?(board, rank, colour) &&
+         !rook_has_moved?(7, move_list, colour) do
       {6, rank}
     end
   end
 
   defp rook_has_moved?(file, move_list, colour) do
     move_list
-    |> Enum.any?(fn (move) ->
-      match?(%Move{
-        piece: %{"type" => "rook", "colour" => ^colour},
-        from: %{"file" => ^file},
-      }, move)
+    |> Enum.any?(fn move ->
+      match?(
+        %Move{
+          piece: %{"type" => "rook", "colour" => ^colour},
+          from: %{"file" => ^file}
+        },
+        move
+      )
     end)
   end
 
   defp queen_side_in_check?(board, rank, colour) do
     [{2, rank}, {3, rank}]
-    |> Enum.any?(fn ({to_file, to_rank}) ->
+    |> Enum.any?(fn {to_file, to_rank} ->
       board
       |> Board.move_piece(%{"from" => [4, rank], "to" => [to_file, to_rank]})
       |> Map.get(:board)
@@ -80,7 +87,7 @@ defmodule Chess.Moves.Pieces.King.Castling do
 
   defp king_side_in_check?(board, rank, colour) do
     [{5, rank}, {6, rank}]
-    |> Enum.any?(fn ({to_file, to_rank}) ->
+    |> Enum.any?(fn {to_file, to_rank} ->
       board
       |> Board.move_piece(%{"from" => [4, rank], "to" => [to_file, to_rank]})
       |> Map.get(:board)

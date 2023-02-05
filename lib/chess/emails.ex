@@ -12,9 +12,7 @@ defmodule Chess.Emails do
     new_email()
     |> to(game.opponent)
     |> from({"64squares", "games@64squares.club"})
-    |> subject(
-      "[64squares] #{game.user.name} has invited you to play a game of chess."
-    )
+    |> subject("[64squares] #{game.user.name} has invited you to play a game of chess.")
     |> text_body("""
       Game link: #{Helpers.game_url(conn, :show, game)}
     """)
@@ -27,9 +25,7 @@ defmodule Chess.Emails do
     new_email()
     |> to(opponent)
     |> from({"64squares", "games@64squares.club"})
-    |> subject(
-      "[64squares] #{user.name} has moved."
-    )
+    |> subject("[64squares] #{user.name} has moved.")
     |> text_body("""
       Game link: #{Helpers.game_url(socket, :show, game)}
     """)

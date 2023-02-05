@@ -37,8 +37,10 @@ defmodule Chess.Moves.Pieces.Pawn do
     cond do
       obstruction?(board, {file, rank + 1}) ->
         []
+
       rank == 1 ->
         [{file, rank + 1} | _moves("white", board, {file, rank + 1})]
+
       true ->
         [{file, rank + 1}]
     end
@@ -48,16 +50,20 @@ defmodule Chess.Moves.Pieces.Pawn do
     cond do
       obstruction?(board, {file, rank - 1}) ->
         []
+
       rank == 6 ->
         [{file, rank - 1} | _moves("black", board, {file, rank - 1})]
+
       true ->
         [{file, rank - 1}]
     end
   end
 
   def _capture_moves(_colour, _board, {_file, _rank}, []), do: []
+
   def _capture_moves(colour, board, {file, rank}, [{fv, rv} | moves]) do
     move_square = {file + fv, rank + rv}
+
     if can_capture_piece?(colour, board, move_square) do
       [move_square | _capture_moves(colour, board, {file, rank}, moves)]
     else

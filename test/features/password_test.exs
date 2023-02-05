@@ -7,11 +7,12 @@ defmodule Chess.Features.PasswordTest do
   import Chess.AuthenticationHelpers
 
   test "user can change their password", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
 
     session
     |> login(user.email, "ilovezelda")
@@ -26,11 +27,12 @@ defmodule Chess.Features.PasswordTest do
   end
 
   test "password cannot be blank", %{session: session} do
-    user = insert(:user, %{
-      name: "Link",
-      email: "link@hyrule.com",
-      password: "ilovezelda"
-    })
+    user =
+      insert(:user, %{
+        name: "Link",
+        email: "link@hyrule.com",
+        password: "ilovezelda"
+      })
 
     session
     |> login(user.email, "ilovezelda")
@@ -41,8 +43,6 @@ defmodule Chess.Features.PasswordTest do
     |> click(button("Update Password"))
 
     session
-    |> assert_has(
-      css("[data-role='password-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='password-error']", text: "can't be blank"))
   end
 end

@@ -14,11 +14,15 @@ defmodule Chess.GameState do
     cond do
       player_checkmated?(board, colour) ->
         "checkmate"
+
       player_stalemated?(board, colour) ->
         "stalemate"
+
       king_in_check?(board, colour) ->
         "check"
-      true -> nil
+
+      true ->
+        nil
     end
   end
 
@@ -36,7 +40,7 @@ defmodule Chess.GameState do
     king =
       board
       |> Board.search(%{"type" => "king", "colour" => colour})
-      |> List.first
+      |> List.first()
 
     if is_nil(king) do
       raise "There is no #{colour} king!"
@@ -49,7 +53,7 @@ defmodule Chess.GameState do
   def player_cannot_move?(board, colour) do
     board
     |> Board.search(%{"colour" => colour})
-    |> Enum.all?(fn({file, rank}) ->
+    |> Enum.all?(fn {file, rank} ->
       board
       |> piece_cannot_move?({file, rank})
     end)
@@ -62,7 +66,7 @@ defmodule Chess.GameState do
 
     board
     |> Moves.available({file, rank})
-    |> Enum.all?(fn({to_file, to_rank}) ->
+    |> Enum.all?(fn {to_file, to_rank} ->
       board
       |> Board.move_piece(%{"from" => [file, rank], "to" => [to_file, to_rank]})
       |> Map.get(:board)

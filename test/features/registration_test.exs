@@ -25,9 +25,7 @@ defmodule Chess.Features.RegistrationTest do
     |> click(button("Register"))
 
     session
-    |> assert_has(
-      css("[data-role='name-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='name-error']", text: "can't be blank"))
   end
 
   test "user cannot register without an email", %{session: session} do
@@ -39,9 +37,7 @@ defmodule Chess.Features.RegistrationTest do
     |> click(button("Register"))
 
     session
-    |> assert_has(
-      css("[data-role='email-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='email-error']", text: "can't be blank"))
   end
 
   test "user cannot register without a password", %{session: session} do
@@ -53,8 +49,6 @@ defmodule Chess.Features.RegistrationTest do
     |> click(button("Register"))
 
     session
-    |> assert_has(
-      css("[data-role='password-error']", text: "can't be blank")
-    )
+    |> assert_has(css("[data-role='password-error']", text: "can't be blank"))
   end
 end

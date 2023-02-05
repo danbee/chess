@@ -28,7 +28,7 @@ defmodule Chess.Moves.Piece do
   end
 
   defp attacked_by_knight?(board, {file, rank}) do
-    _attacked?(board, {file, rank}, Knight.pattern, "knight")
+    _attacked?(board, {file, rank}, Knight.pattern(), "knight")
   end
 
   defp attacked_by_pawn?(board, {file, rank}) do
@@ -46,22 +46,24 @@ defmodule Chess.Moves.Piece do
       board
       |> Generator.moves({file, rank}, pattern)
 
-    Enum.any?(moves, &(match_piece(board, &1, "pawn")))
+    Enum.any?(moves, &match_piece(board, &1, "pawn"))
   end
 
   defp _attacked?(_board, {0, _rank}, {-1, _}, _), do: false
   defp _attacked?(_board, {_file, 0}, {_, -1}, _), do: false
   defp _attacked?(_board, {7, _rank}, {1, _}, _), do: false
   defp _attacked?(_board, {_file, 7}, {_, 1}, _), do: false
+
   defp _attacked?(board, {file, rank}, {fv, rv}, pieces) do
     board
     |> Generator.moves({file, rank}, {fv, rv})
-    |> List.last
+    |> List.last()
     |> case do
       {file, rank} ->
         piece = board["#{file},#{rank}"]
 
-        Enum.any?(pieces, &(match?(%{"type" => ^&1}, piece)))
+        Enum.any?(pieces, &match?(%{"type" => ^&1}, piece))
+
       nil ->
         false
     end
@@ -72,7 +74,7 @@ defmodule Chess.Moves.Piece do
       board
       |> Generator.moves({file, rank}, pattern)
 
-    Enum.any?(moves, &(match_piece(board, &1, piece_type)))
+    Enum.any?(moves, &match_piece(board, &1, piece_type))
   end
 
   defp match_piece(board, {file, rank}, piece_type) do
