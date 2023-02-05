@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  ImageOs: ubuntu20
+
 jobs:
   build:
 
