@@ -3,5 +3,5 @@
 echo "Building assets"
 cd assets
 yarn install
-yarn run build
+yarn run deploy
 cd ..
