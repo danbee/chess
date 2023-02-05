@@ -7,12 +7,12 @@ services:
       - "4000:4000"
     environment:
       MIX_ENV: dev
-      PGHOST: pg-db
+      PGHOST: db
       PGUSER: postgres
       PGPASSWORD: password
     links:
-      - pg-db
-  pg-db:
+      - db
+  db:
     image: healthcheck/postgres:alpine
     environment:
       POSTGRES_USER: postgres
