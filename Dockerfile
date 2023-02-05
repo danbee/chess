@@ -20,6 +20,13 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
     chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver && \
     ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
 
+# Install NodeJS
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install nodejs
+
+# Install Yarn
+RUN npm install yarn
+
 # Install Rebar and Hex
 RUN mix local.rebar --force && mix local.hex --force 
 
