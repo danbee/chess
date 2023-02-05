@@ -4,6 +4,9 @@ FROM --platform=linux/amd64 elixir:1.14.1
 RUN mkdir /app
 WORKDIR /app
 
+# Update package repo
+RUN apt-get update
+
 # Install Chrome
 RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install ./google-chrome-stable_current_amd64.deb
