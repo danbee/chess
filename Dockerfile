@@ -25,7 +25,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install nodejs
 
 # Install Yarn
-RUN npm install yarn
+RUN npm install --global yarn 
 
 # Install Rebar and Hex
 RUN mix local.rebar --force && mix local.hex --force 
