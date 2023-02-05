@@ -30,6 +30,7 @@ config :chess, Chess.Auth.Guardian,
   secret_key: "vd2vXkrYTTFKSKmNMoS2/Hk4Fxn8BkyzsVArRkxJazdQ3mr6bI4YgAC6f8ODiWlM"
 
 config :formulator,
+  validate: false,
   translate_error_module: ChessWeb.ErrorHelpers
 
 # Configure esbuild (the version is required)

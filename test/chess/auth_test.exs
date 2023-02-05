@@ -76,15 +76,13 @@ defmodule Chess.AuthTest do
 
     test "authenticate_user/1 returns false on incorrect password " do
       user_fixture(email: "link@hyrule.com", password: "eyeofsheikah")
-      assert {:error, message} =
-        Auth.authenticate_user("link@hyrule.com", "shadowtemple")
+      assert {:error, message} = Auth.authenticate_user("link@hyrule.com", "shadowtemple")
       assert message == "invalid password"
     end
 
     test "authenticate_user/1 returns true on correct password " do
       user = user_fixture(email: "link@hyrule.com", password: "eyeofsheikah")
-      assert {:ok, ^user} =
-        Auth.authenticate_user("link@hyrule.com", "eyeofsheikah")
+      assert {:ok, ^user} = Auth.authenticate_user("link@hyrule.com", "eyeofsheikah")
     end
   end
 end

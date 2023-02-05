@@ -76,6 +76,7 @@ defmodule Chess.Store.User do
     if password do
       changeset
       |> change(Argon2.add_hash(password))
+      |> change(password: nil)
     else
       changeset
     end
