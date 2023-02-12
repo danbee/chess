@@ -20,17 +20,11 @@ jobs:
       - run:
           name: Install mix deps
           command: mix deps.get
-  test:
-    docker:
-      - image: cimg/elixir:1.14-browsers
-      - image: cimg/postgres:14.6
-    steps:
       - run:
-        name: Run tests
-        command: mix test
+          name: Run tests
+          command: mix test
  
 workflows:
   build-workflow:
     jobs:
       - build
-      - test
