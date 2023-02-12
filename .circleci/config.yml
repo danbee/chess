@@ -5,12 +5,12 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/chess
     docker:
       - image: cimg/elixir:1.14-browsers
       - image: cimg/postgres:14.6
     steps:
-      - browser-tools/install-browser-tools
+      - browser-tools/install-browser-tools:
+          path: ~/
       - checkout
       - run:
           name: Install hex
