@@ -5,13 +5,13 @@ orbs:
 
 jobs:
   build:
+    working_directory: ~/
     docker:
       - image: cimg/elixir:1.14-browsers
       - image: cimg/postgres:14.6
     steps:
-      - browser-tools/install-browser-tools:
-          path: ~/
       - checkout
+      - browser-tools/install-browser-tools
       - run:
           name: Install hex
           command: mix local.hex --force
