@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       - image: cimg/elixir:1.14-browsers
-      - image: circleci/postgres:14.6-alpine
+      - image: cimg/postgres:14.6
     working_directory: ~/project
     steps:
       - browser-tools/install-browser-tools
