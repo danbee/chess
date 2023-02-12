@@ -7,12 +7,20 @@ jobs:
   build:
     docker:
       - image: cimg/elixir:1.14-browsers
+      - image: circleci/postgres:14.6-alpine
+    working_directory: ~/project
     steps:
       - browser-tools/install-browser-tools
       - checkout
-      - run: mix --version
-      - run: mix deps.get
-      - run: mix test
+      - run:
+          name: Install hex
+          command: mix local.hex --force
+      - run:
+          name: Install rebar
+          command: mix local.rebar --force
+      - run:
+          name: Install mix deps
+          command: mix deps.get
 
 workflows:
   build-workflow:
