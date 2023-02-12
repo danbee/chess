@@ -2,7 +2,7 @@
 # The build passes as long as every test step returns with a non-zero exit code.
 # See here for more: https://documentation.codeship.com/pro/builds-and-configuration/steps/
 - name: build_assets
-  command: bin/codeship_assets
+  command: bin/ci_assets
   service: app
 - name: run_mix_test
   command: /bin/bash -c 'mix ecto.create && mix test'

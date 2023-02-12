@@ -19,14 +19,14 @@ jobs:
       - browser-tools/install-chromedriver
       - checkout
       - run:
-          name: Install hex
-          command: mix local.hex --force
+          name: Install dependencies
+          command: bin/ci_deps
       - run:
-          name: Install rebar
-          command: mix local.rebar --force
+          name: Build assets
+          command: bin/ci_assets
       - run:
-          name: Install mix deps
-          command: mix deps.get
+          name: Create database
+          command: bin/ci_db
       - run:
           name: Run tests
           command: mix test

@@ -1,21 +1,21 @@
 #!/usr/bin/env sh
 
-echo "Removing previous build artifacts"
+echo "🧹 Removing previous build artifacts"
 rm -rf deps _build
 
-echo "Installing dependencies and compiling"
+echo "🎁 Installing dependencies and compiling"
 mix local.hex --force
 mix deps.get
 mix deps.compile
 mix compile
 
 # Set up database
-echo "Setting up the database"
+echo "💾 Setting up the database"
 mix ecto.create
 mix ecto.migrate
 
 # Grab JS dependencies from NPM
-echo "Installing js dependencies"
-cd assets
+echo "🕸️ Installing js dependencies"
+pushd assets
 yarn install
-cd ..
+popd
