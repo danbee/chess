@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   build:
+    working_directory: ~/chess
     docker:
       - image: cimg/elixir:1.14-browsers
       - image: cimg/postgres:14.6
