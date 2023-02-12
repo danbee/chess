@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/elixir:1.14-node-browsers
+      - image: cimg/elixir:1.14-browsers
     steps:
       - browser-tools/install-browser-tools
       - checkout
