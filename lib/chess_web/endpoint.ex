@@ -1,6 +1,12 @@
 defmodule ChessWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :chess
 
+  @session_options [
+    store: :cookie,
+    key: "_chess_key",
+    signing_salt: "9LqUhZTU"
+  ]
+
   if sandbox = Application.compile_env(:chess, :sandbox) do
     plug(Phoenix.Ecto.SQL.Sandbox, sandbox: sandbox)
   end
