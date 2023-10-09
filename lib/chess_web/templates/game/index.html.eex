@@ -3,7 +3,7 @@
 <table class="games-list">
   <tbody>
     <%= for game <- @games do %>
-      <tr class="<%= turn_class(@conn, game) %>">
+      <tr class="<%= turn_class(current_user(@conn), game) %>">
         <td>
           <span class="games-list__player-indicator">
             <img src="images/pawn_<%= player_colour(current_user(@conn), game) %>.svg">
@@ -16,10 +16,10 @@
                 class: "btn btn-default btn-xs" %>
         </td>
         <td>
-          <%= state(@conn, game) %>
+          <%= state(current_user(@conn), game) %>
         </td>
         <td>
-          <%= won_lost(@conn, game) %>
+          <%= won_lost(current_user(@conn), game) %>
         </td>
         <td class="text-right">
           <%= link gettext("Delete"),

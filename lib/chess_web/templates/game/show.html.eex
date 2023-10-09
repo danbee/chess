@@ -11,23 +11,5 @@
       ChessWeb.GameInfoLive,
       session: %{"user_id" => current_user(@conn).id, "game_id" => @game.id}
     ) %>
-
-    <div class="move-list">
-      <table class="table table--condensed">
-        <thead>
-          <tr>
-            <th class="move-list__line-number"><span class="visually-hidden">Move no.</span></th>
-            <th class="move-list__header--white">White</th>
-            <th class="move-list__header--black">Black</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row" class="move-list__line-number">1.</th>
-            <td class="move-list__move move-list__move--white">e4</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </div>

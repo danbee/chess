@@ -7,8 +7,6 @@ defmodule ChessWeb.BoardLive do
   alias Chess.Board
   alias Chess.Moves
 
-  import Chess.Auth, only: [get_user!: 1]
-
   def render(assigns) do
     Phoenix.View.render(ChessWeb.GameView, "board.html", assigns)
   end
@@ -34,7 +32,7 @@ defmodule ChessWeb.BoardLive do
 
   defp default_assigns(game, user) do
     %{
-      board: Board.transform(game.board),
+      board: game.board,
       game: game,
       user: user,
       selected: nil,
@@ -86,22 +84,21 @@ defmodule ChessWeb.BoardLive do
          rank
        ) do
     if {file, rank} in available do
-      new_game =
-        game
-        |> Moves.make_move(%{from: selected, to: {file, rank}})
-        |> case do
-          {:ok, %{game: game}} ->
-            board = Board.transform(game.board)
+      game
+      |> Moves.make_move(%{from: selected, to: {file, rank}})
+      |> case do
+        {:ok, %{game: game}} ->
+          board = Board.transform(game.board)
 
-            broadcast_move(game, board)
+          broadcast_move(game, board)
 
-            [
-              {:selected, nil},
-              {:available, []},
-              {:board, board},
-              {:game, game}
-            ]
-        end
+          [
+            {:selected, nil},
+            {:available, []},
+            {:board, board},
+            {:game, game}
+          ]
+      end
     else
       [{:selected, nil}, {:available, []}]
     end

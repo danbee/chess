@@ -1,15 +1,6 @@
 defmodule Chess.Board do
   @moduledoc false
 
-  def transform(board) do
-    Enum.map(0..7, fn rank ->
-      Enum.map(0..7, fn file ->
-        board
-        |> piece({file, rank})
-      end)
-    end)
-  end
-
   def search(board, %{"type" => type, "colour" => colour}) do
     board
     |> Enum.filter(fn {_index, piece} ->
@@ -24,10 +15,6 @@ defmodule Chess.Board do
       match?(%{"colour" => ^colour}, piece)
     end)
     |> indexes_to_tuples
-  end
-
-  def piece(board, {file, rank}) do
-    board["#{file},#{rank}"]
   end
 
   def move_piece(board, %{

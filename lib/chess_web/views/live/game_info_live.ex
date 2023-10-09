@@ -5,6 +5,8 @@ defmodule ChessWeb.GameInfoLive do
   alias Chess.Store.Game
   alias Chess.Repo
 
+  import Ecto.Query
+
   def render(assigns) do
     Phoenix.View.render(ChessWeb.GameView, "game_info.html", assigns)
   end
@@ -14,6 +16,8 @@ defmodule ChessWeb.GameInfoLive do
 
     game =
       Game.for_user(user)
+      |> preload(:user)
+      |> preload(:opponent)
       |> Repo.get!(game_id)
 
     {:ok, assign(socket, game: game, user: user)}

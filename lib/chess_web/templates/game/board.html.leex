@@ -22,22 +22,20 @@
   </div>
 
   <div class="board__body">
-    <%= for {rank, row} <- @board do %>
-      <div class="board__row">
-        <%= for {file, piece} <- row do %>
-          <%= render ChessWeb.SquareView,
-            "square.html",
-            rank: rank,
-            file: file,
-            piece: piece,
-            selected: {file, rank} == @selected,
-            available: {file, rank} in @available %>
-        <% end %>
-      </div>
+    <%= for rank <- 0..7 do %>
+      <%= for file <- 0..7 do %>
+        <%= render ChessWeb.SquareView,
+          "square.html",
+          rank: rank,
+          file: file,
+          piece: piece(@board, {file, rank}),
+          selected: {file, rank} == @selected,
+          available: {file, rank} in @available %>
+      <% end %>
     <% end %>
   </div>
 
   <div class="game-state game-state--<%= @game.state %>">
-    <%= states[@game.state] %>
+    <%= states(@game.state) %>
   </div>
 </div>
