@@ -36,19 +36,19 @@ config :formulator,
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.17.5",
+  version: "0.19.4",
   default: [
     args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*  --loader:.js=jsx),
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/js --external:/fonts/* --external:/images/*  --loader:.js=jsx),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
 # Configure dart_sass
 config :dart_sass,
-  version: "1.58.0",
+  version: "1.69.3",
   default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css),
+    args: ~w(css/app.scss ../priv/static/css/app.css),
     cd: Path.expand("../assets", __DIR__)
   ]
 

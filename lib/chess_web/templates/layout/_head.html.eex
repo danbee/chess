@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <%= csrf_meta_tag() %>
+  <meta name="csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token() %>" />
 
   <title><%= gettext "64squares" %></title>
   <link href="https://fonts.googleapis.com/css?family=Enriqueta:400,700" rel="stylesheet">
