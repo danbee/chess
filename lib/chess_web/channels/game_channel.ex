@@ -5,7 +5,6 @@ defmodule ChessWeb.GameChannel do
 
   import ChessWeb.GameView, only: [player: 2, opponent: 2]
 
-  alias Chess.Board
   alias Chess.Emails
   alias Chess.Mailer
   alias Chess.MoveList
@@ -29,7 +28,7 @@ defmodule ChessWeb.GameChannel do
       opponent_id: opponent(game, socket.assigns.user_id).id,
       player: player(game, socket.assigns.user_id),
       opponent: opponent(game, socket.assigns.user_id).name,
-      board: Board.transform(game.board),
+      board: game.board,
       turn: game.turn,
       state: game.state,
       moves: MoveList.transform(game.moves)
@@ -135,7 +134,7 @@ defmodule ChessWeb.GameChannel do
       |> Queries.game_with_moves(socket.assigns.game_id)
 
     payload = %{
-      board: Board.transform(game.board),
+      board: game.board,
       turn: game.turn,
       state: game.state,
       moves: MoveList.transform(game.moves)

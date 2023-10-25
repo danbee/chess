@@ -39,7 +39,8 @@ defmodule ChessWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
-      import Phoenix.LiveView.Helpers
+
+      import Phoenix.Component
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -52,11 +53,10 @@ defmodule ChessWeb do
     end
   end
 
-  
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ChessWeb.LayoutView, "live.html"}
+        layout: {ChessWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
@@ -90,6 +90,7 @@ defmodule ChessWeb do
   def router do
     quote do
       use Phoenix.Router
+
       import Phoenix.LiveView.Router
     end
   end

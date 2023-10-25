@@ -4,14 +4,13 @@ defmodule ChessWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_chess_key",
-    signing_salt: "9LqUhZTU"
+    signing_salt: "9LqUhZTU",
+    same_site: "Lax"
   ]
 
   if sandbox = Application.compile_env(:chess, :sandbox) do
     plug(Phoenix.Ecto.SQL.Sandbox, sandbox: sandbox)
   end
-
-  socket("/socket", ChessWeb.UserSocket)
 
   socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 

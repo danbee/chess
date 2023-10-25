@@ -3,12 +3,18 @@ defmodule ChessWeb.BoardLive do
 
   alias Chess.Store.User
   alias Chess.Store.Game
+  alias Chess.Store.Move
   alias Chess.Repo
-  alias Chess.Board
   alias Chess.Moves
 
+  alias ChessWeb.GameView
+
+  import Ecto.Query
+
+  require Logger
+
   def render(assigns) do
-    Phoenix.View.render(ChessWeb.GameView, "board.html", assigns)
+    Phoenix.View.render(GameView, "board.html", assigns)
   end
 
   def mount(_params, %{"user_id" => user_id, "game_id" => game_id}, socket) do
@@ -41,6 +47,7 @@ defmodule ChessWeb.BoardLive do
   end
 
   def handle_info(%{event: "move", payload: state}, socket) do
+    Logger.info("Handling move from board")
     {:noreply, assign(socket, state)}
   end
 
@@ -49,7 +56,7 @@ defmodule ChessWeb.BoardLive do
     board = game.board
     user = socket.assigns[:user]
 
-    colour = ChessWeb.GameView.player_colour(user, game)
+    colour = GameView.player_colour(user, game)
 
     assigns =
       if colour == game.turn do
@@ -66,7 +73,7 @@ defmodule ChessWeb.BoardLive do
   end
 
   defp handle_selection(board, colour, file, rank) do
-    case Board.piece(board, {file, rank}) do
+    case GameView.piece(board, {file, rank}) do
       %{"colour" => ^colour} ->
         [
           {:selected, {file, rank}},
@@ -88,14 +95,21 @@ defmodule ChessWeb.BoardLive do
       |> Moves.make_move(%{from: selected, to: {file, rank}})
       |> case do
         {:ok, %{game: game}} ->
-          board = Board.transform(game.board)
-
-          broadcast_move(game, board)
+          game
+          |> Repo.preload([:user, :opponent])
+          |> Repo.preload(
+            moves:
+              from(
+                move in Move,
+                order_by: [asc: move.inserted_at]
+              )
+          )
+          |> broadcast_move(game.board)
 
           [
             {:selected, nil},
             {:available, []},
-            {:board, board},
+            {:board, game.board},
             {:game, game}
           ]
       end

@@ -21,9 +21,12 @@
     <div class="board__label">h</div>
   </div>
 
+  <% rank_range = if white?(@user, @game), do: 7..0, else: 0..7 %>
+  <% file_range = if black?(@user, @game), do: 7..0, else: 0..7 %>
+
   <div class="board__body">
-    <%= for rank <- 0..7 do %>
-      <%= for file <- 0..7 do %>
+    <%= for rank <- rank_range do %>
+      <%= for file <- file_range do %>
         <%= render ChessWeb.SquareView,
           "square.html",
           rank: rank,
@@ -36,6 +39,6 @@
   </div>
 
   <div class="game-state game-state--<%= @game.state %>">
-    <%= states(@game.state) %>
+    <%= state_text(@game.state) %>
   </div>
 </div>

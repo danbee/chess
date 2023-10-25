@@ -15,10 +15,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row" class="move-list__line-number">1.</th>
-        <td class="move-list__move move-list__move--white">e4</td>
-      </tr>
+      <%= for {move_pair, i} <- @game.moves |>
+      Enum.chunk_every(2) |> Enum.with_index do %>
+        <tr>
+          <th scope="row" class="move-list__line-number"><%= i + 1 %>.</th>
+          <%= case move_pair do %>
+          <% [white_move, black_move] -> %>
+            <td class="move-list__move move-list__move--<%=
+            white_move.piece["colour"] %>"><%= move_text(white_move) %></td>
+            <td class="move-list__move move-list__move--<%=
+            black_move.piece["colour"] %>"><%= move_text(black_move) %></td>
+          <% [white_move] -> %>
+            <td class="move-list__move move-list__move--<%=
+            white_move.piece["colour"] %>"><%= move_text(white_move) %></td>
+            <td></td>
+          <% end %>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

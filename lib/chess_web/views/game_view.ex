@@ -6,6 +6,15 @@ defmodule ChessWeb.GameView do
   import Phoenix.Component
   import Chess.Auth, only: [current_user: 1]
 
+  @pieces %{
+    pawn: "",
+    knight: "N",
+    bishop: "B",
+    rook: "R",
+    queen: "Q",
+    king: "K"
+  }
+
   def won_lost(user, game) do
     if game_over?(game) && game.state == "checkmate" do
       (your_turn?(user, game) &&
@@ -21,7 +30,7 @@ defmodule ChessWeb.GameView do
   def state(user, game) do
     cond do
       GameState.game_over?(game) ->
-        states(game.state)
+        state_text(game.state)
 
       your_turn?(user, game) ->
         gettext("Your turn")
@@ -37,6 +46,14 @@ defmodule ChessWeb.GameView do
     end
   end
 
+  def white?(user, game) do
+    player_colour(user, game) == "white"
+  end
+
+  def black?(user, game) do
+    player_colour(user, game) == "black"
+  end
+
   def your_turn?(user, game) do
     user
     |> player_colour(game) == game.turn
@@ -47,7 +64,7 @@ defmodule ChessWeb.GameView do
   end
 
   def piece(board, {file, rank}) do
-    board["#{file},#{rank}"]
+    Chess.Board.piece(board, {file, rank})
   end
 
   def files(user, game) do
@@ -79,7 +96,19 @@ defmodule ChessWeb.GameView do
     end
   end
 
-  def states(state) do
+  def move_text(move) do
+    move = Chess.Store.Move.transform(move)
+
+    piece_type = move.piece["type"] |> String.to_atom()
+
+    [
+      @pieces[piece_type],
+      move.to
+    ]
+    |> Enum.join()
+  end
+
+  def state_text(state) do
     Map.get(
       %{
         "checkmate" => gettext("Checkmate!"),

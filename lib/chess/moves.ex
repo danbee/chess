@@ -14,6 +14,8 @@ defmodule Chess.Moves do
   alias Chess.Moves.Pieces.Queen
   alias Chess.Moves.Pieces.King
 
+  require Logger
+
   def make_move(game, move_params) do
     params =
       game.board

@@ -1,6 +1,8 @@
 defmodule Chess.Board do
   @moduledoc false
 
+  require Logger
+
   def search(board, %{"type" => type, "colour" => colour}) do
     board
     |> Enum.filter(fn {_index, piece} ->
@@ -17,9 +19,13 @@ defmodule Chess.Board do
     |> indexes_to_tuples
   end
 
+  def piece(board, {file, rank}) do
+    board["#{file},#{rank}"]
+  end
+
   def move_piece(board, %{
-        "from" => [from_file, from_rank],
-        "to" => [to_file, to_rank]
+        from: {from_file, from_rank},
+        to: {to_file, to_rank}
       }) do
     {piece, board} = Map.pop(board, to_index({from_file, from_rank}))
     {piece_captured, board} = Map.pop(board, to_index({to_file, to_rank}))
@@ -54,15 +60,15 @@ defmodule Chess.Board do
 
   def castling_move(board, %{from: {4, rank}, to: {2, _rank}}) do
     move_piece(board, %{
-      "from" => [0, rank],
-      "to" => [3, rank]
+      from: {0, rank},
+      to: {3, rank}
     })
   end
 
   def castling_move(board, %{"from" => [4, rank], "to" => [6, _rank]}) do
     move_piece(board, %{
-      "from" => [7, rank],
-      "to" => [5, rank]
+      from: {7, rank},
+      to: {5, rank}
     })
   end
 
