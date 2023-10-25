@@ -4,7 +4,12 @@
   <%= form_for @changeset, game_path(@conn, :create), [class: "create-game"],
       fn form -> %>
     <div class="form-group">
-      <div id="opponent-finder"></div>
+      <%= live_render(
+        @conn,
+        ChessWeb.OpponentFinderLive,
+        session: %{"user_id" => current_user(@conn).id}
+      ) %>
+        
       <%= error_tag form, :opponent_id %>
     </div>
 

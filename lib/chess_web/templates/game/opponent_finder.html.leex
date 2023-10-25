@@ -1,0 +1,32 @@
+<div class="form-group">
+  <div class="form-field opponent-finder">
+    <label for="query-string">Find opponent</label>
+
+    <%= tag :input,
+      id: "query-string",
+      class: "search-input",
+      name: "q",
+      type: "text",
+      autocomplete: "off",
+      "phx-change": "search",
+      "phx-debounce": "250",
+      value: @q,
+      placeholder: Map.get(@selected, :name, "")
+    %>
+    <%= tag :input,
+      name: "game[opponent_id]",
+      type: "hidden",
+      value: Map.get(@selected, :id, nil)
+    %>
+
+    <%= if Enum.any?(@opponents) do %>
+      <ul class="opponent-finder__result">
+        <%= for opponent <- @opponents do %> 
+          <li><a class="opponent-finder__result-item"
+          phx-click="select" phx-value-id="<%= opponent.id
+          %>" href="#"><%= opponent.name %></a></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
