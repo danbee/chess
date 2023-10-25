@@ -6,25 +6,10 @@
     "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "axios": "^0.21.0",
-    "classnames": "^2.3.1",
-    "esbuild": "^0.14.21",
-    "gettext.js": "^1.0.0",
-    "immutable": "^3.8.2",
-    "lodash": "^4.17.21",
-    "phoenix": "^1.7.0-rc.2",
-    "phoenix_html": "^3.2.0",
-    "phoenix_live_view": "^0.18.11",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.4",
-    "redux": "^4.1.0",
-    "redux-watch": "^1.2.0",
-    "url-loader": "^4.1.1"
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view"
   },
   "devDependencies": {
-    "css-loader": "^5.2.6",
-    "mini-css-extract-plugin": "^1.6.0"
   }
 }
