@@ -72,7 +72,7 @@ defmodule Chess.BoardTest do
       "3,0" => %{"type" => "queen", "colour" => "white"}
     }
 
-    %{board: new_board} = Board.move_piece(board, %{"from" => [3, 0], "to" => [5, 2]})
+    %{board: new_board} = Board.move_piece(board, %{from: {3, 0}, to: {5, 2}})
 
     assert new_board == %{
              "5,2" => %{"type" => "queen", "colour" => "white"}
@@ -85,7 +85,7 @@ defmodule Chess.BoardTest do
       "7,0" => %{"type" => "rook", "colour" => "white"}
     }
 
-    %{board: new_board} = Board.move_piece(board, %{"from" => [4, 0], "to" => [6, 0]})
+    %{board: new_board} = Board.move_piece(board, %{from: {4, 0}, to: {6, 0}})
 
     assert new_board == %{
              "6,0" => %{"type" => "king", "colour" => "white"},
@@ -99,7 +99,7 @@ defmodule Chess.BoardTest do
       "0,0" => %{"type" => "rook", "colour" => "white"}
     }
 
-    %{board: new_board} = Board.move_piece(board, %{"from" => [4, 0], "to" => [2, 0]})
+    %{board: new_board} = Board.move_piece(board, %{from: {4, 0}, to: {2, 0}})
 
     assert new_board == %{
              "2,0" => %{"type" => "king", "colour" => "white"},

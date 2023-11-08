@@ -65,7 +65,7 @@ defmodule Chess.Board do
     })
   end
 
-  def castling_move(board, %{"from" => [4, rank], "to" => [6, _rank]}) do
+  def castling_move(board, %{from: {4, rank}, to: {6, _rank}}) do
     move_piece(board, %{
       from: {7, rank},
       to: {5, rank}

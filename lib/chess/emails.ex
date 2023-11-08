@@ -19,8 +19,8 @@ defmodule Chess.Emails do
   end
 
   def opponent_moved_email(socket, game) do
-    user = Repo.get(User, socket.assigns.user_id)
-    opponent = opponent(game, socket.assigns.user_id)
+    user = Repo.get(User, socket.assigns.user.id)
+    opponent = opponent(game, socket.assigns.user.id)
 
     new_email()
     |> to(opponent)

@@ -5,6 +5,7 @@ defmodule ChessWeb.GameInfoLive do
   alias Chess.Store.Game
   alias Chess.Store.Move
   alias Chess.Repo
+  alias ChessWeb.Presence
 
   import Ecto.Query
 
@@ -15,7 +16,9 @@ defmodule ChessWeb.GameInfoLive do
   end
 
   def mount(_params, %{"game_id" => game_id, "user_id" => user_id}, socket) do
-    ChessWeb.Endpoint.subscribe("game:#{game_id}")
+    topic = "game:#{game_id}"
+
+    ChessWeb.Endpoint.subscribe(topic)
 
     user = Repo.get!(User, user_id)
 
@@ -32,10 +35,38 @@ defmodule ChessWeb.GameInfoLive do
       )
       |> Repo.get!(game_id)
 
-    {:ok, assign(socket, game: game, user: user)}
+    Presence.track(self(), topic, :user, %{id: user_id})
+
+    {:ok, assign(socket, game: game, user: user, presence: presence_list(topic))}
   end
 
   def handle_info(%{event: "move", payload: state}, socket) do
     {:noreply, assign(socket, state)}
+  end
+
+  def handle_info(
+        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves}},
+        socket
+      ) do
+    {:noreply, socket |> handle_joins(joins) |> handle_leaves(leaves)}
+  end
+
+  defp presence_list(topic) do
+    Presence.list(topic)
+    |> Map.get("user")
+    |> Map.get(:metas)
+    |> Map.new(fn meta -> {meta.id, meta} end)
+  end
+
+  defp handle_joins(socket, joins) do
+    Enum.reduce(joins, socket, fn {"user", %{metas: [meta | _]}}, socket ->
+      assign(socket, :presence, Map.put(socket.assigns.presence, meta.id, meta))
+    end)
+  end
+
+  defp handle_leaves(socket, leaves) do
+    Enum.reduce(leaves, socket, fn {"user", %{metas: [meta | _]}}, socket ->
+      assign(socket, :presence, Map.delete(socket.assigns.presence, meta.id))
+    end)
   end
 end

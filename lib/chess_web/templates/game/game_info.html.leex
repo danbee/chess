@@ -1,7 +1,11 @@
 <div class="game-info">
   <p>
     Playing <%= opponent(@game, @user.id).name %>
-    <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline">
+    <%= if Map.has_key?(@presence, opponent(@game, @user.id).id) do %>
+      <img class="game-info__opponent-status" src="/images/eye-open.svg" alt="online">
+    <% else %>
+      <img class="game-info__opponent-status" src="/images/eye-closed.svg" alt="offline">
+    <% end %>
   </p>
 </div>
 

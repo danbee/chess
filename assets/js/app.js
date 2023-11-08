@@ -17,6 +17,6 @@ const liveSocket = new LiveSocket(
 
 liveSocket.connect();
 
-liveSocket.enableDebug();
+// liveSocket.enableDebug();
 
 window.liveSocket = liveSocket;

@@ -2,6 +2,7 @@ defmodule ChessWeb.GameView do
   use ChessWeb, :view
 
   alias Chess.GameState
+  alias Chess.Repo
 
   import Phoenix.Component
   import Chess.Auth, only: [current_user: 1]
@@ -85,6 +86,14 @@ defmodule ChessWeb.GameView do
       "white"
     else
       "black"
+    end
+  end
+
+  def opponent_id(game, user_id) do
+    if game.user_id == user_id do
+      game.opponent_id
+    else
+      game.user_id
     end
   end
 

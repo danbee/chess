@@ -1,6 +1,8 @@
 defmodule ChessWeb.BoardLive do
   use Phoenix.LiveView, container: {:div, class: "board__container"}
 
+  alias Chess.Emails
+  alias Chess.Mailer
   alias Chess.Store.User
   alias Chess.Store.Game
   alias Chess.Store.Move
@@ -8,6 +10,7 @@ defmodule ChessWeb.BoardLive do
   alias Chess.Moves
 
   alias ChessWeb.GameView
+  alias ChessWeb.Presence
 
   import Ecto.Query
 
@@ -25,6 +28,7 @@ defmodule ChessWeb.BoardLive do
     game =
       Game.for_user(user)
       |> Repo.get!(game_id)
+      |> Repo.preload([:user, :opponent])
 
     {:ok, assign(socket, default_assigns(game, user))}
   end
@@ -51,10 +55,14 @@ defmodule ChessWeb.BoardLive do
     {:noreply, assign(socket, state)}
   end
 
+  def handle_info(%{event: "presence_diff", payload: _params}, socket) do
+    {:noreply, socket}
+  end
+
   defp handle_click(socket, file, rank) do
-    game = socket.assigns[:game]
+    game = socket.assigns.game
     board = game.board
-    user = socket.assigns[:user]
+    user = socket.assigns.user
 
     colour = GameView.player_colour(user, game)
 
@@ -65,7 +73,7 @@ defmodule ChessWeb.BoardLive do
             handle_selection(board, colour, file, rank)
 
           _ ->
-            handle_move(socket.assigns, file, rank)
+            handle_move(socket, file, rank)
         end
       end
 
@@ -85,17 +93,16 @@ defmodule ChessWeb.BoardLive do
     end
   end
 
-  defp handle_move(
-         %{game: game, available: available, selected: selected},
-         file,
-         rank
-       ) do
+  defp handle_move(socket, file, rank) do
+    %{game: game, available: available, selected: selected} = socket.assigns
+
     if {file, rank} in available do
       game
       |> Moves.make_move(%{from: selected, to: {file, rank}})
       |> case do
         {:ok, %{game: game}} ->
           game
+          |> Repo.reload()
           |> Repo.preload([:user, :opponent])
           |> Repo.preload(
             moves:
@@ -106,6 +113,8 @@ defmodule ChessWeb.BoardLive do
           )
           |> broadcast_move(game.board)
 
+          email_move(socket, game)
+
           [
             {:selected, nil},
             {:available, []},
@@ -115,6 +124,24 @@ defmodule ChessWeb.BoardLive do
       end
     else
       [{:selected, nil}, {:available, []}]
+    end
+  end
+
+  defp email_move(socket, game) do
+    opponent_id =
+      GameView.opponent_id(game, socket.assigns.user.id)
+      |> Integer.to_string()
+
+    "game:#{game.id}"
+    |> Presence.list()
+    |> case do
+      %{^opponent_id => _} ->
+        nil
+
+      _ ->
+        socket
+        |> Emails.opponent_moved_email(game)
+        |> Mailer.deliver_later()
     end
   end
 
