@@ -39,7 +39,7 @@ defmodule Chess.Mixfile do
       {:comeonin, "~> 5.0"},
       {:cowboy, "~> 2.0"},
       {:credo, "~> 1.0", only: [:dev, :test]},
-      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
+      {:dart_sass, "~> 0.7", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.0"},
       {:floki, "~> 0.34", only: :test},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},

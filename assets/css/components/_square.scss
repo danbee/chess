@@ -64,6 +64,30 @@
   min-height: 20px;
   min-width: 20px;
 
+  @include odd-between(1, 8) { @extend %square--white; }
+  @include even-between(1, 8) { @extend %square--black; }
+
+  @include odd-between(9, 16) { @extend %square--black; }
+  @include even-between(9, 16) { @extend %square--white; }
+
+  @include odd-between(17, 24) { @extend %square--white; }
+  @include even-between(17, 24) { @extend %square--black; }
+
+  @include odd-between(25, 32) { @extend %square--black; }
+  @include even-between(25, 32) { @extend %square--white; }
+
+  @include odd-between(33, 40) { @extend %square--white; }
+  @include even-between(33, 40) { @extend %square--black; }
+
+  @include odd-between(41, 48) { @extend %square--black; }
+  @include even-between(41, 48) { @extend %square--white; }
+
+  @include odd-between(49, 56) { @extend %square--white; }
+  @include even-between(49, 56) { @extend %square--black; }
+
+  @include odd-between(57, 64) { @extend %square--black; }
+  @include even-between(57, 64) { @extend %square--white; }
+
   &::before {
     background-position: center;
     background-repeat: no-repeat;
@@ -80,7 +104,7 @@
   @each $colour in $colours {
     @each $piece in $pieces {
       &.square--#{$colour}.square--#{$piece}::before {
-        background-image: url("../static/images/#{$piece}_#{$colour}.svg");
+        background-image: url("/images/#{$piece}_#{$colour}.svg");
       }
     }
   }
