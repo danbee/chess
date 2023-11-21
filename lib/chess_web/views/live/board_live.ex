@@ -75,6 +75,8 @@ defmodule ChessWeb.BoardLive do
           _ ->
             handle_move(socket, file, rank)
         end
+      else
+        []
       end
 
     assign(socket, assigns)
@@ -121,6 +123,9 @@ defmodule ChessWeb.BoardLive do
             {:board, game.board},
             {:game, game}
           ]
+
+        {:error, _, _, _} ->
+          []
       end
     else
       [{:selected, nil}, {:available, []}]
