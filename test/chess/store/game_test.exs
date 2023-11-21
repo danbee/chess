@@ -90,7 +90,7 @@ defmodule Chess.Store.GameTest do
           opponent_id: opponent.id
         })
 
-      move_params = %{"from" => [4, 1], "to" => [4, 3]}
+      move_params = %{from: {4, 1}, to: {4, 3}}
 
       changeset =
         Game.move_changeset(

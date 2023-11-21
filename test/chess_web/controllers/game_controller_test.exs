@@ -60,7 +60,7 @@ defmodule ChessWeb.GameControllerTest do
       |> login(user)
       |> get(game_path(conn, :show, game))
 
-    assert html_response(conn, 200) =~ "<div id=\"game\" data-game-id=\"#{game.id}\">"
+    assert html_response(conn, 200) =~ "<div data-game-id=\"#{game.id}\">"
   end
 
   test "does not show a game if the user is not a player", %{conn: conn} do

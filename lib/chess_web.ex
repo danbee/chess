@@ -19,6 +19,7 @@ defmodule ChessWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: ChessWeb
+      import Phoenix.LiveView.Controller
 
       alias Chess.Repo
       import Ecto
@@ -39,6 +40,8 @@ defmodule ChessWeb do
       import Phoenix.Controller,
         only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
+      import Phoenix.Component
+
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
@@ -50,9 +53,45 @@ defmodule ChessWeb do
     end
   end
 
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {ChessWeb.LayoutView, :live}
+
+      unquote(view_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  defp view_helpers do
+    quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      # Import LiveView helpers (live_render, live_component, live_patch, etc)
+      import Phoenix.LiveView.Helpers
+
+      # Import basic rendering functionality (render, render_layout, etc)
+      import Phoenix.View
+
+      import ChessWeb.ErrorHelpers
+      import ChessWeb.Gettext
+      alias ChessWeb.Router.Helpers, as: Routes
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
+
+      import Phoenix.LiveView.Router
     end
   end
 

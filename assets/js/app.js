@@ -1,28 +1,22 @@
 "use strict";
 
-import "@babel/polyfill";
 import "phoenix_html";
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { createStore } from "redux";
+import { Socket } from "phoenix";
+import { LiveSocket } from "phoenix_live_view";
 
-import Game from "./components/game";
-import OpponentFinder from "./components/opponent-finder";
-import chessBoardReducer from "./reducers/chess-board";
+const csrfToken = document
+  .querySelector("meta[name='csrf-token']")
+  .getAttribute("content");
 
-const store = createStore(chessBoardReducer);
+const liveSocket = new LiveSocket(
+  "/live",
+  Socket,
+  {params: {_csrf_token: csrfToken}}
+);
 
-const gameContainer = document.getElementById("game");
+liveSocket.connect();
 
-if (gameContainer != undefined) {
-  const gameId = gameContainer.getAttribute("data-game-id");
+// liveSocket.enableDebug();
 
-  ReactDOM.render(<Game store={store} gameId={gameId} />, gameContainer);
-}
-
-const opponentFinderContainer = document.getElementById("opponent-finder");
-
-if (opponentFinderContainer != undefined) {
-  ReactDOM.render(<OpponentFinder store={store} />, opponentFinderContainer);
-}
+window.liveSocket = liveSocket;

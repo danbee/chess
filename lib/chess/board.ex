@@ -1,14 +1,7 @@
 defmodule Chess.Board do
   @moduledoc false
 
-  def transform(board) do
-    Enum.map(0..7, fn rank ->
-      Enum.map(0..7, fn file ->
-        board
-        |> piece({file, rank})
-      end)
-    end)
-  end
+  require Logger
 
   def search(board, %{"type" => type, "colour" => colour}) do
     board
@@ -31,8 +24,8 @@ defmodule Chess.Board do
   end
 
   def move_piece(board, %{
-        "from" => [from_file, from_rank],
-        "to" => [to_file, to_rank]
+        from: {from_file, from_rank},
+        to: {to_file, to_rank}
       }) do
     {piece, board} = Map.pop(board, to_index({from_file, from_rank}))
     {piece_captured, board} = Map.pop(board, to_index({to_file, to_rank}))
@@ -42,8 +35,8 @@ defmodule Chess.Board do
       if castling_move?(piece, from_file, to_file) do
         board
         |> castling_move(%{
-          "from" => [from_file, from_rank],
-          "to" => [to_file, to_rank]
+          from: {from_file, from_rank},
+          to: {to_file, to_rank}
         })
         |> Map.get(:board)
       else
@@ -65,17 +58,17 @@ defmodule Chess.Board do
 
   def castling_move?(_, _, _), do: false
 
-  def castling_move(board, %{"from" => [4, rank], "to" => [2, _rank]}) do
+  def castling_move(board, %{from: {4, rank}, to: {2, _rank}}) do
     move_piece(board, %{
-      "from" => [0, rank],
-      "to" => [3, rank]
+      from: {0, rank},
+      to: {3, rank}
     })
   end
 
-  def castling_move(board, %{"from" => [4, rank], "to" => [6, _rank]}) do
+  def castling_move(board, %{from: {4, rank}, to: {6, _rank}}) do
     move_piece(board, %{
-      "from" => [7, rank],
-      "to" => [5, rank]
+      from: {7, rank},
+      to: {5, rank}
     })
   end
 

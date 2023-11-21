@@ -1,0 +1,7 @@
+<div
+  id="f<%= @file %>-r<%= @rank %>"
+  phx-click="click"
+  phx-value-rank="<%= @rank %>"
+  phx-value-file="<%= @file %>"
+  class="<%= classes(@file, @rank, @piece, @selected, @available) %>"
+></div>

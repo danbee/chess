@@ -79,7 +79,7 @@ defmodule Chess.Moves.Pieces.King.Castling do
     [{2, rank}, {3, rank}]
     |> Enum.any?(fn {to_file, to_rank} ->
       board
-      |> Board.move_piece(%{"from" => [4, rank], "to" => [to_file, to_rank]})
+      |> Board.move_piece(%{from: {4, rank}, to: {to_file, to_rank}})
       |> Map.get(:board)
       |> GameState.king_in_check?(colour)
     end)
@@ -89,7 +89,7 @@ defmodule Chess.Moves.Pieces.King.Castling do
     [{5, rank}, {6, rank}]
     |> Enum.any?(fn {to_file, to_rank} ->
       board
-      |> Board.move_piece(%{"from" => [4, rank], "to" => [to_file, to_rank]})
+      |> Board.move_piece(%{from: {4, rank}, to: {to_file, to_rank}})
       |> Map.get(:board)
       |> GameState.king_in_check?(colour)
     end)

@@ -1,0 +1,44 @@
+<div class="board board--<%= @game.turn %>-to-move board--player-is-<%= player_colour(@user, @game) %>">
+  <div class="board__rank-labels">
+    <div class="board__label">1</div>
+    <div class="board__label">2</div>
+    <div class="board__label">3</div>
+    <div class="board__label">4</div>
+    <div class="board__label">5</div>
+    <div class="board__label">6</div>
+    <div class="board__label">7</div>
+    <div class="board__label">8</div>
+  </div>
+
+  <div class="board__file-labels">
+    <div class="board__label">a</div>
+    <div class="board__label">b</div>
+    <div class="board__label">c</div>
+    <div class="board__label">d</div>
+    <div class="board__label">e</div>
+    <div class="board__label">f</div>
+    <div class="board__label">g</div>
+    <div class="board__label">h</div>
+  </div>
+
+  <% rank_range = if white?(@user, @game), do: 7..0, else: 0..7 %>
+  <% file_range = if black?(@user, @game), do: 7..0, else: 0..7 %>
+
+  <div class="board__body">
+    <%= for rank <- rank_range do %>
+      <%= for file <- file_range do %>
+        <%= render ChessWeb.SquareView,
+          "square.html",
+          rank: rank,
+          file: file,
+          piece: piece(@board, {file, rank}),
+          selected: {file, rank} == @selected,
+          available: {file, rank} in @available %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="game-state game-state--<%= @game.state %>">
+    <%= state_text(@game.state) %>
+  </div>
+</div>

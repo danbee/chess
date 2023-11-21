@@ -6,7 +6,7 @@ defmodule ChessWeb.Router do
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
-    plug(:fetch_flash)
+    plug(:fetch_live_flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
   end
@@ -40,13 +40,6 @@ defmodule ChessWeb.Router do
     resources("/games", GameController, only: [:index, :new, :create, :show, :delete])
     resources("/profile", ProfileController, only: [:edit, :update], singleton: true)
     resources("/password", PasswordController, only: [:edit, :update], singleton: true)
-  end
-
-  # Other scopes may use custom stacks.
-  scope "/api", as: :api do
-    pipe_through([:api, :auth, :ensure_auth])
-
-    resources("/opponents", ChessWeb.Api.OpponentsController, only: [:index])
   end
 
   if Mix.env() == :dev do

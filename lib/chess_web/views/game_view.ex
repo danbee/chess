@@ -2,12 +2,23 @@ defmodule ChessWeb.GameView do
   use ChessWeb, :view
 
   alias Chess.GameState
+  alias Chess.Repo
 
+  import Phoenix.Component
   import Chess.Auth, only: [current_user: 1]
 
-  def won_lost(conn, game) do
+  @pieces %{
+    pawn: "",
+    knight: "N",
+    bishop: "B",
+    rook: "R",
+    queen: "Q",
+    king: "K"
+  }
+
+  def won_lost(user, game) do
     if game_over?(game) && game.state == "checkmate" do
-      (your_turn?(conn, game) &&
+      (your_turn?(user, game) &&
          gettext("You lost")) ||
         gettext("You won")
     end
@@ -17,12 +28,12 @@ defmodule ChessWeb.GameView do
     GameState.game_over?(game)
   end
 
-  def state(conn, game) do
+  def state(user, game) do
     cond do
       GameState.game_over?(game) ->
-        states()[game.state]
+        state_text(game.state)
 
-      your_turn?(conn, game) ->
+      your_turn?(user, game) ->
         gettext("Your turn")
 
       true ->
@@ -30,18 +41,44 @@ defmodule ChessWeb.GameView do
     end
   end
 
-  def turn_class(conn, game) do
-    if your_turn?(conn, game) && !GameState.game_over?(game) do
+  def turn_class(user, game) do
+    if your_turn?(user, game) && !GameState.game_over?(game) do
       "games-list__your-turn"
     end
   end
 
-  def your_turn?(conn, game) do
-    player_colour(conn, game) == game.turn
+  def white?(user, game) do
+    player_colour(user, game) == "white"
   end
 
-  def player_colour(conn, game) do
-    (current_user(conn).id == game.user_id && "white") || "black"
+  def black?(user, game) do
+    player_colour(user, game) == "black"
+  end
+
+  def your_turn?(user, game) do
+    user
+    |> player_colour(game) == game.turn
+  end
+
+  def player_colour(user, game) do
+    (user.id == game.user_id && "white") || "black"
+  end
+
+  def piece(board, {file, rank}) do
+    Chess.Board.piece(board, {file, rank})
+  end
+
+  def files(user, game) do
+    ranks(user, game)
+    |> Enum.reverse()
+  end
+
+  def ranks(user, game) do
+    if game.user_id == user.id do
+      7..0
+    else
+      0..7
+    end
   end
 
   def player(game, user_id) do
@@ -49,6 +86,14 @@ defmodule ChessWeb.GameView do
       "white"
     else
       "black"
+    end
+  end
+
+  def opponent_id(game, user_id) do
+    if game.user_id == user_id do
+      game.opponent_id
+    else
+      game.user_id
     end
   end
 
@@ -60,11 +105,26 @@ defmodule ChessWeb.GameView do
     end
   end
 
-  defp states do
-    %{
-      "checkmate" => gettext("Checkmate!"),
-      "stalemate" => gettext("Stalemate"),
-      "check" => gettext("Check")
-    }
+  def move_text(move) do
+    move = Chess.Store.Move.transform(move)
+
+    piece_type = move.piece["type"] |> String.to_atom()
+
+    [
+      @pieces[piece_type],
+      move.to
+    ]
+    |> Enum.join()
+  end
+
+  def state_text(state) do
+    Map.get(
+      %{
+        "checkmate" => gettext("Checkmate!"),
+        "stalemate" => gettext("Stalemate"),
+        "check" => gettext("Check")
+      },
+      state
+    )
   end
 end

@@ -16,6 +16,4 @@ mix ecto.migrate
 
 # Grab JS dependencies from NPM
 echo "Installing js dependencies"
-cd assets
-yarn install
-cd ..
+npm install --prefix assets
