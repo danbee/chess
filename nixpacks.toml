@@ -1,2 +1,5 @@
 [phases.install]
 aptPkgs = ["...", "build-essential"]
+
+[phases.build]
+cmds = ["mix compile", "mix ecto.setup", "pushd assets && npm install && popd"]
