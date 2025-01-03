@@ -1,3 +1,2 @@
-[phase.install]
+[phases.install]
 aptPkgs = ["...", "build-essential"]
-cmd = ["mix deps.get"]
