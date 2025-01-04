@@ -1,6 +1,5 @@
 [phases.install]
 aptPkgs = ["...", "yarnpkg", "build-essential"]
-cmds = ["...", "npm install --global yarn"]
 
 [phases.build]
 cmds = ["mix compile", "mix ecto.setup", "pushd assets && yarn install && popd"]
