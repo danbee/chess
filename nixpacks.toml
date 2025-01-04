@@ -1,5 +1,5 @@
 [phases.install]
-aptPkgs = ["...", "build-essential"]
+aptPkgs = ["...", "nodejs", "build-essential"]
 cmds = ["...", "npm install --global yarn"]
 
 [phases.build]
