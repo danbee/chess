@@ -19,5 +19,5 @@ config :chess, Chess.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   database: "",
-  ssl: true,
+  ssl: false,
   pool_size: 1
