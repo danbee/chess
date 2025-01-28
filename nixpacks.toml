@@ -2,4 +2,4 @@
 aptPkgs = ["...", "yarnpkg", "build-essential"]
 
 [phases.build]
-cmds = ["mix compile", "mix ecto.setup", "pushd assets && yarnpkg install && popd"]
+cmds = ["mix compile", "mix ecto.setup", "pushd assets && yarnpkg install && popd", "mix assets.deploy"]
